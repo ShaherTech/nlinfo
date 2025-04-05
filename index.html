@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Link Directory</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            min-height: 100vh;
+        }
+
+        .container {
+            width: 80%;
+            max-width: 800px;
+            background-color: #fff;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            margin-top: 20px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+
+        .categories {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+        }
+
+        .category {
+            flex: 1 1 calc(33.333% - 20px);
+            box-sizing: border-box;
+            margin: 10px;
+            background-color: #f9f9f9;
+            border-radius: 8px;
+            padding: 15px;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .category h2 {
+            text-align: center;
+        }
+
+        .category ul {
+            display: none;
+        }
+
+        .category:focus-within ul {
+            display: block;
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        li {
+            margin-bottom: 10px;
+        }
+
+        a {
+            text-decoration: none;
+            color: #333;
+            transition: color 0.3s;
+        }
+
+        a:hover {
+            color: #007bff;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Link Directory</h1>
+        <div class="categories">
+        
+        <!-- Section for Learning Dutch -->
+        <section class="category">
+            <h2><a href="learning-dutch.html">Learning Dutch</a></h2>
+            <ul>
+                <li><a href="https://oefenen.nl/login/?uri=/login" target="_blank">Oefenen.nl - Learn Dutch</a></li>
+                <li><a href="https://www.inburgeren.nl/examen-doen/oefenen.jsp" target="_blank">Inburgeren - Practice Exams</a></li>
+                <li><a href="https://nt2-oefenomgeving.facet.onl/facet-openbaar-portaal/oefenen/opdrachten" target="_blank">NT2 Practice Environment</a></li>
+            </ul>
+        </section>
+
+        <!-- Section for Government Sites -->
+        <section class="category">
+            <h2><a href="government-sites.html">Government Sites</a></h2>
+        </section>
+
+        <!-- Section for Work and Training -->
+        <section class="category">
+            <h2><a href="work-and-training.html">Work and Training</a></h2>
+        </section>
+        </div>
+    </div>
+    <script>
+        document.querySelectorAll('.category h2').forEach(header => {
+            header.addEventListener('click', () => {
+                const ul = header.nextElementSibling;
+                ul.style.display = ul.style.display === 'block' ? 'none' : 'block';
+            });
+        });
+    </script>
+</body>
+</html>
