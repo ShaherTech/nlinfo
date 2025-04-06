@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gemeente Rotterdam</title>
+    <title data-lang-ar="بلدية روتردام" data-lang-en="Gemeente Rotterdam">Gemeente Rotterdam</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -29,18 +29,17 @@
         h1 {
             text-align: center;
             color: #333;
+            margin-bottom: 20px;
         }
 
         .links {
-            display: flex;
-            justify-content: space-around;
-            flex-wrap: wrap;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            padding: 20px 0;
         }
 
         .link-item {
-            flex: 1 1 calc(33.333% - 20px);
-            box-sizing: border-box;
-            margin: 10px;
             background-color: #f9f9f9;
             border-radius: 8px;
             padding: 15px;
@@ -51,24 +50,94 @@
         a {
             text-decoration: none;
             color: #007bff;
+            font-weight: bold;
             transition: color 0.3s;
+            display: block;
+            margin-bottom: 5px;
         }
 
         a:hover {
             color: #0056b3;
+            text-decoration: underline;
+        }
+
+        .link-item span {
+            display: block;
+            font-size: 0.9em;
+            color: #555;
+        }
+
+        .lang-switcher {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .lang-switcher button {
+            padding: 5px 10px;
+            margin: 0 5px;
+            cursor: pointer;
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>Gemeente Rotterdam</h1>
+        <div class="lang-switcher">
+            <button id="lang-ar">العربية</button>
+            <button id="lang-en">English</button>
+        </div>
+        <h1 data-lang-ar="بلدية روتردام" data-lang-en="Gemeente Rotterdam">Gemeente Rotterdam</h1>
         <div class="links">
-            <div class="link-item"><a href="https://www.rotterdam.nl/" target="_blank">Gemeente Rotterdam Official Website</a><br>الموقع الرسمي لبلدية روتردام</div>
-            <div class="link-item"><a href="https://concern.ir.rotterdam.nl/mijnloket/?1" target="_blank">Mijn loket</a><br>من خلال هذا الموقع، يمكنك تنظيم أمورك مع بلدية روتردام، مثل الاطلاع على مواعيدك وطلباتك، وتنظيم العديد من الأمور بسهولة، بالإضافة إلى الاطلاع على بياناتك الشخصية</div>
-            <div class="link-item"><a href="https://am.rotterdam.nl/am/XUI/?realm=/alpha&authIndexType=service&authIndexValue=LoginComposite_Low&goto=https%3A%2F%2Fam.rotterdam.nl%3A443%2Fam%2Foauth2%2Fauthorize%3Fresponse_type%3Dcode%26client_id%3Dig-eso-client%26redirect_uri%3Dhttps%3A%2F%2Fconcern.ir.rotterdam.nl%2Frpa%2Fid_token%2Fcallback%26scope%3Dopenid%2520profile%26state%3Dam10bWgxaWlseG1ybjEyNXBvNWNvM3V3MHRwbXloNDovcnBhL3Jlc3RyaWN0ZWQvdm9yZGVyaW5nZW4_d2lja2tldC1jcnlwdD1lWaUw3ZUt2NEhBJndpY2tldC1jcnlwdD1LcjRpRXBNZjhNZw%26acr_values%3Ddigid_eherkenning%3Alow%26max_age%3D60%26acr%3Ddigid_eherkenning%253Alow%26acr_sig%3D3tYY7N3s09KuUxlr1Mht0AP-gpsSWfbZMTqSIHz9ZLc#/" target="_blank">من خلال هذا الموقع يمكنك الإطلاع على ضرائب البلدية وسدادها</a></div>
-            <div class="link-item"><a href="https://mijnrbg.derbg.nl/zelf.regelen.php" target="_blank">mijn RBG</a><br>هذا الموقع لعرض ضرائب المياه والمجاري وشغال فقط في بعض المناطق والبعض عندهم مواقع اخرى لترتيب الضرائب</div>
-            <div class="link-item"><a href="https://www.rotterdam.nl/bijzondere-bijstand" target="_blank">Bijzondere bijstand</a><br>هذا الموقع يقدم مساعدة مالية للأشخاص الذين يواجهون مواقف خاصة أو غير متوقعة تتطلب إنفاق مال غير متاح لديهم. قد تكون هذه المساعدة على شكل قرض أو هدية، حسب الحالة.</div>
+            <div class="link-item">
+                <a href="https://www.rotterdam.nl/" target="_blank" data-lang-ar="الموقع الرسمي لبلدية روتردام" data-lang-en="Gemeente Rotterdam Official Website">Gemeente Rotterdam Official Website</a>
+                <span data-lang-ar="الموقع الرسمي لبلدية روتردام" data-lang-en="The official website of the Municipality of Rotterdam">الموقع الرسمي لبلدية روتردام</span>
+            </div>
+            <div class="link-item">
+                <a href="https://concern.ir.rotterdam.nl/mijnloket/?1" target="_blank" data-lang-ar="مكتبي" data-lang-en="Mijn loket">Mijn loket</a>
+                <span data-lang-ar="من خلال هذا الموقع، يمكنك تنظيم أمورك مع بلدية روتردام، مثل الاطلاع على مواعيدك وطلباتك، وتنظيم العديد من الأمور بسهولة، بالإضافة إلى الاطلاع على بياناتك الشخصية" data-lang-en="Through this site, you can manage your affairs with the Municipality of Rotterdam, such as viewing your appointments and requests, easily managing many matters, and viewing your personal data">من خلال هذا الموقع، يمكنك تنظيم أمورك مع بلدية روتردام، مثل الاطلاع على مواعيدك وطلباتك، وتنظيم العديد من الأمور بسهولة، بالإضافة إلى الاطلاع على بياناتك الشخصية</span>
+            </div>
+            <div class="link-item">
+                <a href="https://am.rotterdam.nl/am/XUI/?realm=/alpha&authIndexType=service&authIndexValue=LoginComposite_Low&goto=https%3A%2F%2Fam.rotterdam.nl%3A443%2Fam%2Foauth2%2Fauthorize%3Fresponse_type%3Dcode%26client_id%3Dig-eso-client%26redirect_uri%3Dhttps%3A%2F%2Fconcern.ir.rotterdam.nl%2Frpa%2Fid_token%2Fcallback%26scope%3Dopenid%2520profile%26state%3Dam10bWgxaWlseG1ybjEyNXBvNWNvM3V3MHRwbXloNDovcnBhL3Jlc3RyaWN0ZWQvdm9yZGVyaW5nZW4_d2lja2tldC1jcnlwdD1lWaUw3ZUt2NEhBJndpY2tldC1jcnlwdD1LcjRpRXBNZjhNZw%26acr_values%3Ddigid_eherkenning%3Alow%26max_age%3D60%26acr%3Ddigid_eherkenning%253Alow%26acr_sig%3D3tYY7N3s09KuUxlr1Mht0AP-gpsSWfbZMTqSIHz9ZLc#/" target="_blank" data-lang-ar="عرض ودفع ضرائب البلدية" data-lang-en="View and Pay Municipal Taxes">View and Pay Municipal Taxes</a>
+                <span data-lang-ar="من خلال هذا الموقع يمكنك الإطلاع على ضرائب البلدية وسدادها" data-lang-en="Through this site you can view and pay municipal taxes">من خلال هذا الموقع يمكنك الإطلاع على ضرائب البلدية وسدادها</span>
+            </div>
+            <div class="link-item">
+                <a href="https://mijnrbg.derbg.nl/zelf.regelen.php" target="_blank" data-lang-ar="ضرائب المياه والمجاري (RBG)" data-lang-en="Water and Sewage Taxes (RBG)">mijn RBG</a>
+                <span data-lang-ar="هذا الموقع لعرض ضرائب المياه والمجاري وشغال فقط في بعض المناطق والبعض عندهم مواقع اخرى لترتيب الضرائب" data-lang-en="This site is for viewing water and sewage taxes and only works in some areas; others have different sites for tax arrangements">هذا الموقع لعرض ضرائب المياه والمجاري وشغال فقط في بعض المناطق والبعض عندهم مواقع اخرى لترتيب الضرائب</span>
+            </div>
+            <div class="link-item">
+                <a href="https://www.rotterdam.nl/bijzondere-bijstand" target="_blank" data-lang-ar="المساعدة الخاصة" data-lang-en="Special Assistance">Bijzondere bijstand</a>
+                <span data-lang-ar="هذا الموقع يقدم مساعدة مالية للأشخاص الذين يواجهون مواقف خاصة أو غير متوقعة تتطلب إنفاق مال غير متاح لديهم. قد تكون هذه المساعدة على شكل قرض أو هدية، حسب الحالة." data-lang-en="This site provides financial assistance to people facing special or unexpected situations requiring spending unavailable money. This assistance may be a loan or a gift, depending on the situation.">هذا الموقع يقدم مساعدة مالية للأشخاص الذين يواجهون مواقف خاصة أو غير متوقعة تتطلب إنفاق مال غير متاح لديهم. قد تكون هذه المساعدة على شكل قرض أو هدية، حسب الحالة.</span>
+            </div>
+            <div class="link-item">
+                <a href="https://www.rotterdam.nl/wijzigingen-doorgeven" target="_blank" data-lang-ar="Wijzigingen doorgeven" data-lang-en="Wijzigingen doorgeven">Wijzigingen doorgeven</a>
+                <span data-lang-ar="هذا الموقع يتيح للمواطنين في روتردام تقديم تغييرات تتعلق بحالتهم الشخصية أو المالية، مثل تغيير الدخل، الحالة الاجتماعية أو السكنية، لضمان تحديث استحقاقاتهم المالية والإعانات بشكل صحيح." data-lang-en="This site allows citizens in Rotterdam to report changes related to their personal or financial situation, such as changes in income, marital status, or housing, to ensure their financial benefits and allowances are correctly updated.">هذا الموقع يتيح للمواطنين في روتردام تقديم تغييرات تتعلق بحالتهم الشخصية أو المالية، مثل تغيير الدخل، الحالة الاجتماعية أو السكنية، لضمان تحديث استحقاقاتهم المالية والإعانات بشكل صحيح.</span>
+            </div>
         </div>
     </div>
+    <script>
+        const translatableElements = document.querySelectorAll('[data-lang-ar]');
+        const btnAr = document.getElementById('lang-ar');
+        const btnEn = document.getElementById('lang-en');
+        const titleElement = document.querySelector('title');
+
+        function setLanguage(lang) {
+            translatableElements.forEach(el => {
+                const text = el.getAttribute(`data-lang-${lang}`);
+                if (text !== null) {
+                    if (el.tagName.toLowerCase() === 'title') {
+                        document.title = text;
+                    } else {
+                        if(el.tagName.toLowerCase() === 'span' || !el.querySelector('span')) {
+                           el.textContent = text;
+                        }
+                    }
+                }
+            });
+        }
+
+        btnAr.addEventListener('click', () => setLanguage('ar'));
+        btnEn.addEventListener('click', () => setLanguage('en'));
+
+        setLanguage('ar');
+    </script>
 </body>
 </html> 
