@@ -17,7 +17,8 @@
         }
         .link-list {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); /* Use auto-fit grid */
+            /* grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); */ /* Remove auto-fit grid */
+            grid-template-columns: 1fr; /* Set to one column for vertical layout */
             gap: 20px;
             padding: 20px; /* Add padding around the grid */
             justify-items: stretch; /* Stretch items to fill grid cell */
