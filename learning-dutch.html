@@ -4,7 +4,147 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Learning Dutch</title>
+    <style><!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title data-lang-ar="تعلم اللغة الهولندية" data-lang-en="Learning Dutch">Learning Dutch</title>
     <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            min-height: 100vh;
+        }
+
+        .container {
+            width: 80%;
+            max-width: 800px;
+            background-color: #fff;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            margin-top: 20px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 20px; /* Space below title */
+        }
+
+        .links {
+            display: grid; /* Use grid layout */
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); /* Responsive grid */
+            gap: 20px;
+            padding: 20px 0; /* Padding top/bottom */
+        }
+
+        .link-item {
+            background-color: #f9f9f9;
+            border-radius: 8px;
+            padding: 15px;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        a {
+            text-decoration: none;
+            color: #007bff;
+            font-weight: bold;
+            transition: color 0.3s;
+            display: block; /* Ensure link takes block space */
+            margin-bottom: 5px; /* Space between link and description */
+        }
+
+        a:hover {
+            color: #0056b3;
+            text-decoration: underline;
+        }
+
+        .link-item span {
+             display: block; /* Ensure description is on its own line */
+             font-size: 0.9em;
+             color: #555; /* Slightly dimmer color for description */
+        }
+         /* Styles for language switcher */
+        .lang-switcher {
+             text-align: center; /* Center the buttons */
+            margin-bottom: 20px;
+        }
+        .lang-switcher button {
+            padding: 5px 10px;
+            margin: 0 5px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+         <div class="lang-switcher">
+            <button id="lang-ar">العربية</button>
+            <button id="lang-en">English</button>
+        </div>
+        <h1 data-lang-ar="تعلم اللغة الهولندية" data-lang-en="Learning Dutch">Learning Dutch</h1>
+        <div class="links">
+            <div class="link-item">
+                <a href="https://oefenen.nl/login/?uri=/login" target="_blank">Oefenen.nl - Learn Dutch</a>
+                <span data-lang-ar="موقع جيد لممارسة اللغة والاندماج" data-lang-en="Good site for practicing the language and integration">موقع جيد لممارسة اللغة والاندماج</span>
+            </div>
+            <div class="link-item">
+                <a href="https://www.inburgeren.nl/examen-doen/oefenen.jsp" target="_blank">Inburgeren - Practice Exams</a>
+                <span data-lang-ar="DOU موقع" data-lang-en="DUO website">DOU موقع</span>
+            </div>
+            <div class="link-item">
+                <a href="https://nt2-oefenomgeving.facet.onl/facet-openbaar-portaal/oefenen/opdrachten" target="_blank">NT2 Practice Environment</a>
+                <span data-lang-ar="تدرب على امتحان schrijven en spreken" data-lang-en="Practice for the writing and speaking exam">تدرب على امتحان schrijven en spreken</span>
+            </div>
+            <div class="link-item">
+                <a href="https://www.nt2taalmenu.nl" target="_blank">NT2 TaalMenu</a>
+                <span data-lang-ar="موقع مهم جدا لممارسة كل مهارات اللغة الهولندية لكل المستويات هذا الموقع سوف يفيدك كثير وفيه نماذج امتحانات للسنوات السابقة" data-lang-en="Very important site to practice all Dutch language skills for all levels. This site will benefit you greatly and has previous exam samples">موقع مهم جدا لممارسة كل مهارات اللغة الهولندية لكل المستويات هذا الموقع سوف يفيدك كثير وفيه نماذج امتحانات للسنوات السابقة</span>
+            </div>
+            <div class="link-item">
+                <a href="youtube-channels.html" data-lang-ar="قنوات يوتيوب" data-lang-en="YouTube Channels">YouTube Channels</a>
+                 <span data-lang-ar="" data-lang-en=""></span> <!-- Empty span for consistency -->
+            </div>
+        </div>
+    </div>
+     <script>
+        const translatableElements = document.querySelectorAll('[data-lang-ar]');
+        const btnAr = document.getElementById('lang-ar');
+        const btnEn = document.getElementById('lang-en');
+        const titleElement = document.querySelector('title');
+
+        function setLanguage(lang) {
+            translatableElements.forEach(el => {
+                const text = el.getAttribute(`data-lang-${lang}`);
+                if (text !== null) {
+                    if (el.tagName.toLowerCase() === 'title') {
+                        document.title = text;
+                    } else {
+                        // Check if the element is a span or doesn't have a span child for descriptions
+                        if(el.tagName.toLowerCase() === 'span' || !el.querySelector('span')) {
+                           el.textContent = text;
+                        }
+                    }
+                }
+            });
+            // localStorage.setItem('preferredLang', lang);
+        }
+
+        btnAr.addEventListener('click', () => setLanguage('ar'));
+        btnEn.addEventListener('click', () => setLanguage('en'));
+
+        // const preferredLang = localStorage.getItem('preferredLang') || 'ar';
+        setLanguage('ar');
+    </script>
+</body>
+</html>
         body {
             font-family: Arial, sans-serif;
             background-color: #f4f4f9;
