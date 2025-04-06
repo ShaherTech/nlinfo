@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title data-lang-ar="الأسئلة الشائعة" data-lang-en="FAQ">الأسئلة الشائعة</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            min-height: 100vh;
+        }
+        .container {
+            width: 90%;
+            max-width: 900px;
+            background-color: #fff;
+            padding: 30px;
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            margin-top: 20px;
+        }
+        h1, h2 {
+            color: #333;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .lang-switcher {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .lang-switcher button {
+            padding: 8px 15px;
+            margin: 0 5px;
+            cursor: pointer;
+            border: 1px solid #ccc;
+            background-color: #f9f9f9;
+            border-radius: 4px;
+            transition: background-color 0.3s;
+        }
+        .lang-switcher button:hover {
+            background-color: #eee;
+        }
+
+        /* Form Styling */
+        #faq-form {
+            margin-bottom: 40px;
+            padding: 20px;
+            background-color: #f8f9fa;
+            border-radius: 8px;
+            border: 1px solid #e0e0e0;
+        }
+        #faq-form label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: #555;
+        }
+        #faq-form input[type="text"] {
+            width: calc(100% - 22px); /* Account for padding */
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        #faq-form button {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        #faq-form button:hover {
+            background-color: #0056b3;
+        }
+
+        /* FAQ List Styling */
+        #faq-list {
+            list-style: none;
+            padding: 0;
+        }
+        .faq-item {
+            background-color: #fff;
+            border: 1px solid #e0e0e0;
+            border-radius: 6px;
+            margin-bottom: 15px;
+            padding: 15px 20px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        }
+        .faq-question {
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .faq-answer {
+            margin-left: 20px; /* Indent answer */
+            color: #555;
+            margin-bottom: 10px;
+            border-left: 3px solid #007bff;
+            padding-left: 10px;
+            font-style: italic;
+        }
+        .faq-answer p:first-child {
+            margin-top: 0;
+        }
+         .faq-answer p:last-child {
+            margin-bottom: 0;
+        }
+        .no-answer {
+            color: #888;
+            font-style: italic;
+            font-size: 0.9em;
+            margin-left: 20px;
+        }
+
+        /* Answer Form Styling */
+        .answer-form {
+            margin-top: 10px;
+            margin-left: 20px;
+            display: none; /* Hidden by default */
+        }
+        .answer-form textarea {
+            width: calc(100% - 22px); /* Account for padding */
+            padding: 8px;
+            margin-bottom: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            min-height: 50px;
+            resize: vertical;
+        }
+         .answer-form button {
+            padding: 6px 12px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.9em;
+            margin-right: 5px; /* RTL support */
+            transition: background-color 0.3s;
+        }
+        .answer-form button:hover {
+            background-color: #218838;
+        }
+        .answer-form button.cancel {
+             background-color: #dc3545;
+        }
+        .answer-form button.cancel:hover {
+             background-color: #c82333;
+        }
+
+        .add-answer-btn {
+             padding: 5px 10px;
+             background-color: #6c757d;
+             color: white;
+             border: none;
+             border-radius: 4px;
+             cursor: pointer;
+             font-size: 0.8em;
+             margin-left: 10px; /* LTR */
+             transition: background-color 0.3s;
+         }
+         .add-answer-btn:hover {
+             background-color: #5a6268;
+         }
+
+        /* RTL adjustments */
+        [dir="rtl"] .faq-answer {
+            margin-left: 0;
+            margin-right: 20px;
+            border-left: none;
+            border-right: 3px solid #007bff;
+            padding-left: 0;
+            padding-right: 10px;
+        }
+        [dir="rtl"] .no-answer {
+             margin-left: 0;
+             margin-right: 20px;
+        }
+         [dir="rtl"] .answer-form {
+            margin-left: 0;
+            margin-right: 20px;
+        }
+        [dir="rtl"] .add-answer-btn {
+             margin-left: 0;
+             margin-right: 10px;
+         }
+         [dir="rtl"] .answer-form button {
+            margin-right: 0;
+            margin-left: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="lang-switcher">
+            <button id="lang-ar">العربية</button>
+            <button id="lang-en">English</button>
+        </div>
+
+        <h1 data-lang-ar="الأسئلة الشائعة" data-lang-en="Frequently Asked Questions (FAQ)">الأسئلة الشائعة</h1>
+
+        <form id="faq-form">
+            <h2 data-lang-ar="أضف سؤالاً جديداً" data-lang-en="Add a New Question">أضف سؤالاً جديداً</h2>
+            <label for="new-question" data-lang-ar="سؤالك:" data-lang-en="Your Question:">سؤالك:</label>
+            <input type="text" id="new-question" required>
+            <button type="submit" data-lang-ar="إضافة سؤال" data-lang-en="Add Question">إضافة سؤال</button>
+        </form>
+
+        <h2 data-lang-ar="الأسئلة الموجودة" data-lang-en="Existing Questions">الأسئلة الموجودة</h2>
+        <ul id="faq-list">
+            <!-- FAQs will be loaded here by JavaScript -->
+        </ul>
+    </div>
+
+    <script>
+        const faqList = document.getElementById('faq-list');
+        const faqForm = document.getElementById('faq-form');
+        const newQuestionInput = document.getElementById('new-question');
+        const translatableElements = Array.from(document.querySelectorAll('[data-lang-ar]'));
+        const btnAr = document.getElementById('lang-ar');
+        const btnEn = document.getElementById('lang-en');
+        const faqStorageKey = 'communityFAQs';
+
+        // --- Language Switching --- //
+        function setLanguage(lang) {
+            translatableElements.forEach(el => {
+                const text = el.getAttribute(`data-lang-${lang}`);
+                if (text !== null) {
+                    if (el.tagName.toLowerCase() === 'title') {
+                        document.title = text;
+                    } else if (el.tagName.toLowerCase() === 'input' && el.type === 'text') {
+                        el.placeholder = text; // Use placeholder for inputs
+                    } else {
+                        el.textContent = text;
+                    }
+                }
+            });
+            document.documentElement.lang = lang;
+            document.documentElement.dir = lang === 'ar' ? 'rtl' : 'ltr';
+            loadFAQs(); // Reload FAQs to update button text if needed
+        }
+
+        btnAr.addEventListener('click', () => setLanguage('ar'));
+        btnEn.addEventListener('click', () => setLanguage('en'));
+
+        // --- FAQ Data Handling (localStorage) --- //
+        function getFAQs() {
+            const faqs = localStorage.getItem(faqStorageKey);
+            return faqs ? JSON.parse(faqs) : [];
+        }
+
+        function saveFAQs(faqs) {
+            localStorage.setItem(faqStorageKey, JSON.stringify(faqs));
+        }
+
+        function addQuestion(questionText) {
+            const faqs = getFAQs();
+            const newFAQ = {
+                id: Date.now(), // Simple unique ID
+                question: questionText,
+                answers: [] // Array to hold answers
+            };
+            faqs.push(newFAQ);
+            saveFAQs(faqs);
+            loadFAQs(); // Refresh the list
+        }
+
+        function addAnswer(questionId, answerText) {
+            const faqs = getFAQs();
+            const faqIndex = faqs.findIndex(faq => faq.id === questionId);
+            if (faqIndex > -1) {
+                faqs[faqIndex].answers.push(answerText);
+                saveFAQs(faqs);
+                loadFAQs(); // Refresh the list
+            }
+        }
+
+        // --- Displaying FAQs --- //
+        function createFAQElement(faq) {
+            const li = document.createElement('li');
+            li.classList.add('faq-item');
+            li.dataset.id = faq.id;
+
+            const questionDiv = document.createElement('div');
+            questionDiv.classList.add('faq-question');
+
+            const questionSpan = document.createElement('span');
+            questionSpan.textContent = faq.question;
+
+            const addAnswerBtn = document.createElement('button');
+            addAnswerBtn.classList.add('add-answer-btn');
+            addAnswerBtn.dataset.langAr = "أضف إجابة";
+            addAnswerBtn.dataset.langEn = "Add Answer";
+            addAnswerBtn.textContent = document.documentElement.lang === 'ar' ? "أضف إجابة" : "Add Answer";
+            addAnswerBtn.onclick = () => toggleAnswerForm(faq.id);
+
+            questionDiv.appendChild(questionSpan);
+            questionDiv.appendChild(addAnswerBtn);
+            li.appendChild(questionDiv);
+
+            // Display existing answers
+            if (faq.answers && faq.answers.length > 0) {
+                faq.answers.forEach(answer => {
+                    const answerDiv = document.createElement('div');
+                    answerDiv.classList.add('faq-answer');
+                    // Simple paragraph wrapping, consider sanitizing if using user HTML
+                    const answerP = document.createElement('p');
+                    answerP.textContent = answer;
+                    answerDiv.appendChild(answerP);
+                    li.appendChild(answerDiv);
+                });
+            } else {
+                const noAnswerSpan = document.createElement('span');
+                noAnswerSpan.classList.add('no-answer');
+                noAnswerSpan.dataset.langAr = "(لا توجد إجابات بعد)";
+                noAnswerSpan.dataset.langEn = "(No answers yet)";
+                noAnswerSpan.textContent = document.documentElement.lang === 'ar' ? "(لا توجد إجابات بعد)" : "(No answers yet)";
+                li.appendChild(noAnswerSpan);
+            }
+
+             // Add the answer form (initially hidden)
+            const answerFormDiv = document.createElement('div');
+            answerFormDiv.classList.add('answer-form');
+            answerFormDiv.id = `answer-form-${faq.id}`;
+
+            const textarea = document.createElement('textarea');
+            textarea.rows = 3;
+            textarea.placeholder = document.documentElement.lang === 'ar' ? "اكتب إجابتك هنا..." : "Type your answer here...";
+            textarea.setAttribute("data-lang-ar-placeholder", "اكتب إجابتك هنا...");
+            textarea.setAttribute("data-lang-en-placeholder", "Type your answer here...");
+
+            const submitBtn = document.createElement('button');
+            submitBtn.type = 'button';
+            submitBtn.dataset.langAr = "إرسال الإجابة";
+            submitBtn.dataset.langEn = "Submit Answer";
+            submitBtn.textContent = document.documentElement.lang === 'ar' ? "إرسال الإجابة" : "Submit Answer";
+            submitBtn.onclick = () => {
+                if (textarea.value.trim()) {
+                    addAnswer(faq.id, textarea.value.trim());
+                    textarea.value = ''; // Clear textarea
+                    toggleAnswerForm(faq.id); // Hide form after submit
+                }
+            };
+
+            const cancelBtn = document.createElement('button');
+            cancelBtn.type = 'button';
+            cancelBtn.classList.add('cancel');
+            cancelBtn.dataset.langAr = "إلغاء";
+            cancelBtn.dataset.langEn = "Cancel";
+            cancelBtn.textContent = document.documentElement.lang === 'ar' ? "إلغاء" : "Cancel";
+            cancelBtn.onclick = () => toggleAnswerForm(faq.id);
+
+            answerFormDiv.appendChild(textarea);
+            answerFormDiv.appendChild(submitBtn);
+            answerFormDiv.appendChild(cancelBtn);
+            li.appendChild(answerFormDiv);
+
+
+            return li;
+        }
+
+        function loadFAQs() {
+            faqList.innerHTML = ''; // Clear existing list
+            const faqs = getFAQs();
+            if (faqs.length === 0) {
+                const li = document.createElement('li');
+                li.style.textAlign = 'center';
+                li.style.color = '#888';
+                li.dataset.langAr = "لا توجد أسئلة مضافة حتى الآن.";
+                li.dataset.langEn = "No questions added yet.";
+                li.textContent = document.documentElement.lang === 'ar' ? "لا توجد أسئلة مضافة حتى الآن." : "No questions added yet.";
+                faqList.appendChild(li);
+            } else {
+                faqs.forEach(faq => {
+                    faqList.appendChild(createFAQElement(faq));
+                });
+            }
+            // Add newly created elements to translatable list
+            translatableElements.push(...faqList.querySelectorAll('[data-lang-ar]'));
+        }
+
+         // --- Answer Form Toggle --- //
+         function toggleAnswerForm(questionId) {
+             const form = document.getElementById(`answer-form-${questionId}`);
+             if (form) {
+                 form.style.display = form.style.display === 'none' || form.style.display === '' ? 'block' : 'none';
+             }
+         }
+
+        // --- Event Listeners --- //
+        faqForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const questionText = newQuestionInput.value.trim();
+            if (questionText) {
+                addQuestion(questionText);
+                newQuestionInput.value = ''; // Clear input
+            }
+        });
+
+        // --- Initial Load --- //
+        setLanguage('ar'); // Initialize language and load FAQs
+
+    </script>
+</body>
+</html> 
