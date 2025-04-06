@@ -10,10 +10,69 @@
             background-color: #f4f4f9;
             margin: 0;
             padding: 0;
-            display: flex;
-            justify-content: center;
-            align-items: flex-start;
+            /* display: flex; */ /* Removed to allow normal block flow */
+            /* justify-content: center; */
+            /* align-items: flex-start; */
             min-height: 100vh;
+            position: relative; /* Needed for absolute positioning of menu icon if container isn't full width */
+            padding-top: 50px; /* Add padding to prevent content overlap with fixed/absolute elements */
+        }
+
+        .menu-icon {
+            position: absolute; /* Position relative to body or a positioned ancestor */
+            top: 15px;
+            left: 15px;
+            width: 30px;
+            height: 22px;
+            cursor: pointer;
+            z-index: 1001; /* Ensure it's above the sidebar */
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .menu-icon span {
+            display: block;
+            height: 3px;
+            width: 100%;
+            background-color: #333;
+            border-radius: 3px;
+        }
+
+        #sidebar {
+            position: fixed; /* Fixed position relative to viewport */
+            top: 0;
+            left: -250px; /* Start hidden off-screen */
+            width: 250px;
+            height: 100%;
+            background-color: #fff;
+            box-shadow: 2px 0 5px rgba(0,0,0,0.2);
+            padding-top: 60px; /* Space for content below menu icon */
+            transition: left 0.3s ease-in-out;
+            z-index: 1000;
+        }
+
+        #sidebar.open {
+            left: 0; /* Slide in */
+        }
+
+        #sidebar ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        #sidebar li a {
+            display: block;
+            padding: 15px 20px;
+            color: #333;
+            text-decoration: none;
+            border-bottom: 1px solid #eee;
+            font-weight: bold;
+        }
+
+        #sidebar li a:hover {
+            background-color: #f4f4f4;
         }
 
         .container {
@@ -23,7 +82,7 @@
             padding: 20px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             border-radius: 8px;
-            margin-top: 20px;
+            margin: 20px auto 0; /* Center container and add margin top */
         }
 
         h1 {
@@ -101,6 +160,20 @@
     </style>
 </head>
 <body>
+    <div id="menu-icon" class="menu-icon">
+        <span></span>
+        <span></span>
+        <span></span>
+    </div>
+
+    <nav id="sidebar">
+        <ul>
+            <li><a href="favorites.html" data-lang-ar="المفضلات" data-lang-en="Favorites">Favorites</a></li>
+            <li><a href="news.html" data-lang-ar="الأخبار" data-lang-en="News">News</a></li>
+            <!-- Add more links here if needed -->
+        </ul>
+    </nav>
+
     <div class="container">
         <div class="lang-switcher">
             <button id="lang-ar">العربية</button>
@@ -190,6 +263,21 @@
                 const ul = header.nextElementSibling;
                 ul.style.display = ul.style.display === 'block' ? 'none' : 'block';
             });
+        });
+
+        // Sidebar toggle logic
+        const menuIcon = document.getElementById('menu-icon');
+        const sidebar = document.getElementById('sidebar');
+
+        menuIcon.addEventListener('click', () => {
+            sidebar.classList.toggle('open');
+        });
+
+        // Optional: Close sidebar when clicking outside of it
+        document.addEventListener('click', (event) => {
+            if (!sidebar.contains(event.target) && !menuIcon.contains(event.target) && sidebar.classList.contains('open')) {
+                sidebar.classList.remove('open');
+            }
         });
     </script>
 </body>
