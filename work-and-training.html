@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title data-lang-ar="العمل والتدريب" data-lang-en="Work and Training">Work and Training</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            min-height: 100vh;
+        }
+        .container {
+            width: 80%;
+            max-width: 800px;
+            background-color: #fff;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            margin-top: 20px;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 20px;
+        }
+        .links {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            padding: 20px 0;
+        }
+        .link-item {
+            background-color: #f9f9f9;
+            border-radius: 8px;
+            padding: 15px;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+        a {
+            text-decoration: none;
+            color: #007bff;
+            font-weight: bold;
+            transition: color 0.3s;
+            display: block;
+            margin-bottom: 5px;
+        }
+        a:hover {
+            color: #0056b3;
+            text-decoration: underline;
+        }
+        .link-item span {
+            display: block;
+            font-size: 0.9em;
+            color: #555;
+        }
+        .lang-switcher {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .lang-switcher button {
+            padding: 5px 10px;
+            margin: 0 5px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="lang-switcher">
+            <button id="lang-ar">العربية</button>
+            <button id="lang-en">English</button>
+        </div>
+        <h1 data-lang-ar="العمل والتدريب" data-lang-en="Work and Training">Work and Training</h1>
+        <div class="links">
+            <div class="link-item">
+                <a href="https://www.linkedin.com/feed/" target="_blank" data-lang-ar="صفحة LinkedIn الرئيسية" data-lang-en="LinkedIn">LinkedIn</a>
+                <span data-lang-ar="هذا الموقع يُستخدم لبناء شبكة علاقات مهنية، عرض المهارات والخبرات، والبحث عن وظائف أو موظفين في مختلف المجالات." data-lang-en="This site is used to build a professional network, showcase skills and experience, and search for jobs or employees in various fields.">هذا الموقع يُستخدم لبناء شبكة علاقات مهنية، عرض المهارات والخبرات، والبحث عن وظائف أو موظفين في مختلف المجالات.</span>
+            </div>
+            <div class="link-item">
+                <a href="https://nl.indeed.com/l-rotterdam-vacatures.html?vjk=0740d68d5ec29067" target="_blank" data-lang-ar="indeed" data-lang-en="Indeed">indeed</a>
+                <span data-lang-ar="هذا الموقع يساعدك في البحث عن وظائف بسهولة، وتقديم طلبات التوظيف مباشرة، ومعرفة تفاصيل الرواتب والتقييمات عن الشركات" data-lang-en="This site helps you easily search for jobs, apply directly, and find details about salaries and company reviews.">هذا الموقع يساعدك في البحث عن وظائف بسهولة، وتقديم طلبات التوظيف مباشرة، ومعرفة تفاصيل الرواتب والتقييمات عن الشركات</span>
+            </div>
+            <div class="link-item">
+                <a href="https://talent.refugeetalenthub.com/inloggen" target="_blank" data-lang-ar="Refugee Talent Hub" data-lang-en="Refugee Talent Hub">Refugee Talent Hub</a>
+                <span data-lang-ar="هذا الموقع يربط اللاجئين في هولندا بفرص عمل وتدريب، بالتعاون مع شركات ترغب في توظيفهم، لمساعدتهم في بناء مستقبل مهني مستقر." data-lang-en="This site connects refugees in the Netherlands with job and training opportunities, in collaboration with companies willing to hire them, to help them build a stable professional future.">هذا الموقع يربط اللاجئين في هولندا بفرص عمل وتدريب، بالتعاون مع شركات ترغب في توظيفهم، لمساعدتهم في بناء مستقبل مهني مستقر.</span>
+            </div>
+            <div class="link-item">
+                <a href="https://www.motopp.nl/" target="_blank" data-lang-ar="Motopp" data-lang-en="Motopp">Motopp</a>
+                <span data-lang-ar="هذا الموقع يساعد اللاجئين والوافدين الجدد في هولندا على إعادة التأهيل المهني في مجال تكنولوجيا المعلومات لتمكينهم من دخول سوق العمل." data-lang-en="This site helps refugees and newcomers in the Netherlands with professional retraining in the IT field to enable them to enter the labor market.">هذا الموقع يساعد اللاجئين والوافدين الجدد في هولندا على إعادة التأهيل المهني في مجال تكنولوجيا المعلومات لتمكينهم من دخول سوق العمل.</span>
+            </div>
+            <div class="link-item">
+                <a href="https://www.uaf.nl/" target="_blank" data-lang-ar="UAF" data-lang-en="UAF">UAF</a>
+                <span data-lang-ar="هذا الموقع يدعم اللاجئين في هولندا في دراستهم وتطورهم المهني، من خلال الإرشاد، التدريب، والمساعدة في إيجاد فرص عمل أو تعليم مناسب." data-lang-en="This site supports refugees in the Netherlands in their studies and professional development through guidance, training, and assistance in finding suitable job or educational opportunities.">هذا الموقع يدعم اللاجئين في هولندا في دراستهم وتطورهم المهني، من خلال الإرشاد، التدريب، والمساعدة في إيجاد فرص عمل أو تعليم مناسب.</span>
+            </div>
+            <div class="link-item">
+                <a href="https://www.werk.nl/werkzoekenden/" target="_blank" data-lang-ar="werk.nl" data-lang-en="werk.nl">werk.nl</a>
+                <span data-lang-ar="هذا الموقع يساعد الباحثين عن عمل في هولندا من خلال تقديم وظائف، نصائح مهنية، وتوجيهات لتحسين السيرة الذاتية والتقديم على الفرص المتاحة." data-lang-en="This site helps job seekers in the Netherlands by offering jobs, career advice, and guidance on improving resumes and applying for available opportunities.">هذا الموقع يساعد الباحثين عن عمل في هولندا من خلال تقديم وظائف، نصائح مهنية، وتوجيهات لتحسين السيرة الذاتية والتقديم على الفرص المتاحة.</span>
+            </div>
+            <!-- Add more work and training links here -->
+        </div>
+    </div>
+    <script>
+        const translatableElements = document.querySelectorAll('[data-lang-ar]');
+        const btnAr = document.getElementById('lang-ar');
+        const btnEn = document.getElementById('lang-en');
+        const titleElement = document.querySelector('title');
+
+        function setLanguage(lang) {
+            translatableElements.forEach(el => {
+                const text = el.getAttribute(`data-lang-${lang}`);
+                if (text !== null) {
+                    if (el.tagName.toLowerCase() === 'title') {
+                        document.title = text;
+                    } else {
+                        if(el.tagName.toLowerCase() === 'span' || !el.querySelector('span')) {
+                           el.textContent = text;
+                        }
+                    }
+                }
+            });
+            // localStorage.setItem('preferredLang', lang);
+        }
+
+        btnAr.addEventListener('click', () => setLanguage('ar'));
+        btnEn.addEventListener('click', () => setLanguage('en'));
+
+        // const preferredLang = localStorage.getItem('preferredLang') || 'ar';
+        setLanguage('ar');
+    </script>
+</body>
+</html> 
