@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title data-lang-ar="النقل والمواصلات في هولندا" data-lang-en="Transportation in the Netherlands">النقل والمواصلات في هولندا</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            min-height: 100vh;
+        }
+        .container {
+            width: 80%;
+            max-width: 800px;
+            background-color: #fff;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            margin-top: 20px;
+        }
+        h1, h2, h3 {
+            color: #333;
+            margin-bottom: 15px;
+        }
+        h1 {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        h2::before {
+            content: '🚆'; /* Train icon */
+            margin-right: 10px;
+        }
+        h3::before {
+            content: '📄'; /* Document icon */
+            margin-right: 8px;
+        }
+        p, li {
+            line-height: 1.7;
+            color: #555;
+            margin-bottom: 10px;
+        }
+        ul, ol {
+            list-style: none;
+            padding-left: 0;
+        }
+        ul ul, ol ol, ul ol, ol ul {
+            padding-left: 20px; /* Indent sub-lists */
+        }
+        li {
+            margin-bottom: 8px;
+            position: relative;
+            padding-left: 25px;
+        }
+        /* Use different bullet points for sections */
+        #ov-chipkaart-section ul > li::before {
+            content: '›'; /* Chevron for OV-chipkaart */
+            position: absolute;
+            left: 0;
+            color: #007bff;
+            font-weight: bold;
+            top: 2px; /* Adjust vertical alignment */
+        }
+         #driving-license-section ul > li::before, #driving-license-section ol > li::before {
+            content: '•'; /* Bullet for driving license */
+            position: absolute;
+            left: 0;
+            color: #007bff;
+            font-weight: bold;
+            top: 0px; /* Adjust vertical alignment */
+        }
+
+        strong {
+            color: #333;
+        }
+        a {
+            color: #007bff;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        .section-divider {
+            border-top: 1px solid #eee;
+            margin: 30px 0;
+        }
+       .lang-switcher {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .lang-switcher button {
+            padding: 5px 10px;
+            margin: 0 5px;
+            cursor: pointer;
+        }
+        /* RTL adjustments */
+        [dir="rtl"] h2::before, [dir="rtl"] h3::before {
+            margin-right: 0;
+            margin-left: 10px;
+        }
+        [dir="rtl"] li {
+            padding-left: 0;
+            padding-right: 25px;
+        }
+        [dir="rtl"] li::before {
+            left: auto;
+            right: 0;
+        }
+        [dir="rtl"] ul ul, [dir="rtl"] ol ol, [dir="rtl"] ul ol, [dir="rtl"] ol ul {
+            padding-left: 0;
+            padding-right: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="lang-switcher">
+            <button id="lang-ar">العربية</button>
+            <button id="lang-en">English</button>
+        </div>
+
+        <h1 data-lang-ar="النقل والمواصلات في هولندا" data-lang-en="Transportation in the Netherlands">النقل والمواصلات في هولندا</h1>
+
+        <section id="ov-chipkaart-section">
+            <h2 data-lang-ar="1. نظام المواصلات العامة (OV-chipkaart)" data-lang-en="1. Public Transport System (OV-chipkaart)"></h2>
+            <p data-lang-ar="بطاقة **OV-chipkaart** هي الوسيلة الأساسية لاستخدام المواصلات العامة في هولندا، وتشمل القطارات، الحافلات، الترام، والمترو." data-lang-en="The **OV-chipkaart** is the primary means for using public transport in the Netherlands, including trains, buses, trams, and metros."></p>
+
+            <h3 data-lang-ar="أ. أنواع بطاقات OV-chipkaart" data-lang-en="a. Types of OV-chipkaart"></h3>
+            <ul>
+                <li><strong data-lang-ar="البطاقة المجهولة (Anonieme OV-chipkaart)" data-lang-en="Anonymous OV-chipkaart (Anonieme OV-chipkaart)"></strong>
+                    <ul>
+                        <li data-lang-ar="تباع في محطات القطارات ومكاتب الخدمة." data-lang-en="Sold at train stations and service desks."></li>
+                        <li data-lang-ar="سعرها: **€7.50** (غير قابلة للاسترداد)." data-lang-en="Price: **€7.50** (non-refundable)."></li>
+                        <li data-lang-ar="مناسبة للزوار والسياح." data-lang-en="Suitable for visitors and tourists."></li>
+                    </ul>
+                </li>
+                 <li><strong data-lang-ar="البطاقة الشخصية (Persoonlijke OV-chipkaart)" data-lang-en="Personal OV-chipkaart (Persoonlijke OV-chipkaart)"></strong>
+                    <ul>
+                        <li data-lang-ar="مرتبطة بهويتك وتقدم خصومات للطلاب وكبار السن." data-lang-en="Linked to your identity and offers discounts for students and seniors."></li>
+                        <li data-lang-ar="يمكن طلبها عبر الموقع الرسمي: <a href='https://www.ov-chipkaart.nl' target='_blank'>www.ov-chipkaart.nl</a>" data-lang-en="Can be ordered via the official website: <a href='https://www.ov-chipkaart.nl' target='_blank'>www.ov-chipkaart.nl</a>"></li>
+                    </ul>
+                </li>
+            </ul>
+
+             <h3 data-lang-ar="ب. كيفية استخدام البطاقة" data-lang-en="b. How to Use the Card"></h3>
+            <ol>
+                <li><strong data-lang-ar="شحن الرصيد" data-lang-en="Top Up Credit"></strong>
+                    <ul>
+                        <li data-lang-ar="عبر الإنترنت، أو في آلات الشحن بالمحطات، أو في بعض المتاجر (مثل Albert Heijn)." data-lang-en="Online, at station top-up machines, or in some shops (like Albert Heijn)."></li>
+                        <li data-lang-ar="الحد الأدنى للشحن: **€20** للقطارات، **€4** للحافلات/الترام." data-lang-en="Minimum top-up: **€20** for trains, **€4** for buses/trams."></li>
+                    </ul>
+                </li>
+                 <li><strong data-lang-ar="التفعيل (Inchecken)" data-lang-en="Check In (Inchecken)"></strong>
+                    <ul>
+                        <li data-lang-ar="المس البطاقة على القارئ عند **بداية الرحلة** (في المحطات أو عند دخول الحافلة)." data-lang-en="Touch the card on the reader at the **start of your journey** (at stations or when boarding the bus)."></li>
+                    </ul>
+                </li>
+                 <li><strong data-lang-ar="الإلغاء (Uitchecken)" data-lang-en="Check Out (Uitchecken)"></strong>
+                    <ul>
+                        <li data-lang-ar="المس البطاقة مرة أخرى عند **نهاية الرحلة** لتجنب دفع غرامة." data-lang-en="Touch the card again at the **end of your journey** to avoid a penalty fare."></li>
+                    </ul>
+                </li>
+            </ol>
+
+            <h3 data-lang-ar="ج. خيارات الاشتراك" data-lang-en="c. Subscription Options"></h3>
+            <ul>
+                <li data-lang-ar="الاشتراك الشهري (Altijd Vrij، Dal Vrij) للقطارات." data-lang-en="Monthly subscriptions (Altijd Vrij, Dal Vrij) for trains."></li>
+                <li data-lang-ar="خصومات الطلاب (Studenten OV-chipkaart)." data-lang-en="Student discounts (Studenten OV-chipkaart)."></li>
+            </ul>
+
+            <h3 data-lang-ar="ملاحظات مهمة" data-lang-en="Important Notes"></h3>
+             <ul>
+                <li data-lang-ar="تأكد من وجود رصيد كافٍ قبل السفر." data-lang-en="Ensure you have sufficient balance before traveling."></li>
+                <li data-lang-ar="بعض الحافلات لا تقبل الدفع النقدي، فقط OV-chipkaart أو بطاقات الائتمان." data-lang-en="Some buses do not accept cash, only OV-chipkaart or credit cards."></li>
+            </ul>
+        </section>
+
+        <div class="section-divider"></div>
+
+        <section id="driving-license-section">
+            <h2 data-lang-ar="2. كيفية الحصول على رخصة قيادة هولندية" data-lang-en="2. How to Obtain a Dutch Driving License"></h2>
+
+            <h3 data-lang-ar="أ. تحويل الرخصة الأجنبية" data-lang-en="a. Exchanging a Foreign License"></h3>
+            <p data-lang-ar="إذا كنت من **الاتحاد الأوروبي/المنطقة الاقتصادية الأوروبية**:" data-lang-en="If you are from the **EU/EEA**:"></p>
+             <ul>
+                 <li data-lang-ar="يمكنك استخدام رخصتك لمدة **10 سنوات** (أو حتى انتهاء صلاحيتها)." data-lang-en="You can use your license for **10 years** (or until it expires)."></li>
+            </ul>
+            <p data-lang-ar="إذا كنت من **خارج الاتحاد الأوروبي**:" data-lang-en="If you are from **outside the EU**:"></p>
+            <ul>
+                 <li data-lang-ar="يمكنك استخدام رخصتك لمدة **185 يوماً** بعد التسجيل في البلدية." data-lang-en="You can use your license for **185 days** after registering with the municipality."></li>
+                 <li data-lang-ar="بعد ذلك، يجب استبدالها برخصة هولندية (إذا كانت من دولة معتمدة) أو اجتياز الاختبارات." data-lang-en="After that, you must exchange it for a Dutch license (if from an approved country) or pass the tests."></li>
+            </ul>
+
+            <h3 data-lang-ar="ب. استبدال الرخصة (من دول معتمدة)" data-lang-en="b. Exchanging the License (from approved countries)"></h3>
+             <ol>
+                 <li data-lang-ar="**الدول المؤهلة للاستبدال المباشر** (مثل سويسرا، اليابان، تايوان، بعض الولايات الأمريكية)." data-lang-en="**Countries eligible for direct exchange** (e.g., Switzerland, Japan, Taiwan, some US states)."></li>
+                 <li><strong data-lang-ar="المستندات المطلوبة:" data-lang-en="Required Documents:"></strong>
+                    <ul>
+                        <li data-lang-ar="رخصة القيادة الأصلية." data-lang-en="Original driving license."></li>
+                        <li data-lang-ar="تصريح إقامة ساري." data-lang-en="Valid residence permit."></li>
+                        <li data-lang-ar="صورة شخصية." data-lang-en="Passport photo."></li>
+                        <li data-lang-ar="شهادة طبية (في بعض الحالات)." data-lang-en="Medical certificate (in some cases)."></li>
+                    </ul>
+                 </li>
+                 <li data-lang-ar="**التقديم في بلدية (Gemeente)** أو عبر <a href='https://www.cbr.nl' target='_blank'>موقع CBR</a>." data-lang-en="**Apply at the municipality (Gemeente)** or via the <a href='https://www.cbr.nl' target='_blank'>CBR website</a>."></li>
+            </ol>
+
+            <h3 data-lang-ar="ج. إذا كنت بحاجة لاختبارات جديدة" data-lang-en="c. If You Need to Take New Tests"></h3>
+            <ol>
+                <li><strong data-lang-ar="الاختبار النظري (Theorietoets)" data-lang-en="Theory Test (Theorietoets)"></strong>
+                    <ul>
+                        <li data-lang-ar="يمكن تقديمه بـ **الإنجليزية أو الهولندية**." data-lang-en="Can be taken in **English or Dutch**."></li>
+                        <li data-lang-ar="التكلفة: **€40-€50**." data-lang-en="Cost: **€40-€50**."></li>
+                    </ul>
+                </li>
+                <li><strong data-lang-ar="الاختبار العملي (Praktijkexamen)" data-lang-en="Practical Exam (Praktijkexamen)"></strong>
+                     <ul>
+                        <li data-lang-ar="التكلفة: **€100-€250** (حسب مدرسة القيادة)." data-lang-en="Cost: **€100-€250** (depending on the driving school)."></li>
+                    </ul>
+                </li>
+                <li><strong data-lang-ar="دروس القيادة (Rijlessen)" data-lang-en="Driving Lessons (Rijlessen)"></strong>
+                     <ul>
+                        <li data-lang-ar="غير إلزامية، لكنها مفيدة لتعليم قوانين هولندا." data-lang-en="Not mandatory, but helpful for learning Dutch rules."></li>
+                    </ul>
+                </li>
+            </ol>
+
+            <h3 data-lang-ar="د. تكاليف الرخصة الهولندية" data-lang-en="d. Costs of the Dutch License"></h3>
+             <ul>
+                <li data-lang-ar="تصريح التعلم (€40)." data-lang-en="Learner permit (€40)."></li>
+                <li data-lang-ar="الاختبار النظري (€40-€50)." data-lang-en="Theory test (€40-€50)."></li>
+                <li data-lang-ar="الاختبار العملي (€100-€250)." data-lang-en="Practical exam (€100-€250)."></li>
+                <li data-lang-ar="إصدار الرخصة النهائية (€40-€50)." data-lang-en="Issuance of the final license (€40-€50)."></li>
+            </ul>
+
+            <h3 data-lang-ar="نصائح مهمة" data-lang-en="Important Tips"></h3>
+            <ul>
+                 <li data-lang-ar="ادرس جيداً للاختبار النظري (خاصةً إشارات المرور الهولندية)." data-lang-en="Study well for the theory test (especially Dutch traffic signs)."></li>
+                 <li data-lang-ar="اختر مدرسة قيادة معتمدة (RIJschool) لتسهيل العملية." data-lang-en="Choose a certified driving school (RIJschool) to facilitate the process."></li>
+            </ul>
+        </section>
+
+        <div class="section-divider"></div>
+    </div>
+
+    <script>
+        const translatableElements = Array.from(document.querySelectorAll('[data-lang-ar]'));
+        const btnAr = document.getElementById('lang-ar');
+        const btnEn = document.getElementById('lang-en');
+
+        function setLanguage(lang) {
+            translatableElements.forEach(el => {
+                const text = el.getAttribute(`data-lang-${lang}`);
+                if (text !== null) {
+                    if (el.tagName.toLowerCase() === 'title') {
+                        document.title = text;
+                    } else if (el.tagName.toLowerCase() === 'strong') {
+                        el.innerHTML = text; // Translate strong tags
+                         // If the strong tag is followed by a text node (like in lists)
+                        if (el.nextSibling && el.nextSibling.nodeType === Node.TEXT_NODE) {
+                             // Clear the text node as the description might be added later or doesn't exist
+                             el.nextSibling.nodeValue = ' ';
+                        }
+                    } else {
+                        el.innerHTML = text; // Use innerHTML for others to handle links etc.
+                    }
+                }
+            });
+
+            // Update section titles (H2) separately
+             document.querySelectorAll('h2').forEach(h2 => {
+                 const text = h2.getAttribute(`data-lang-${lang}`);
+                 if (text) h2.innerHTML = text;
+             });
+              // Update sub-section titles (H3) separately
+             document.querySelectorAll('h3').forEach(h3 => {
+                 const text = h3.getAttribute(`data-lang-${lang}`);
+                 if (text) h3.innerHTML = text;
+             });
+
+
+            document.documentElement.lang = lang;
+            document.documentElement.dir = lang === 'ar' ? 'rtl' : 'ltr';
+        }
+
+        btnAr.addEventListener('click', () => setLanguage('ar'));
+        btnEn.addEventListener('click', () => setLanguage('en'));
+
+        // Initialize with Arabic
+        setLanguage('ar');
+    </script>
+</body>
+</html> 
