@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Link Directory</title>
+    <title data-lang-ar="دليل الروابط" data-lang-en="Link Directory">Link Directory</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -29,26 +29,33 @@
         h1 {
             text-align: center;
             color: #333;
+            margin-bottom: 20px;
         }
 
         .categories {
-            display: flex;
-            justify-content: space-between;
-            flex-wrap: wrap;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
         }
 
         .category {
-            flex: 1 1 calc(33.333% - 20px);
-            box-sizing: border-box;
-            margin: 10px;
             background-color: #f9f9f9;
             border-radius: 8px;
             padding: 15px;
             box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+            text-align: center;
         }
 
         .category h2 {
             text-align: center;
+            margin: 0 0 5px 0;
+        }
+
+        .category span {
+            display: block;
+            font-size: 0.9em;
+            color: #555;
+            margin-top: 5px;
         }
 
         .category ul {
@@ -70,47 +77,108 @@
 
         a {
             text-decoration: none;
-            color: #333;
+            color: #007bff;
+            font-weight: bold;
             transition: color 0.3s;
         }
 
         a:hover {
-            color: #007bff;
+            color: #0056b3;
+            text-decoration: underline;
+        }
+
+        .lang-switcher {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .lang-switcher button {
+            padding: 5px 10px;
+            margin: 0 5px;
+            cursor: pointer;
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>Link Directory</h1>
+        <div class="lang-switcher">
+            <button id="lang-ar">العربية</button>
+            <button id="lang-en">English</button>
+        </div>
+
+        <div class="intro-text" style="margin-bottom: 20px; padding: 15px; background-color: #eef; border-radius: 8px; text-align: center;">
+            <p data-lang-ar="مرحباً بكم في موقعنا الجديد والمفيد لكل المتواجدين في هولندا! هذا الموقع هو بوابتك الشاملة للوصول إلى كل ما تحتاجه في هولندا. لقد قمنا بجمع أهم المواقع المفيدة في مكان واحد لتسهيل حياتكم، سواء كنتم وافدين جدد أو مقيمين منذ فترة. ستجدون هنا مصادر لتعلم اللغة الهولندية، وروابط لمواقع حكومية هامة، ومعلومات عن العمل والتدريب، بالإضافة إلى العديد من الأشياء المفيدة والضرورية لكل شخص في هولندا. هذا الموقع لا يزال قيد التطوير، ونسعى باستمرار لإضافة المزيد من المحتوى المفيد والمميز. إذا كانت لديكم أي أفكار أو اقتراحات ترغبون في إضافتها للموقع، يسعدنا انضمامكم إلى جروب الواتساب الخاص بنا ومشاركتنا أفكاركم القيمة عبر الرابط التالي: <a href='https://chat.whatsapp.com/IXWRNGrtrFcEpeZpqQ2y4F' target='_blank'>https://chat.whatsapp.com/IXWRNGrtrFcEpeZpqQ2y4F</a><br>نتمنى لكم تصفحاً مفيداً!" 
+               data-lang-en="Welcome to our new and useful site for everyone in the Netherlands! This site is your comprehensive gateway to access everything you need in the Netherlands. We have gathered the most important useful sites in one place to make your life easier, whether you are newcomers or long-term residents. Here you will find resources for learning Dutch, links to important government sites, information about work and training, in addition to many useful and necessary things for everyone in the Netherlands. This site is still under development, and we are constantly striving to add more useful and distinctive content. If you have any ideas or suggestions you would like to add to the site, we would be happy for you to join our WhatsApp group and share your valuable ideas with us via the following link: <a href='https://chat.whatsapp.com/IXWRNGrtrFcEpeZpqQ2y4F' target='_blank'>https://chat.whatsapp.com/IXWRNGrtrFcEpeZpqQ2y4F</a><br>We wish you useful browsing!">
+                <!-- Content will be replaced by JavaScript -->
+            </p>
+        </div>
+
+        <h1 data-lang-ar="دليل الروابط" data-lang-en="Link Directory">Link Directory</h1>
         <div class="categories">
         
         <!-- Section for Learning Dutch -->
         <section class="category">
-            <h2><a href="learning-dutch.html">Learning Dutch</a></h2>
-            <ul>
-                <li><a href="https://oefenen.nl/login/?uri=/login" target="_blank">Oefenen.nl - Learn Dutch</a></li>
-                <li><a href="https://www.inburgeren.nl/examen-doen/oefenen.jsp" target="_blank">Inburgeren - Practice Exams</a></li>
-                <li><a href="https://nt2-oefenomgeving.facet.onl/facet-openbaar-portaal/oefenen/opdrachten" target="_blank">NT2 Practice Environment</a></li>
-            </ul>
+            <h2><a href="learning-dutch.html" data-lang-ar="تعلم اللغة الهولندية" data-lang-en="Learning Dutch">Learning Dutch</a></h2>
         </section>
 
         <!-- Section for Government Sites -->
         <section class="category">
-            <h2><a href="government-sites.html">Government Sites</a></h2>
+            <h2><a href="government-sites.html" data-lang-ar="مواقع حكومية" data-lang-en="Government Sites">Government Sites</a></h2>
         </section>
 
         <!-- Section for Work and Training -->
         <section class="category">
-            <h2><a href="work-and-training.html">Work and Training</a></h2>
+            <h2><a href="work-and-training.html" data-lang-ar="العمل والتدريب" data-lang-en="Work and Training">Work and Training</a></h2>
         </section>
 
         <!-- Section for Gemeente Rotterdam -->
         <section class="category">
-            <h2><a href="gemeente-rotterdam.html">Gemeente Rotterdam</a></h2>
+            <h2><a href="gemeente-rotterdam.html" data-lang-ar="بلدية روتردام" data-lang-en="Gemeente Rotterdam">Gemeente Rotterdam</a></h2>
         </section>
+
+        <!-- Section for Other Useful Sites -->
+        <section class="category">
+            <h2><a href="other-useful-sites.html" data-lang-ar="مواقع اخرى مفيدة" data-lang-en="Other Useful Sites">Other Useful Sites</a></h2>
+        </section>
+         <section class="category">
+             <h2><a href="https://www.noodfondsenergie.nl/news#noodfonds-open-april" target="_blank" data-lang-ar="Noodfonds Energie" data-lang-en="Noodfonds Energie">Noodfonds Energie</a></h2>
+             <span data-lang-ar="سوف يبدا التقديم على صندوق الطوارئ لدعم الطاقة ب تاريخ 21 إبريل. لمعرفة اذا كنت مؤهلا ادخل على الرابط واقراء الشروط." 
+                   data-lang-en="Applications for the Emergency Fund for energy support will begin on April 21st. To find out if you are eligible, enter the link and read the conditions.">
+                   <!-- Description content will be replaced by JavaScript -->
+             </span>
+         </section>
         </div>
     </div>
     <script>
+        const translatableElements = document.querySelectorAll('[data-lang-ar]');
+        const btnAr = document.getElementById('lang-ar');
+        const btnEn = document.getElementById('lang-en');
+        const titleElement = document.querySelector('title');
+        const introParagraph = document.querySelector('.intro-text p'); // Get the intro paragraph
+
+        function setLanguage(lang) {
+            translatableElements.forEach(el => {
+                const text = el.getAttribute(`data-lang-${lang}`);
+                if (text !== null) {
+                    if (el.tagName.toLowerCase() === 'title') {
+                        document.title = text;
+                    } else if (el === introParagraph) {
+                         // Special handling for intro text to keep HTML link
+                         introParagraph.innerHTML = text;
+                    } else {
+                        el.textContent = text;
+                    }
+                }
+            });
+            // localStorage.setItem('preferredLang', lang);
+        }
+
+        btnAr.addEventListener('click', () => setLanguage('ar'));
+        btnEn.addEventListener('click', () => setLanguage('en'));
+
+        // const preferredLang = localStorage.getItem('preferredLang') || 'ar';
+        setLanguage('ar'); // Initial load
+
         document.querySelectorAll('.category h2').forEach(header => {
             header.addEventListener('click', () => {
                 const ul = header.nextElementSibling;
