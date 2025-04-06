@@ -45,6 +45,51 @@
             padding: 15px;
             box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
             text-align: center;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .link-item-header {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 5px;
+            width: 100%;
+        }
+
+        .link-item-header a {
+            margin-right: 10px;
+            text-decoration: none;
+            color: #007bff;
+            font-weight: bold;
+            transition: color 0.3s;
+        }
+
+        .link-item-header a:hover {
+            color: #0056b3;
+            text-decoration: underline;
+        }
+
+        .heart-icon {
+            cursor: pointer;
+            font-size: 1.5em;
+            color: #ccc;
+            transition: color 0.2s ease-in-out;
+            line-height: 1;
+        }
+
+        .heart-icon.favorited {
+            color: red;
+        }
+
+        .link-item > span {
+            display: block;
+            font-size: 0.9em;
+            color: #555;
+            margin-top: 5px;
+            width: 100%;
         }
 
         a {
@@ -52,8 +97,6 @@
             color: #007bff;
             font-weight: bold;
             transition: color 0.3s;
-            display: block; /* Ensure link takes block space */
-            margin-bottom: 5px; /* Space between link and description */
         }
 
         a:hover {
@@ -61,14 +104,9 @@
             text-decoration: underline;
         }
 
-        .link-item span {
-             display: block; /* Ensure description is on its own line */
-             font-size: 0.9em;
-             color: #555; /* Slightly dimmer color for description */
-        }
-         /* Styles for language switcher */
+        /* Styles for language switcher */
         .lang-switcher {
-             text-align: center; /* Center the buttons */
+            text-align: center; /* Center the buttons */
             margin-bottom: 20px;
         }
         .lang-switcher button {
@@ -80,62 +118,154 @@
 </head>
 <body>
     <div class="container">
-         <div class="lang-switcher">
+        <div class="lang-switcher">
             <button id="lang-ar">العربية</button>
             <button id="lang-en">English</button>
         </div>
         <h1 data-lang-ar="تعلم اللغة الهولندية" data-lang-en="Learning Dutch">Learning Dutch</h1>
         <div class="links">
-            <div class="link-item">
-                <a href="https://oefenen.nl/login/?uri=/login" target="_blank">Oefenen.nl - Learn Dutch</a>
-                <span data-lang-ar="موقع جيد لممارسة اللغة والاندماج" data-lang-en="Good site for practicing the language and integration">موقع جيد لممارسة اللغة والاندماج</span>
+            <div class="link-item" data-id="nt2taalmenu">
+                <div class="link-item-header">
+                    <a href="https://nt2taalmenu.nl/" target="_blank" data-lang-ar="NT2 Taalmenu" data-lang-en="NT2 Taalmenu">NT2 Taalmenu</a>
+                    <span class="heart-icon">♡</span>
+                </div>
+                <span data-lang-ar="موقع شامل لتعلم اللغة الهولندية بمستويات مختلفة." data-lang-en="Comprehensive site for learning Dutch at different levels."></span>
             </div>
-            <div class="link-item">
-                <a href="https://www.inburgeren.nl/examen-doen/oefenen.jsp" target="_blank">Inburgeren - Practice Exams</a>
-                <span data-lang-ar="DOU موقع" data-lang-en="DUO website">DOU موقع</span>
+            <div class="link-item" data-id="oefenen">
+                <div class="link-item-header">
+                    <a href="https://www.oefenen.nl/" target="_blank" data-lang-ar="Oefenen.nl" data-lang-en="Oefenen.nl">Oefenen.nl</a>
+                    <span class="heart-icon">♡</span>
+                </div>
+                <span data-lang-ar="موقع لممارسة مهارات اللغة والقراءة والكتابة." data-lang-en="Site for practicing language, reading, and writing skills."></span>
             </div>
-            <div class="link-item">
-                <a href="https://nt2-oefenomgeving.facet.onl/facet-openbaar-portaal/oefenen/opdrachten" target="_blank">NT2 Practice Environment</a>
-                <span data-lang-ar="تدرب على امتحان schrijven en spreken" data-lang-en="Practice for the writing and speaking exam">تدرب على امتحان schrijven en spreken</span>
+            <div class="link-item" data-id="taalhuis-rotterdam">
+                <div class="link-item-header">
+                    <a href="https://www.donadaria.nl/bibliotheek-helpt-bij-digitaal-contact-met-de-overheid-2/" target="_blank" data-lang-ar="Taalhuis Rotterdam" data-lang-en="Taalhuis Rotterdam">Taalhuis Rotterdam</a>
+                    <span class="heart-icon">♡</span>
+                </div>
+                <span data-lang-ar="بيت اللغة في روتردام يقدم الدعم في تعلم اللغة وممارسة المحادثة." data-lang-en="The language house in Rotterdam offers support in language learning and conversation practice."></span>
             </div>
-            <div class="link-item">
-                <a href="https://www.nt2taalmenu.nl" target="_blank">NT2 TaalMenu</a>
-                <span data-lang-ar="موقع مهم جدا لممارسة كل مهارات اللغة الهولندية لكل المستويات هذا الموقع سوف يفيدك كثير وفيه نماذج امتحانات للسنوات السابقة" data-lang-en="Very important site to practice all Dutch language skills for all levels. This site will benefit you greatly and has previous exam samples">موقع مهم جدا لممارسة كل مهارات اللغة الهولندية لكل المستويات هذا الموقع سوف يفيدك كثير وفيه نماذج امتحانات للسنوات السابقة</span>
+            <div class="link-item" data-id="topcast-podcast">
+                <div class="link-item-header">
+                    <a href="https://open.spotify.com/show/1PjN9zB7v1o0o87q4qD5n7" target="_blank" data-lang-ar="TOPCAST Podcast" data-lang-en="TOPCAST Podcast">TOPCAST Podcast</a>
+                    <span class="heart-icon">♡</span>
+                </div>
+                <span data-lang-ar="بودكاست لتعلم اللغة الهولندية، يركز على المحادثات اليومية والثقافة الهولندية." data-lang-en="Podcast for learning Dutch, focusing on daily conversations and Dutch culture."></span>
             </div>
-            <div class="link-item">
-                <a href="youtube-channels.html" data-lang-ar="قنوات يوتيوب" data-lang-en="YouTube Channels">YouTube Channels</a>
-                 <span data-lang-ar="" data-lang-en=""></span> <!-- Empty span for consistency -->
+            <div class="link-item" data-id="youtube-channels">
+                <div class="link-item-header">
+                    <a href="youtube-channels.html" data-lang-ar="قنوات يوتيوب لتعليم اللغة" data-lang-en="YouTube Channels for Language Learning">YouTube Channels</a>
+                    <span class="heart-icon">♡</span>
+                </div>
+                <span data-lang-ar="صفحة مخصصة لقنوات يوتيوب مفيدة لتعلم اللغة الهولندية." data-lang-en="Page dedicated to useful YouTube channels for learning Dutch."></span>
             </div>
+            <div class="link-item" data-id="grammatica-nt2-docenten">
+                 <div class="link-item-header">
+                     <a href="https://grammaticavoornt2docenten.nl/" target="_blank" data-lang-ar="Grammatica voor NT2 Docenten" data-lang-en="Grammar for NT2 Teachers">Grammatica voor NT2 Docenten</a>
+                     <span class="heart-icon">♡</span>
+                 </div>
+                 <span data-lang-ar="​هذا الموقع يقدم موارد تعليمية متخصصة لمدرّسي اللغة الهولندية كلغة ثانية (NT2)، بما في ذلك دورات إلكترونية وورش عمل حول قواعد اللغة وأساليب تدريسها. كما يوفر نصائح دراسية وأدوات تعليمية لدعم المعلمين في تحسين مهارات الطلاب في الكتابة والتواصل.​" data-lang-en="This site offers specialized educational resources for teachers of Dutch as a second language (NT2), including e-courses and workshops on grammar and teaching methods. It also provides study tips and educational tools to support teachers in improving students' writing and communication skills."></span>
+             </div>
         </div>
     </div>
-     <script>
-        const translatableElements = document.querySelectorAll('[data-lang-ar]');
+    <script>
+        const translatableElementsStatic = Array.from(document.querySelectorAll('[data-lang-ar]'));
         const btnAr = document.getElementById('lang-ar');
         const btnEn = document.getElementById('lang-en');
         const titleElement = document.querySelector('title');
+        let currentLang = 'ar';
 
         function setLanguage(lang) {
-            translatableElements.forEach(el => {
-                const text = el.getAttribute(`data-lang-${lang}`);
-                if (text !== null) {
-                    if (el.tagName.toLowerCase() === 'title') {
-                        document.title = text;
-                    } else {
-                        // Check if the element is a span or doesn't have a span child for descriptions
-                        if(el.tagName.toLowerCase() === 'span' || !el.querySelector('span')) {
-                           el.textContent = text;
+            translatableElementsStatic.forEach(el => {
+                if (!el.closest('.link-item')) {
+                    const text = el.getAttribute(`data-lang-${lang}`);
+                    if (text !== null) {
+                        if (el.tagName.toLowerCase() === 'title') {
+                            document.title = text;
+                        } else {
+                            el.textContent = text;
                         }
                     }
                 }
             });
-            // localStorage.setItem('preferredLang', lang);
+            currentLang = lang;
+            initializeHearts();
+            document.documentElement.lang = lang;
+            document.documentElement.dir = lang === 'ar' ? 'rtl' : 'ltr';
+        }
+
+        const favoritesKey = 'userFavorites';
+        function getFavorites() {
+            const f = localStorage.getItem(favoritesKey);
+            return f ? JSON.parse(f) : [];
+        }
+        function saveFavorites(f) {
+            localStorage.setItem(favoritesKey, JSON.stringify(f));
+        }
+        function toggleFavorite(id, data) {
+            let f = getFavorites();
+            const idx = f.findIndex(fav => fav.id === id);
+            if (idx > -1) {
+                f.splice(idx, 1);
+            } else {
+                if (data) f.push(data);
+            }
+            saveFavorites(f);
+        }
+        function updateLinkItemLanguage(item, lang) {
+            const link = item.querySelector('a');
+            const desc = item.querySelector(':scope > span');
+            if (link) {
+                const txt = link.getAttribute(`data-lang-${lang}`);
+                if (txt) link.textContent = txt;
+            }
+            if (desc) {
+                const dTxt = desc.getAttribute(`data-lang-${lang}`);
+                desc.textContent = dTxt !== null ? dTxt : '';
+            }
+        }
+
+        document.querySelectorAll('.heart-icon').forEach(icon => {
+            icon.addEventListener('click', (event) => {
+                event.stopPropagation();
+                const linkItem = icon.closest('.link-item');
+                const header = icon.closest('.link-item-header');
+                const link = header?.querySelector('a');
+                const descriptionSpan = linkItem?.querySelector(':scope > span');
+                const itemId = linkItem?.getAttribute('data-id');
+                if (!linkItem || !link || !itemId) return;
+                const isFavorited = icon.classList.toggle('favorited');
+                icon.textContent = isFavorited ? '♥' : '♡';
+                let itemData = null;
+                if (isFavorited) {
+                    itemData = { id: itemId, href: link.getAttribute('href'), ar: link.getAttribute('data-lang-ar'), en: link.getAttribute('data-lang-en'), desc_ar: descriptionSpan?.getAttribute('data-lang-ar'), desc_en: descriptionSpan?.getAttribute('data-lang-en') };
+                }
+                toggleFavorite(itemId, itemData);
+            });
+        });
+
+        function initializeHearts() {
+            const favorites = getFavorites();
+            const favoriteIds = favorites.map(fav => fav.id);
+            document.querySelectorAll('.link-item').forEach(item => {
+                updateLinkItemLanguage(item, currentLang);
+                const itemId = item.getAttribute('data-id');
+                const heartIcon = item.querySelector('.heart-icon');
+                if (heartIcon) {
+                    if (favoriteIds.includes(itemId)) {
+                        heartIcon.classList.add('favorited');
+                        heartIcon.textContent = '♥';
+                    } else {
+                        heartIcon.classList.remove('favorited');
+                        heartIcon.textContent = '♡';
+                    }
+                }
+            });
         }
 
         btnAr.addEventListener('click', () => setLanguage('ar'));
         btnEn.addEventListener('click', () => setLanguage('en'));
-
-        // const preferredLang = localStorage.getItem('preferredLang') || 'ar';
-        setLanguage('ar');
+        setLanguage('ar'); // Initial Load
     </script>
 </body>
 </html>
