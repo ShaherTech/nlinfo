@@ -104,14 +104,39 @@
             padding: 15px;
             box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
             text-align: center;
+            position: relative; /* Needed for absolute positioning of heart */
         }
 
         .category h2 {
             text-align: center;
             margin: 0 0 5px 0;
+            display: flex; /* Use flex to align link and heart */
+            justify-content: center; /* Center items */
+            align-items: center; /* Vertically align items */
+            position: relative; /* To contain the absolutely positioned heart */
         }
 
-        .category span {
+        .category h2 a {
+            margin-right: 10px; /* Space between link and heart */
+            /* Adjust link styling if needed */
+        }
+
+        .heart-icon {
+            cursor: pointer;
+            font-size: 1.5em; /* Make heart larger */
+            color: #ccc; /* Default color (grey) */
+            transition: color 0.2s ease-in-out;
+            /* position: absolute; */ /* Removed absolute positioning */
+            /* top: 50%; */
+            /* right: 15px; */
+            /* transform: translateY(-50%); */
+        }
+
+        .heart-icon.favorited {
+            color: red;
+        }
+
+        .category span:not(.heart-icon) { /* Target only description span */
             display: block;
             font-size: 0.9em;
             color: #555;
@@ -170,6 +195,8 @@
         <ul>
             <li><a href="favorites.html" data-lang-ar="المفضلات" data-lang-en="Favorites">Favorites</a></li>
             <li><a href="news.html" data-lang-ar="الأخبار" data-lang-en="News">News</a></li>
+            <li><a href="notifications.html" data-lang-ar="الإشعارات" data-lang-en="Notifications">الإشعارات</a></li>
+            <li><a href="faq.html" data-lang-ar="الأسئلة الشائعة" data-lang-en="FAQ">الأسئلة الشائعة</a></li>
             <!-- Add more links here if needed -->
         </ul>
     </nav>
@@ -190,41 +217,57 @@
         <h1 data-lang-ar="دليل الروابط" data-lang-en="Link Directory">Link Directory</h1>
         <div class="categories">
         
-        <!-- Section for Learning Dutch -->
-        <section class="category">
-            <h2><a href="learning-dutch.html" data-lang-ar="تعلم اللغة الهولندية" data-lang-en="Learning Dutch">Learning Dutch</a></h2>
+        <!-- Add data-id to each section, and heart icon span -->
+        <section class="category" data-id="learning-dutch.html">
+            <h2>
+                <a href="learning-dutch.html" data-lang-ar="تعلم اللغة الهولندية" data-lang-en="Learning Dutch">Learning Dutch</a>
+                <span class="heart-icon">♡</span>
+            </h2>
         </section>
 
-        <!-- Section for Government Sites -->
-        <section class="category">
-            <h2><a href="government-sites.html" data-lang-ar="مواقع حكومية" data-lang-en="Government Sites">Government Sites</a></h2>
+        <section class="category" data-id="government-sites.html">
+            <h2>
+                <a href="government-sites.html" data-lang-ar="مواقع حكومية" data-lang-en="Government Sites">Government Sites</a>
+                <span class="heart-icon">♡</span>
+            </h2>
         </section>
 
-        <!-- Section for Work and Training -->
-        <section class="category">
-            <h2><a href="work-and-training.html" data-lang-ar="العمل والتدريب" data-lang-en="Work and Training">Work and Training</a></h2>
+        <section class="category" data-id="work-and-training.html">
+            <h2>
+                <a href="work-and-training.html" data-lang-ar="العمل والتدريب" data-lang-en="Work and Training">Work and Training</a>
+                <span class="heart-icon">♡</span>
+            </h2>
         </section>
 
-        <!-- Section for Gemeente Rotterdam -->
-        <section class="category">
-            <h2><a href="gemeente-rotterdam.html" data-lang-ar="بلدية روتردام" data-lang-en="Gemeente Rotterdam">Gemeente Rotterdam</a></h2>
+        <section class="category" data-id="gemeente-rotterdam.html">
+            <h2>
+                <a href="gemeente-rotterdam.html" data-lang-ar="بلدية روتردام" data-lang-en="Gemeente Rotterdam">Gemeente Rotterdam</a>
+                <span class="heart-icon">♡</span>
+            </h2>
         </section>
 
-        <!-- Section for Other Useful Sites -->
-        <section class="category">
-            <h2><a href="other-useful-sites.html" data-lang-ar="مواقع اخرى مفيدة" data-lang-en="Other Useful Sites">Other Useful Sites</a></h2>
+        <section class="category" data-id="other-useful-sites.html">
+            <h2>
+                <a href="other-useful-sites.html" data-lang-ar="مواقع اخرى مفيدة" data-lang-en="Other Useful Sites">Other Useful Sites</a>
+                <span class="heart-icon">♡</span>
+            </h2>
         </section>
-         <section class="category">
-             <h2><a href="https://www.noodfondsenergie.nl/news#noodfonds-open-april" target="_blank" data-lang-ar="Noodfonds Energie" data-lang-en="Noodfonds Energie">Noodfonds Energie</a></h2>
+        
+         <section class="category" data-id="noodfonds-energie">
+             <h2>
+                 <a href="https://www.noodfondsenergie.nl/news#noodfonds-open-april" target="_blank" data-lang-ar="Noodfonds Energie" data-lang-en="Noodfonds Energie">Noodfonds Energie</a>
+                 <span class="heart-icon">♡</span>
+             </h2>
              <span data-lang-ar="سوف يبدا التقديم على صندوق الطوارئ لدعم الطاقة ب تاريخ 21 إبريل. لمعرفة اذا كنت مؤهلا ادخل على الرابط واقراء الشروط." 
                    data-lang-en="Applications for the Emergency Fund for energy support will begin on April 21st. To find out if you are eligible, enter the link and read the conditions.">
-                   <!-- Description content will be replaced by JavaScript -->
              </span>
          </section>
         
-        <!-- Section for Health and Insurance -->
-        <section class="category">
-            <h2><a href="health-insurance.html" data-lang-ar="الصحة والتأمينات" data-lang-en="Health and Insurance">Health and Insurance</a></h2>
+        <section class="category" data-id="health-insurance.html">
+            <h2>
+                <a href="health-insurance.html" data-lang-ar="الصحة والتأمينات" data-lang-en="Health and Insurance">Health and Insurance</a>
+                 <span class="heart-icon">♡</span>
+            </h2>
         </section>
         </div>
     </div>
@@ -279,6 +322,90 @@
                 sidebar.classList.remove('open');
             }
         });
+
+        // --- Favorites Logic ---
+        const favoritesKey = 'userFavorites';
+
+        // Function to get favorites from localStorage
+        function getFavorites() {
+            const favorites = localStorage.getItem(favoritesKey);
+            return favorites ? JSON.parse(favorites) : [];
+        }
+
+        // Function to save favorites to localStorage
+        function saveFavorites(favorites) {
+            localStorage.setItem(favoritesKey, JSON.stringify(favorites));
+        }
+
+        // Function to toggle favorite status
+        function toggleFavorite(categoryId, categoryData) {
+            let favorites = getFavorites();
+            const existingIndex = favorites.findIndex(fav => fav.id === categoryId);
+
+            if (existingIndex > -1) {
+                // Remove from favorites
+                favorites.splice(existingIndex, 1);
+            } else {
+                // Add to favorites
+                favorites.push(categoryData);
+            }
+            saveFavorites(favorites);
+        }
+
+        // Add event listeners to heart icons
+        document.querySelectorAll('.heart-icon').forEach(icon => {
+            icon.addEventListener('click', (event) => {
+                event.stopPropagation(); // Prevent triggering other clicks if any
+                const categorySection = icon.closest('.category');
+                const categoryLink = categorySection.querySelector('h2 a');
+                const categoryId = categorySection.getAttribute('data-id');
+                const isFavorited = icon.classList.toggle('favorited');
+
+                icon.textContent = isFavorited ? '♥' : '♡'; // Change icon appearance
+
+                const categoryData = {
+                    id: categoryId,
+                    href: categoryLink.getAttribute('href'),
+                    ar: categoryLink.getAttribute('data-lang-ar'),
+                    en: categoryLink.getAttribute('data-lang-en'),
+                    // Optionally add description data if needed on favorites page
+                    // description_ar: categorySection.querySelector('span[data-lang-ar]')?.getAttribute('data-lang-ar'),
+                    // description_en: categorySection.querySelector('span[data-lang-en]')?.getAttribute('data-lang-en')
+                };
+
+                toggleFavorite(categoryId, categoryData);
+            });
+        });
+
+        // Function to initialize heart icons on page load
+        function initializeHearts() {
+            const favorites = getFavorites();
+            const favoriteIds = favorites.map(fav => fav.id);
+
+            document.querySelectorAll('.category').forEach(section => {
+                const categoryId = section.getAttribute('data-id');
+                const heartIcon = section.querySelector('.heart-icon');
+                if (favoriteIds.includes(categoryId)) {
+                    heartIcon.classList.add('favorited');
+                    heartIcon.textContent = '♥';
+                } else {
+                    heartIcon.classList.remove('favorited');
+                    heartIcon.textContent = '♡';
+                }
+            });
+        }
+        
+        // Language switcher modification to re-initialize hearts if texts change
+        const originalSetLanguage = setLanguage;
+        window.setLanguage = function(lang) {
+            originalSetLanguage(lang);
+            initializeHearts(); // Re-apply heart states after language change
+        }
+
+        // Initial setup
+        initializeHearts(); // Set initial heart states
+        setLanguage('ar'); // Initial load (already calls initializeHearts via the override)
+
     </script>
 </body>
 </html>
