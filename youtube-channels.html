@@ -1,76 +1,120 @@
-<!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>قنوات يوتيوب</title>
+    <title data-lang-ar="قنوات يوتيوب" data-lang-en="YouTube Channels">YouTube Channels</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f9;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            justify-content: center;
-            align-items: flex-start;
-            min-height: 100vh;
+        .content {
+            /* Styles for the overall content area if needed */
+            text-align: center; /* Center the title */
         }
-
-        .container {
-            width: 80%;
-            max-width: 800px;
-            background-color: #fff;
-            padding: 20px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            border-radius: 8px;
-            margin-top: 20px;
-        }
-
-        h1 {
-            text-align: center;
-            color: #333;
-        }
-
-        .links {
-            display: flex;
-            justify-content: space-around;
-            flex-wrap: wrap;
-        }
-
         .link-item {
-            flex: 1 1 calc(33.333% - 20px);
-            box-sizing: border-box;
-            margin: 10px;
+            /* width: 30%; */ /* No longer needed with grid */
             background-color: #f9f9f9;
-            border-radius: 8px;
+            margin: 10px;
             padding: 15px;
-            box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
             text-align: center;
         }
-
-        a {
-            text-decoration: none;
-            color: #007bff;
-            transition: color 0.3s;
+        .link-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); /* Use auto-fit grid */
+            gap: 20px;
+            padding: 20px; /* Add padding around the grid */
+            justify-items: stretch; /* Stretch items to fill grid cell */
         }
-
+        h1 {
+            margin-bottom: 20px; /* Space below title */
+        }
+        a {
+            color: #007bff;
+            text-decoration: none;
+            font-weight: bold;
+            display: block; /* Link takes block space */
+            margin-bottom: 5px; /* Space between link and description */
+        }
         a:hover {
-            color: #0056b3;
+            text-decoration: underline;
+        }
+        .link-item span {
+            display: block; /* Ensure description is on its own line */
+            font-size: 0.9em;
+            color: #555;
+        }
+        /* Styles for language switcher */
+        .lang-switcher {
+            margin-bottom: 20px;
+            text-align: center; /* Center buttons */
+        }
+        .lang-switcher button {
+            padding: 5px 10px;
+            margin: 0 5px;
+            cursor: pointer;
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1>قنوات يوتيوب</h1>
-        <div class="links">
-            <div class="link-item"><a href="https://www.youtube.com/@docente_1" target="_blank">خواطر مهاجر</a><br>قناة تعلم اللغة الهولندية للمبتدئين الشرح بالعربي</div>
-            <div class="link-item"><a href="https://www.youtube.com/@AdAppeltaaltrainingen/featured" target="_blank">Ad Appel Taaltrainingen</a><br>قناة مهمة جدا لممارسة امتحانات سابقة لكافة المستويات</div>
-            <div class="link-item"><a href="https://www.youtube.com/watch?v=jeORgpsdK9g&list=PLbsr5iwsi0ycKrJ5qViD3MsFD19EWzK3k" target="_blank">Luisteren</a><br>التدرب على امتحان الاستماع</div>
-            <div class="link-item"><a href="https://www.youtube.com/@nijntje" target="_blank">nijntje</a><br>قناة مسلسل اطفال كرتوني ممتازة لتحسين للغتك الهولندية</div>
-            <div class="link-item"><a href="https://www.youtube.com/hetklokhuis" target="_blank">Het Klokhuis</a><br>قناة ممتازة فيها محادثات جيدة لتحسين لغتك</div>
-            <div class="link-item"><a href="https://www.youtube.com/results?search_query=nos+journaal+in+makkelijke+taal" target="_blank">NOS Journaal in Makkelijke Taal</a><br>قناة اخبارية ممتازة جدا لمتابعة الاخبار بللغه سهلة ومفهومة وتحسين لغتك الهولندية</div>
-            <div class="link-item"><a href="https://www.nt2taalmenu.nl" target="_blank">NT2 TaalMenu</a><br>موقع مهم جدا جدا للماسة لكل مهارات اللغه لكل المستويات. ملاحظه هذا الموقع سوف يفيدك كثيرا وفيه نماذج امتحانات سبقة</div>
+    <div class="content">
+        <div class="lang-switcher">
+            <button id="lang-ar">العربية</button>
+            <button id="lang-en">English</button>
+        </div>
+        <h1 data-lang-ar="قنوات يوتيوب" data-lang-en="YouTube Channels">YouTube Channels</h1>
+        <div class="link-list">
+            <div class="link-item">
+                <a href="https://www.youtube.com/@docente_1" target="_blank">خواطر مهاجر</a>
+                <span data-lang-ar="قناة تعلم اللغة الهولندية للمبتدئين الشرح بالعربي" data-lang-en="Channel to learn Dutch for beginners, explanation in Arabic">قناة تعلم اللغة الهولندية للمبتدئين الشرح بالعربي</span>
+            </div>
+            <div class="link-item">
+                <a href="https://www.youtube.com/results?search_query=ad+appel+taaltrainingen" target="_blank">Ad Appel Taaltrainingen</a>
+                <span data-lang-ar="قناة مهمة جدا لممارسة امتحانات سابقة لكافة المستويات" data-lang-en="Very important channel to practice past exams for all levels">قناة مهمة جدا لممارسة امتحانات سابقة لكافة المستويات</span>
+            </div>
+            <div class="link-item">
+                <a href="https://www.youtube.com/results?search_query=luisteren+nt2" target="_blank">Luisteren</a>
+                <span data-lang-ar="التدرب على امتحان الاستماع" data-lang-en="Practice for the listening exam">التدرب على امتحان الاستماع</span>
+            </div>
+            <div class="link-item">
+                <a href="https://www.youtube.com/results?search_query=nijntje" target="_blank">nijntje</a>
+                <span data-lang-ar="قناة مسلسل اطفال كرتوني ممتازة لتحسين لغتك الهولندية" data-lang-en="Excellent children's cartoon series channel to improve your Dutch">قناة مسلسل اطفال كرتوني ممتازة لتحسين لغتك الهولندية</span>
+            </div>
+            <div class="link-item">
+                <a href="https://www.youtube.com/hetklokhuis" target="_blank">Het Klokhuis</a>
+                <span data-lang-ar="قناة ممتازة فيها محادثات جيدة لتحسين لغتك" data-lang-en="Excellent channel with good conversations to improve your language">قناة ممتازة فيها محادثات جيدة لتحسين لغتك</span>
+            </div>
+            <div class="link-item">
+                <a href="https://www.youtube.com/results?search_query=nos+journaal+in+makkelijke+taal" target="_blank">NOS Journaal in Makkelijke Taal</a>
+                <span data-lang-ar="قناة اخبارية ممتازة جدا لمتابعة الاخبار بللغه سهلة ومفهومة وتحسين لغتك الهولندية" data-lang-en="Excellent news channel to follow the news in easy and understandable language and improve your Dutch">قناة اخبارية ممتازة جدا لمتابعة الاخبار بللغه سهلة ومفهومة وتحسين لغتك الهولندية</span>
+            </div>
         </div>
     </div>
+
+    <script>
+        const translatableElements = document.querySelectorAll('[data-lang-ar]');
+        const btnAr = document.getElementById('lang-ar');
+        const btnEn = document.getElementById('lang-en');
+        const titleElement = document.querySelector('title');
+
+        function setLanguage(lang) {
+            translatableElements.forEach(el => {
+                const text = el.getAttribute(`data-lang-${lang}`);
+                if (text !== null) {
+                    if (el.tagName.toLowerCase() === 'title') {
+                        document.title = text;
+                    } else {
+                         // Check if the element is a span or doesn't have a span child for descriptions
+                        if(el.tagName.toLowerCase() === 'span' || !el.querySelector('span')) {
+                           el.textContent = text;
+                        }
+                    }
+                }
+            });
+            // localStorage.setItem('preferredLang', lang);
+        }
+
+        btnAr.addEventListener('click', () => setLanguage('ar'));
+        btnEn.addEventListener('click', () => setLanguage('en'));
+
+        // const preferredLang = localStorage.getItem('preferredLang') || 'ar';
+        setLanguage('ar');
+    </script>
 </body>
 </html> 
