@@ -4,6 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title data-lang-ar="الأسئلة الشائعة" data-lang-en="FAQ">الأسئلة الشائعة</title>
+
+    <!-- Firebase SDK (Software Development Kit) -->
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore-compat.js"></script>
+    <!-- Include other SDKs like Analytics if needed -->
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-analytics-compat.js"></script>
+
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -223,15 +230,32 @@
     </div>
 
     <script>
+        // Your web app's Firebase configuration (PROVIDED BY USER)
+        const firebaseConfig = {
+            apiKey: "AIzaSyB8-V4lt2Jr-43C4LOo9ofPItsDuEpF418",
+            authDomain: "nlinfo-8bafb.firebaseapp.com",
+            projectId: "nlinfo-8bafb",
+            storageBucket: "nlinfo-8bafb.appspot.com", // Corrected storageBucket URL format
+            messagingSenderId: "506146407943",
+            appId: "1:506146407943:web:8a9ce4dd2216be599c4ca2",
+            measurementId: "G-0F02M3LKEG"
+        };
+
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+        const db = firebase.firestore(); // Get Firestore instance (compat version)
+        const analytics = firebase.analytics(); // Initialize Analytics (compat version)
+
+        // --- Get DOM Elements --- //
         const faqList = document.getElementById('faq-list');
         const faqForm = document.getElementById('faq-form');
         const newQuestionInput = document.getElementById('new-question');
         const translatableElements = Array.from(document.querySelectorAll('[data-lang-ar]'));
         const btnAr = document.getElementById('lang-ar');
         const btnEn = document.getElementById('lang-en');
-        const faqStorageKey = 'communityFAQs';
+        // const faqStorageKey = 'communityFAQs'; // No longer primary key, but might be used by loadFAQs for now
 
-        // --- Language Switching --- //
+        // --- Language Switching (No changes needed here for now) --- //
         function setLanguage(lang) {
             translatableElements.forEach(el => {
                 const text = el.getAttribute(`data-lang-${lang}`);
@@ -253,39 +277,60 @@
         btnAr.addEventListener('click', () => setLanguage('ar'));
         btnEn.addEventListener('click', () => setLanguage('en'));
 
-        // --- FAQ Data Handling (localStorage) --- //
+        // --- FAQ Data Handling --- //
+
+        // !! IMPORTANT: getFAQs and saveFAQs currently use localStorage !!
+        // !! They need to be updated in the next step to use Firestore !!
         function getFAQs() {
-            const faqs = localStorage.getItem(faqStorageKey);
+            console.warn("getFAQs is still using localStorage!");
+            const faqs = localStorage.getItem('communityFAQs'); // Still using localStorage for now
             return faqs ? JSON.parse(faqs) : [];
         }
 
-        function saveFAQs(faqs) {
+        // This function is no longer needed for adding questions via Firestore
+        /* function saveFAQs(faqs) {
             localStorage.setItem(faqStorageKey, JSON.stringify(faqs));
-        }
+        } */
 
-        function addQuestion(questionText) {
-            const faqs = getFAQs();
-            const newFAQ = {
-                id: Date.now(), // Simple unique ID
-                question: questionText,
-                answers: [] // Array to hold answers
-            };
-            faqs.push(newFAQ);
-            saveFAQs(faqs);
-            loadFAQs(); // Refresh the list
-        }
+        // MODIFIED: Saves question to Firestore
+        async function addQuestion(questionText) {
+            try {
+                // Add a new document with a generated ID to the 'faqs' collection
+                const docRef = await db.collection("faqs").add({
+                    question: questionText,
+                    answers: [], // Initialize answers array
+                    createdAt: firebase.firestore.FieldValue.serverTimestamp() // Add a timestamp
+                });
+                console.log("Question successfully added to Firestore with ID: ", docRef.id);
 
-        function addAnswer(questionId, answerText) {
-            const faqs = getFAQs();
-            const faqIndex = faqs.findIndex(faq => faq.id === questionId);
-            if (faqIndex > -1) {
-                faqs[faqIndex].answers.push(answerText);
-                saveFAQs(faqs);
-                loadFAQs(); // Refresh the list
+                 // !! NOTE: loadFAQs() still reads from localStorage by default. !!
+                 // !! The newly added question won't appear until loadFAQs is updated. !!
+                 // loadFAQs(); // Calling this won't show the new question yet.
+
+            } catch (error) {
+                console.error("Error adding question to Firestore: ", error);
+                // Optional: Inform the user about the error
+                const currentLang = document.documentElement.lang || 'ar';
+                alert(currentLang === 'ar' ? 'حدث خطأ أثناء إضافة السؤال. يرجى المحاولة مرة أخرى.' : 'Error adding question. Please try again.');
             }
         }
 
-        // --- Displaying FAQs --- //
+         // !! IMPORTANT: addAnswer currently uses localStorage via getFAQs/saveFAQs !!
+         // !! It needs to be updated to use Firestore !!
+        function addAnswer(questionId, answerText) {
+            console.warn("addAnswer is still using localStorage!");
+            // This function needs significant changes to update Firestore instead
+            const faqs = getFAQs(); // Still reads from localStorage!
+            const faqIndex = faqs.findIndex(faq => faq.id === questionId);
+            if (faqIndex > -1) {
+                 // This part needs to update Firestore, not the local array
+                faqs[faqIndex].answers.push(answerText);
+                localStorage.setItem('communityFAQs', JSON.stringify(faqs)); // Temporarily saving back to localStorage for display
+                loadFAQs(); // Refresh the list (will show the answer temporarily if saved to LS)
+            }
+        }
+
+        // --- Displaying FAQs (No changes needed here for now, but reads from localStorage) --- //
         function createFAQElement(faq) {
             const li = document.createElement('li');
             li.classList.add('faq-item');
@@ -370,8 +415,10 @@
         }
 
         function loadFAQs() {
+            // !! This function still reads from localStorage via getFAQs() !!
+            console.warn("loadFAQs is still reading from localStorage!");
             faqList.innerHTML = ''; // Clear existing list
-            const faqs = getFAQs();
+            const faqs = getFAQs(); // Reads from localStorage!
             if (faqs.length === 0) {
                 const li = document.createElement('li');
                 li.style.textAlign = 'center';
@@ -389,7 +436,7 @@
             translatableElements.push(...faqList.querySelectorAll('[data-lang-ar]'));
         }
 
-         // --- Answer Form Toggle --- //
+         // --- Answer Form Toggle (No changes needed here) --- //
          function toggleAnswerForm(questionId) {
              const form = document.getElementById(`answer-form-${questionId}`);
              if (form) {
@@ -398,17 +445,18 @@
          }
 
         // --- Event Listeners --- //
-        faqForm.addEventListener('submit', (e) => {
+        // MODIFIED: Made the event listener async to await addQuestion
+        faqForm.addEventListener('submit', async (e) => {
             e.preventDefault();
             const questionText = newQuestionInput.value.trim();
             if (questionText) {
-                addQuestion(questionText);
-                newQuestionInput.value = ''; // Clear input
+                await addQuestion(questionText); // Call the modified async function
+                newQuestionInput.value = ''; // Clear input after attempting to save
             }
         });
 
         // --- Initial Load --- //
-        setLanguage('ar'); // Initialize language and load FAQs
+        setLanguage('ar'); // Initialize language and load FAQs (currently from localStorage)
 
     </script>
 </body>
