@@ -385,6 +385,17 @@
                  <span class="heart-icon">♡</span>
             </h2>
         </section>
+
+        <!-- Re-add Category: Education -->
+        <section class="category" data-id="onderwijs.html">
+            <h2>
+                <a href="onderwijs.html" data-lang-ar="التعليم" data-lang-en="Education">Education</a>
+                <span class="heart-icon">♡</span>
+            </h2>
+            <!-- Optional: Add description here if needed -->
+            <span data-lang-ar="معلومات حول نظام التعليم في هولندا." data-lang-en="Information about the education system in the Netherlands."></span>
+        </section>
+
         </div>
     </div>
     <script>
@@ -609,5 +620,42 @@
         setLanguage(preferredLanguage || 'en'); // Use 'en' as default if nothing stored
 
     </script>
+
+  <!-- Firebase SDKs -->
+  <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-firestore-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-analytics-compat.js"></script>
+
+  <script>
+    // Your web app's Firebase configuration
+    const firebaseConfig = {
+      apiKey: "AIzaSyB8-V4lt2Jr-43C4LOo9ofPItsDuEpF418",
+      authDomain: "nlinfo-8bafb.firebaseapp.com",
+      projectId: "nlinfo-8bafb",
+      storageBucket: "nlinfo-8bafb.appspot.com", // Corrected
+      messagingSenderId: "506146407943",
+      appId: "1:506146407943:web:8a9ce4dd2216be599c4ca2",
+      measurementId: "G-0F02M3LKEG"
+    };
+
+    // Initialize Firebase
+    try {
+      firebase.initializeApp(firebaseConfig);
+
+      // Initialize Firebase services
+      const db = firebase.firestore(); // Firestore database instance
+      const analytics = firebase.analytics(); // Analytics instance
+
+      console.log("Firebase Initialized with Firestore and Analytics!");
+
+      // يمكنك الآن استخدام 'db' للتفاعل مع Firestore
+      // مثال: db.collection('your_collection')...
+
+    } catch (e) {
+      console.error("Error initializing Firebase: ", e);
+    }
+
+  </script>
+
 </body>
 </html>
