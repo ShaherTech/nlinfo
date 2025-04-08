@@ -110,39 +110,43 @@
 
         .categories {
             display: grid;
-            /* grid-template-columns: repeat(3, 1fr); */ /* Change from 3 columns */
-            grid-template-columns: 1fr; /* Set to one column for vertical layout */
+            /* grid-template-columns: 1fr; */ /* Remove single column */
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* Responsive grid */
             gap: 20px;
+             padding: 20px 0; /* Add padding */
         }
 
-        .category {
-            background-color: #f9f9f9; /* Category background light mode */
-            color: #333; /* Category text light mode */
-            border-radius: 8px;
-            padding: 15px;
-            box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
-            text-align: center;
-            position: relative; /* Needed for absolute positioning of heart */
-            transition: background-color 0.3s, color 0.3s;
+        /* Styles for the new card layout (similar to onderwijs.html) */
+        .link-item { 
+            background-color: #f9f9f9; 
+            border-radius: 8px; 
+            padding: 15px; 
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.1); 
+            text-align: center; 
+            position: relative; 
+            display: flex; 
+            flex-direction: column; 
+            align-items: center; 
+            transition: background-color 0.3s, box-shadow 0.3s; 
+            color: #333; /* Ensure text color is set */
         }
-
-        .category h2 {
-            text-align: center;
-            margin: 0 0 5px 0;
-            display: flex; /* Use flex to align link and heart */
-            justify-content: center; /* Center items */
-            align-items: center; /* Vertically align items */
-            position: relative; /* To contain the absolutely positioned heart */
+        
+        .link-item-header { 
+            display: flex; 
+            justify-content: center; 
+            align-items: center; 
+            margin-bottom: 10px; /* Increased margin */
+            width: 100%; 
+            min-height: 40px; /* Ensure header has some height */
         }
-
-        .category h2 a {
-            margin-right: 10px; /* Space between link and heart */
-            color: #007bff; /* Link color light mode */
-            transition: color 0.3s;
-        }
-
-        .category h2 a:hover {
-            color: #0056b3; /* Link hover color light mode */
+        
+        .link-item-header span:first-child { /* Style for the title span */
+            font-size: 1.1em; 
+            font-weight: bold;
+            color: #333; /* Explicit title color */
+            margin-right: 10px; /* Space before heart */
+            flex-grow: 1; /* Allow title to take space */
+            text-align: center; /* Center title text */
         }
 
         .heart-icon {
@@ -150,52 +154,44 @@
             font-size: 1.5em; /* Make heart larger */
             color: #ccc; /* Default color (grey) */
             transition: color 0.2s ease-in-out;
-            /* position: absolute; */ /* Removed absolute positioning */
-            /* top: 50%; */
-            /* right: 15px; */
-            /* transform: translateY(-50%); */
+            /* margin-left: 10px; */ /* Added dynamically or via header flex */
+            flex-shrink: 0; /* Prevent heart from shrinking */
         }
 
         .heart-icon.favorited {
             color: red;
         }
 
-        .category span:not(.heart-icon) { /* Target only description span */
+        /* Description span styling */
+        .link-item > span:not(.heart-icon):not([data-lang-en*="Ministry"]):not([data-lang-en*="System"]){ 
             display: block;
             font-size: 0.9em;
             color: #555; /* Description color light mode */
-            margin-top: 5px;
+            margin-top: 10px; /* Space after image */
+            margin-bottom: 10px; /* Space before link */
+            width: 100%;
+            min-height: 40px; /* Give description space */
             transition: color 0.3s;
         }
-
-        .category ul {
-            display: none;
-        }
-
-        .category:focus-within ul {
-            display: block;
-        }
-
-        ul {
-            list-style-type: none;
-            padding: 0;
-        }
-
-        li {
-            margin-bottom: 10px;
-        }
-
-        a {
+        
+        /* Learn More link styling */
+        .learn-more-link {
             text-decoration: none;
-            /* color: #007bff; */ /* Color set specifically where needed */
+            color: #007bff;
             font-weight: bold;
             transition: color 0.3s;
+            margin-top: auto; /* Push link to bottom */
+            padding-top: 10px; /* Space above link */
         }
-
-        a:hover {
-            /* color: #0056b3; */ /* Hover color set specifically */
+        .learn-more-link:hover {
+            color: #0056b3;
             text-decoration: underline;
         }
+
+        ul { list-style-type: none; padding: 0; }
+        li { margin-bottom: 10px; }
+        a { text-decoration: none; font-weight: bold; transition: color 0.3s; }
+        /* a:hover { text-decoration: underline; } */ /* Handled by specific classes */
 
         .lang-switcher {
             text-align: center;
@@ -259,29 +255,22 @@
             color: #f1f1f1; /* Light heading */
         }
 
-        body.dark-mode .category {
-            background-color: #3a3a3a; /* Darker category background */
-            color: #f1f1f1; /* Light category text */
-            box-shadow: 0 0 5px rgba(255, 255, 255, 0.1); /* Lighter shadow */
+        body.dark-mode .link-item { 
+            background-color: #3a3a3a; 
+            box-shadow: 0 0 5px rgba(255, 255, 255, 0.1); 
+            color: #f1f1f1; /* Ensure dark mode text color */
         }
-
-         body.dark-mode .category h2 a {
-             color: #5cadff; /* Lighter blue link */
-         }
-         body.dark-mode .category h2 a:hover {
-             color: #8ecaff; /* Even lighter blue on hover */
-         }
-
-        body.dark-mode .category span:not(.heart-icon) {
-            color: #ccc; /* Lighter description text */
+        body.dark-mode .link-item-header span:first-child {
+            color: #f1f1f1; /* Dark mode title color */
         }
-
-        body.dark-mode a {
-             /* General link color in dark mode if needed, currently handled specifically */
-            /* color: #5cadff; */
+        body.dark-mode .link-item > span:not(.heart-icon):not([data-lang-en*="Ministry"]):not([data-lang-en*="System"]){ 
+             color: #ccc; /* Lighter description text */
         }
-        body.dark-mode a:hover {
-            /* color: #8ecaff; */
+        body.dark-mode .learn-more-link {
+            color: #5cadff;
+        }
+        body.dark-mode .learn-more-link:hover {
+            color: #8ecaff;
         }
 
         /* Add styles for the theme toggle button in its new location if needed */
@@ -333,69 +322,93 @@
         <h1 data-lang-ar="دليل الروابط" data-lang-en="Link Directory">Link Directory</h1>
         <div class="categories">
         
-        <!-- Add data-id to each section, and heart icon span -->
-        <section class="category" data-id="learning-dutch.html">
-            <h2>
-                <a href="learning-dutch.html" data-lang-ar="تعلم اللغة الهولندية" data-lang-en="Learning Dutch">Learning Dutch</a>
-                <span class="heart-icon">♡</span>
-            </h2>
-        </section>
+            <!-- Learning Dutch -->
+            <div class="link-item" data-id="learning-dutch.html">
+                <div class="link-item-header">
+                    <span data-lang-ar="تعلم اللغة الهولندية" data-lang-en="Learning Dutch">Learning Dutch</span>
+                    <span class="heart-icon">♡</span>
+                </div>
+                 <img src="imags/4.png" alt="Learning Dutch Icon" style="width: 100%; max-width: 150px; height: auto; margin-top: 10px; margin-bottom: 10px;" >
+                <span data-lang-ar="موارد لتعلم اللغة الهولندية." data-lang-en="Description for Learning Dutch" style="margin-bottom: 10px; min-height: 40px;">Resources for learning the Dutch language.</span>
+                <a href="learning-dutch.html" data-lang-ar="اقرأ المزيد" data-lang-en="Learn More" class="learn-more-link">Learn More</a>
+            </div>
 
-        <section class="category" data-id="government-sites.html">
-            <h2>
-                <a href="government-sites.html" data-lang-ar="مواقع حكومية" data-lang-en="Government Sites">Government Sites</a>
-                <span class="heart-icon">♡</span>
-            </h2>
-        </section>
+            <!-- Government Sites -->
+            <div class="link-item" data-id="government-sites.html">
+                <div class="link-item-header">
+                    <span data-lang-ar="مواقع حكومية" data-lang-en="Government Sites">Government Sites</span>
+                    <span class="heart-icon">♡</span>
+                </div>
+                 <img src="imags/3.jpeg" alt="Government Sites Icon" style="width: 100%; max-width: 150px; height: auto; margin-top: 10px; margin-bottom: 10px;" >
+                <span data-lang-ar="روابط لمواقع حكومية هولندية مهمة." data-lang-en="Description for Government Sites" style="margin-bottom: 10px; min-height: 40px;">Links to important Dutch government websites.</span>
+                <a href="government-sites.html" data-lang-ar="اقرأ المزيد" data-lang-en="Learn More" class="learn-more-link">Learn More</a>
+            </div>
 
-        <section class="category" data-id="work-and-training.html">
-            <h2>
-                <a href="work-and-training.html" data-lang-ar="العمل والتدريب" data-lang-en="Work and Training">Work and Training</a>
-                <span class="heart-icon">♡</span>
-            </h2>
-        </section>
+            <!-- Work and Training -->
+            <div class="link-item" data-id="work-and-training.html">
+                <div class="link-item-header">
+                    <span data-lang-ar="العمل والتدريب" data-lang-en="Work and Training">Work and Training</span>
+                    <span class="heart-icon">♡</span>
+                </div>
+                 <img src="imags/6.jpeg" alt="Work and Training Icon" style="width: 100%; max-width: 150px; height: auto; margin-top: 10px; margin-bottom: 10px;" >
+                <span data-lang-ar="معلومات عن البحث عن عمل وفرص التدريب." data-lang-en="Description for Work and Training" style="margin-bottom: 10px; min-height: 40px;">Information on job searching and training opportunities.</span>
+                <a href="work-and-training.html" data-lang-ar="اقرأ المزيد" data-lang-en="Learn More" class="learn-more-link">Learn More</a>
+            </div>
 
-        <section class="category" data-id="gemeente-rotterdam.html">
-            <h2>
-                <a href="gemeente-rotterdam.html" data-lang-ar="بلدية روتردام" data-lang-en="Gemeente Rotterdam">Gemeente Rotterdam</a>
-                <span class="heart-icon">♡</span>
-            </h2>
-        </section>
+            <!-- Gemeente Rotterdam -->
+            <div class="link-item" data-id="gemeente-rotterdam.html">
+                <div class="link-item-header">
+                    <span data-lang-ar="بلدية روتردام" data-lang-en="Gemeente Rotterdam">Gemeente Rotterdam</span>
+                    <span class="heart-icon">♡</span>
+                </div>
+                <img src="imags/7.jpeg" alt="Gemeente Rotterdam Icon" style="width: 100%; max-width: 150px; height: auto; margin-top: 10px; margin-bottom: 10px;" >
+                <span data-lang-ar="معلومات وخدمات من بلدية روتردام." data-lang-en="Description for Municipality Rotterdam" style="margin-bottom: 10px; min-height: 40px;">Information and services from the Municipality of Rotterdam.</span>
+                <a href="gemeente-rotterdam.html" data-lang-ar="اقرأ المزيد" data-lang-en="Learn More" class="learn-more-link">Learn More</a>
+            </div>
 
-        <section class="category" data-id="other-useful-sites.html">
-            <h2>
-                <a href="other-useful-sites.html" data-lang-ar="مواقع اخرى مفيدة" data-lang-en="Other Useful Sites">Other Useful Sites</a>
-                <span class="heart-icon">♡</span>
-            </h2>
-        </section>
+             <!-- Other Useful Sites -->
+            <div class="link-item" data-id="other-useful-sites.html">
+                <div class="link-item-header">
+                     <span data-lang-ar="مواقع اخرى مفيدة" data-lang-en="Other Useful Sites">Other Useful Sites</span>
+                     <span class="heart-icon">♡</span>
+                 </div>
+                 <img src="imags/5.jpeg" alt="Other Useful Sites Icon" style="width: 100%; max-width: 150px; height: auto; margin-top: 10px; margin-bottom: 10px;" >
+                 <span data-lang-ar="روابط متنوعة لمواقع قد تكون مفيدة." data-lang-en="Description for Other Useful Sites" style="margin-bottom: 10px; min-height: 40px;">Various links to potentially useful websites.</span>
+                 <a href="other-useful-sites.html" data-lang-ar="اقرأ المزيد" data-lang-en="Learn More" class="learn-more-link">Learn More</a>
+             </div>
         
-         <section class="category" data-id="noodfonds-energie">
-             <h2>
-                 <a href="https://www.noodfondsenergie.nl/news#noodfonds-open-april" target="_blank" data-lang-ar="Noodfonds Energie" data-lang-en="Noodfonds Energie">Noodfonds Energie</a>
-                 <span class="heart-icon">♡</span>
-             </h2>
-             <span data-lang-ar="سوف يبدا التقديم على صندوق الطوارئ لدعم الطاقة ب تاريخ 21 إبريل. لمعرفة اذا كنت مؤهلا ادخل على الرابط واقراء الشروط." 
-                   data-lang-en="Applications for the Emergency Fund for energy support will begin on April 21st. To find out if you are eligible, enter the link and read the conditions.">
-             </span>
-         </section>
+             <!-- Noodfonds Energie -->
+             <div class="link-item" data-id="noodfonds-energie">
+                 <div class="link-item-header">
+                     <span data-lang-ar="Noodfonds Energie" data-lang-en="Noodfonds Energie">Noodfonds Energie</span>
+                     <span class="heart-icon">♡</span>
+                 </div>
+                 <img src="imags/10.jpeg" alt="Noodfonds Energie Icon" style="width: 100%; max-width: 150px; height: auto; margin-top: 10px; margin-bottom: 10px;" >
+                 <span data-lang-ar="سوف يبدا التقديم على صندوق الطوارئ لدعم الطاقة ب تاريخ 21 إبريل..." data-lang-en="Description for Noodfonds Energie" style="margin-bottom: 10px; min-height: 40px;">Applications for the Emergency Fund for energy support will begin on April 21st...</span>
+                 <a href="https://www.noodfondsenergie.nl/news#noodfonds-open-april" target="_blank" data-lang-ar="اقرأ المزيد" data-lang-en="Learn More" class="learn-more-link">Learn More</a>
+             </div>
         
-        <section class="category" data-id="health-insurance.html">
-            <h2>
-                <a href="health-insurance.html" data-lang-ar="الصحة والتأمينات" data-lang-en="Health and Insurance">Health and Insurance</a>
-                 <span class="heart-icon">♡</span>
-            </h2>
-        </section>
+             <!-- Health and Insurance -->
+            <div class="link-item" data-id="health-insurance.html">
+                <div class="link-item-header">
+                     <span data-lang-ar="الصحة والتأمينات" data-lang-en="Health and Insurance">Health and Insurance</span>
+                     <span class="heart-icon">♡</span>
+                 </div>
+                  <img src="imags/8.jpeg" alt="Health and Insurance Icon" style="width: 100%; max-width: 150px; height: auto; margin-top: 10px; margin-bottom: 10px;" >
+                 <span data-lang-ar="معلومات حول التأمين الصحي في هولندا." data-lang-en="Description for Health Insurance" style="margin-bottom: 10px; min-height: 40px;">Information about health insurance in the Netherlands.</span>
+                 <a href="health-insurance.html" data-lang-ar="اقرأ المزيد" data-lang-en="Learn More" class="learn-more-link">Learn More</a>
+            </div>
 
-        <!-- Re-add Category: Education -->
-        <section class="category" data-id="onderwijs.html">
-            <h2>
-                <a href="onderwijs.html" data-lang-ar="التعليم" data-lang-en="Education">Education</a>
-                <span class="heart-icon">♡</span>
-            </h2>
-            <!-- Optional: Add description here if needed -->
-            <span data-lang-ar="معلومات حول نظام التعليم في هولندا." data-lang-en="Information about the education system in the Netherlands."></span>
-        </section>
-
+            <!-- Education -->
+            <div class="link-item" data-id="onderwijs.html">
+                <div class="link-item-header">
+                    <span data-lang-ar="التعليم" data-lang-en="Education">Education</span>
+                    <span class="heart-icon">♡</span>
+                </div>
+                 <img src="imags/9.jpeg" alt="Education Icon" style="width: 100%; max-width: 150px; height: auto; margin-top: 10px; margin-bottom: 10px;" >
+                <span data-lang-ar="معلومات حول نظام التعليم في هولندا." data-lang-en="Description for Education" style="margin-bottom: 10px; min-height: 40px;">Information about the education system in the Netherlands.</span>
+                <a href="onderwijs.html" data-lang-ar="اقرأ المزيد" data-lang-en="Learn More" class="learn-more-link">Learn More</a>
+            </div>
         </div>
     </div>
     <script>
@@ -415,77 +428,55 @@
             "FAQ": { ar: "الأسئلة الشائعة", en: "FAQ" },
             "Government Sites": { ar: "مواقع حكومية", en: "Government Sites" },
             "Description for Government Sites": { ar: "روابط لمواقع حكومية هولندية مهمة.", en: "Links to important Dutch government websites." },
-            "Municipality Rotterdam": { ar: "بلدية روتردام", en: "Municipality Rotterdam" },
+            "Gemeente Rotterdam": { ar: "بلدية روتردام", en: "Gemeente Rotterdam" },
             "Description for Municipality Rotterdam": { ar: "معلومات وخدمات من بلدية روتردام.", en: "Information and services from the Municipality of Rotterdam." },
-            "Health and Insurance": { ar: "الصحة والتأمينات", en: "Health and Insurance" }, // Adjusted key if necessary based on HTML
-             "Health Insurance": { ar: "التأمين الصحي", en: "Health Insurance" }, // Ensure this one exists if used elsewhere
+            "Health and Insurance": { ar: "الصحة والتأمينات", en: "Health and Insurance" },
             "Description for Health Insurance": { ar: "معلومات حول التأمين الصحي في هولندا.", en: "Information about health insurance in the Netherlands." },
             "Learning Dutch": { ar: "تعلم اللغة الهولندية", en: "Learning Dutch" },
             "Description for Learning Dutch": { ar: "موارد لتعلم اللغة الهولندية.", en: "Resources for learning the Dutch language." },
-            "YouTube Channels": { ar: "قنوات يوتيوب", en: "YouTube Channels" },
-            "Description for YouTube Channels": { ar: "قنوات يوتيوب مفيدة لتعلم اللغة أو الثقافة الهولندية.", en: "Helpful YouTube channels for learning Dutch or about Dutch culture." },
             "Work and Training": { ar: "العمل والتدريب", en: "Work and Training" },
             "Description for Work and Training": { ar: "معلومات عن البحث عن عمل وفرص التدريب.", en: "Information on job searching and training opportunities." },
-            "Volunteering": { ar: "التطوع", en: "Volunteering" },
-            "Description for Volunteering": { ar: "فرص للتطوع في روتردام.", en: "Opportunities for volunteering in Rotterdam." },
-            "Banking Info": { ar: "معلومات بنكية", en: "Banking Info" },
-            "Description for Banking Info": { ar: "معلومات حول فتح حساب بنكي والخدمات المصرفية.", en: "Information on opening a bank account and banking services." },
-            "Transportation Info": { ar: "معلومات النقل", en: "Transportation Info" },
-            "Description for Transportation Info": { ar: "معلومات عن وسائل النقل العام في روتردام.", en: "Information about public transport in Rotterdam." },
-            "Other Useful Sites": { ar: "مواقع اخرى مفيدة", en: "Other Useful Sites" }, // Corrected key
+            "Other Useful Sites": { ar: "مواقع اخرى مفيدة", en: "Other Useful Sites" },
             "Description for Other Useful Sites": { ar: "روابط متنوعة لمواقع قد تكون مفيدة.", en: "Various links to potentially useful websites." },
             "Noodfonds Energie": { ar: "Noodfonds Energie", en: "Noodfonds Energie" },
-            "Description for Noodfonds Energie": { ar: "سوف يبدا التقديم على صندوق الطوارئ لدعم الطاقة ب تاريخ 21 إبريل. لمعرفة اذا كنت مؤهلا ادخل على الرابط واقراء الشروط.", en: "Applications for the Emergency Fund for energy support will begin on April 21st. To find out if you are eligible, enter the link and read the conditions."},
-            "Welcome Message": { ar: "مرحباً بكم في موقعنا الجديد والمفيد لكل المتواجدين في هولندا! هذا الموقع هو بوابتك الشاملة للوصول إلى كل ما تحتاجه في هولندا. لقد قمنا بجمع أهم المواقع المفيدة في مكان واحد لتسهيل حياتكم، سواء كنتم وافدين جدد أو مقيمين منذ فترة. ستجدون هنا مصادر لتعلم اللغة الهولندية، وروابط لمواقع حكومية هامة، ومعلومات عن العمل والتدريب، بالإضافة إلى العديد من الأشياء المفيدة والضرورية لكل شخص في هولندا. هذا الموقع لا يزال قيد التطوير، ونسعى باستمرار لإضافة المزيد من المحتوى المفيد والمميز. إذا كانت لديكم أي أفكار أو اقتراحات ترغبون في إضافتها للموقع، يسعدنا انضمامكم إلى جروب الواتساب الخاص بنا ومشاركتنا أفكاركم القيمة عبر<br><a href='https://chat.whatsapp.com/IXWRNGrtrFcEpeZpqQ2y4F' target='_blank'>WhatsApp</a>.<br>نتمنى لكم تصفحاً مفيداً!", en: "Welcome to our new and useful site for everyone in the Netherlands! This site is your comprehensive gateway to access everything you need in the Netherlands. We have gathered the most important useful sites in one place to make your life easier, whether you are newcomers or long-term residents. Here you will find resources for learning Dutch, links to important government sites, information about work and training, in addition to many useful and necessary things for everyone in the Netherlands. This site is still under development, and we are constantly striving to add more useful and distinctive content. If you have any ideas or suggestions you would like to add to the site, we would be happy for you to join our WhatsApp group and share your valuable ideas with us via<br><a href='https://chat.whatsapp.com/IXWRNGrtrFcEpeZpqQ2y4F' target='_blank'>WhatsApp</a>.<br>We wish you useful browsing!"},
-            "Toggle Theme": { ar: "تبديل الوضع", en: "Toggle Theme"} // Added translation for the theme toggle button
+            "Description for Noodfonds Energie": { ar: "سوف يبدا التقديم على صندوق الطوارئ لدعم الطاقة ب تاريخ 21 إبريل...", en: "Applications for the Emergency Fund for energy support will begin on April 21st..."},
+            "Education": { ar: "التعليم", en: "Education" },
+            "Description for Education": { ar: "معلومات حول نظام التعليم في هولندا.", en: "Information about the education system in the Netherlands." },
+            "Welcome Message": { ar: "مرحباً بكم في موقعنا الجديد والمفيد لكل المتواجدين في هولندا! ...", en: "Welcome to our new and useful site for everyone in the Netherlands! ..." },
+            "Toggle Theme": { ar: "تبديل الوضع", en: "Toggle Theme"},
+            "Learn More": { ar: "اقرأ المزيد", en: "Learn More" }
         };
 
-
         function setLanguage(lang) {
-            document.documentElement.lang = lang; // Set the lang attribute on the html tag
+            document.documentElement.lang = lang;
+            document.documentElement.dir = lang === 'ar' ? 'rtl' : 'ltr';
 
-            // --- Translate regular elements ---
-             document.querySelectorAll('[data-lang-en]').forEach(el => {
-                 // Skip the intro paragraph and title, handle them separately
-                 if (el === introParagraph || el.tagName.toLowerCase() === 'title' || el.closest('.intro-text')) return;
-
-                 const key = el.dataset.langEn; // Use English text as the key
-                 if (translations[key] && translations[key][lang]) {
-                     el.textContent = translations[key][lang];
-                 } else if (lang === 'en' && key) {
-                      // Fallback to English data-lang-en attribute if translation missing
-                      el.textContent = key;
-                 } else if (lang === 'ar' && el.dataset.langAr) {
-                     // Fallback to Arabic data-lang-ar if translation missing for AR
-                     el.textContent = el.dataset.langAr;
+            document.querySelectorAll('[data-lang-en]').forEach(el => {
+                 const key = el.dataset.langEn; 
+                 let targetText = translations[key]?.[lang]; 
+                 
+                 if (!targetText) {
+                     if (lang === 'en') targetText = key; 
+                     else if (lang === 'ar') targetText = el.dataset.langAr; 
+                     else targetText = key; 
                  }
-                 // If translation missing for the target language, it keeps the current text
+                 
+                 if (targetText) {
+                     if (el.tagName.toLowerCase() === 'title') {
+                          document.title = targetText;
+                     } else if (el.tagName.toLowerCase() === 'p' && el.closest('.intro-text')) {
+                         const introKey = "Welcome Message";
+                         const introHtml = translations[introKey]?.[lang] || translations[introKey]?.['en']; 
+                         if (introHtml && el.innerHTML !== introHtml) el.innerHTML = introHtml; 
+                     } else if (el.textContent !== targetText){
+                          el.textContent = targetText;
+                     }
+                 }
              });
 
-             // --- Translate intro paragraph (keeping HTML) ---
-              const introKey = "Welcome Message"; // Key for the intro paragraph
-              if (translations[introKey] && translations[introKey][lang]) {
-                  introParagraph.innerHTML = translations[introKey][lang];
-              } else if (lang === 'en') {
-                  introParagraph.innerHTML = translations[introKey]['en']; // Fallback
-              } else if (lang === 'ar') {
-                   introParagraph.innerHTML = translations[introKey]['ar']; // Fallback
-              }
-
-
-             // --- Translate title ---
-             const titleKey = titleElement.dataset.langEn;
-             if (translations[titleKey] && translations[titleKey][lang]) {
-                 titleElement.textContent = translations[titleKey][lang];
-             } else if (lang === 'en' && titleKey) {
-                 titleElement.textContent = titleKey;
-             } else if (lang === 'ar' && titleElement.dataset.langAr) {
-                  titleElement.textContent = titleElement.dataset.langAr;
-             }
-
              localStorage.setItem('preferredLanguage', lang);
-             initializeHearts(); // Re-initialize hearts after text might have changed
-             updateToggleButtonText(); // Update theme toggle button text
+             initializeHearts();
+             updateToggleButtonText();
         }
 
         // --- Sidebar Logic ---
@@ -515,14 +506,19 @@
             localStorage.setItem(favoritesKey, JSON.stringify(favorites));
         }
 
-        function toggleFavorite(categoryId, categoryData) {
+        function toggleFavorite(itemId, itemData) {
             let favorites = getFavorites();
-            const existingIndex = favorites.findIndex(fav => fav.id === categoryId);
+            const existingIndex = favorites.findIndex(fav => fav.id === itemId);
 
             if (existingIndex > -1) {
                 favorites.splice(existingIndex, 1);
             } else {
-                favorites.push(categoryData);
+                // Ensure itemData is valid before pushing
+                if (itemData && itemData.id && itemData.href && itemData.en && itemData.ar) {
+                    favorites.push(itemData);
+                } else {
+                    console.warn("Attempted to save incomplete favorite data for ID:", itemId);
+                }
             }
             saveFavorites(favorites);
         }
@@ -531,44 +527,52 @@
             const favorites = getFavorites();
             const favoriteIds = favorites.map(fav => fav.id);
 
-            document.querySelectorAll('.category').forEach(section => {
-                const categoryId = section.getAttribute('data-id');
-                const heartIcon = section.querySelector('.heart-icon');
-                if (heartIcon) { // Check if heart icon exists
-                    if (favoriteIds.includes(categoryId)) {
-                        heartIcon.classList.add('favorited');
-                        heartIcon.textContent = '♥';
-                    } else {
-                        heartIcon.classList.remove('favorited');
-                        heartIcon.textContent = '♡';
-                    }
+            document.querySelectorAll('.link-item').forEach(item => {
+                const itemId = item.getAttribute('data-id');
+                const heartIcon = item.querySelector('.heart-icon');
+                if (heartIcon) { 
+                    const isFavorited = favoriteIds.includes(itemId);
+                    heartIcon.classList.toggle('favorited', isFavorited);
+                    heartIcon.textContent = isFavorited ? '♥' : '♡';
                  }
             });
         }
 
         document.querySelectorAll('.heart-icon').forEach(icon => {
             icon.addEventListener('click', (event) => {
-                event.stopPropagation();
-                const categorySection = icon.closest('.category');
-                const categoryLink = categorySection.querySelector('h2 a');
-                const categoryId = categorySection.getAttribute('data-id');
-                 if (!categoryId || !categoryLink) return; // Exit if essential elements missing
+                event.stopPropagation(); 
+                const linkItem = icon.closest('.link-item');
+                const titleSpan = linkItem.querySelector('.link-item-header span:first-child');
+                const descriptionSpan = linkItem.querySelector('span[data-lang-en^="Description"]'); // More specific selector
+                const learnMoreLink = linkItem.querySelector('.learn-more-link');
+                const itemId = linkItem.getAttribute('data-id');
+                
+                 if (!itemId || !titleSpan || !learnMoreLink) {
+                    console.error("Missing required elements for favorite toggle on item ID:", itemId);
+                    return; 
+                 } 
 
-                const isFavorited = icon.classList.toggle('favorited');
-                icon.textContent = isFavorited ? '♥' : '♡';
-
-                 // Use data-lang attributes from the link for consistent data
-                const categoryData = {
-                    id: categoryId,
-                    href: categoryLink.getAttribute('href'),
-                    ar: categoryLink.getAttribute('data-lang-ar'),
-                    en: categoryLink.getAttribute('data-lang-en')
-                };
-
-                toggleFavorite(categoryId, categoryData);
+                const isFavorited = icon.classList.contains('favorited'); // Check before toggling
+                let itemData = null;
+                if (!isFavorited) { // Only gather data if we are adding the favorite
+                     itemData = {
+                         id: itemId,
+                         href: learnMoreLink.getAttribute('href'), // Get href from Learn More link
+                         ar: titleSpan.getAttribute('data-lang-ar'),
+                         en: titleSpan.getAttribute('data-lang-en'),
+                         desc_ar: descriptionSpan?.getAttribute('data-lang-ar') || '',
+                         desc_en: descriptionSpan?.getAttribute('data-lang-en') || ''
+                     };
+                 }
+                 
+                 toggleFavorite(itemId, itemData); // Pass data only when favoriting
+                 
+                 // Toggle class and text after saving attempt
+                 icon.classList.toggle('favorited');
+                 icon.textContent = icon.classList.contains('favorited') ? '♥' : '♡';
             });
         });
-
+        
         // --- Theme Toggle Logic ---
         const themeToggleButton = document.getElementById('theme-toggle');
 
@@ -595,7 +599,6 @@
         // Update button text after potentially applying dark mode
         updateToggleButtonText();
 
-
         // Add click listener for theme toggle
          if (themeToggleButton) {
              themeToggleButton.addEventListener('click', () => {
@@ -608,7 +611,6 @@
                  updateToggleButtonText(); // Update button text immediately
              });
          }
-
 
         // --- Initial Setup ---
         // Language buttons
