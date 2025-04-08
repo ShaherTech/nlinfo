@@ -213,6 +213,15 @@
             border-radius: 8px;
             text-align: center;
             transition: background-color 0.3s, color 0.3s; /* Add transition */
+            height: auto; /* Ensure height adjusts to content */
+            overflow: visible; /* Ensure content isn't clipped */
+        }
+
+        .intro-text p { /* Target the paragraph specifically */
+             height: auto; /* Ensure height adjusts to content */
+             overflow: visible; /* Ensure content isn't clipped */
+             word-wrap: break-word; /* Handle long words/links */
+             overflow-wrap: break-word; 
         }
 
         /* Dark Mode Styles */
@@ -465,9 +474,9 @@
                      if (el.tagName.toLowerCase() === 'title') {
                           document.title = targetText;
                      } else if (el.tagName.toLowerCase() === 'p' && el.closest('.intro-text')) {
-                         const introKey = "Welcome Message";
-                         const introHtml = translations[introKey]?.[lang] || translations[introKey]?.['en']; 
-                         if (introHtml && el.innerHTML !== introHtml) el.innerHTML = introHtml; 
+                         // Corrected: Get full text directly from element's attributes
+                         const introHtml = el.dataset[lang === 'ar' ? 'langAr' : 'langEn'];
+                         if (introHtml) el.innerHTML = introHtml; 
                      } else if (el.textContent !== targetText){
                           el.textContent = targetText;
                      }
