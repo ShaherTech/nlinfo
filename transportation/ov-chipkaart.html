@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title data-lang-ar="بطاقة OV-chipkaart" data-lang-en="OV-chipkaart">OV-chipkaart</title>
+    <style>
+        /* Default Light Mode Styles */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            color: #333;
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            position: relative;
+            padding-top: 60px;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        .selectable-text {
+            user-select: text;
+            cursor: text;
+        }
+
+        .non-selectable {
+            user-select: none;
+            cursor: default;
+        }
+
+        .link-area {
+            cursor: pointer;
+        }
+
+        .container {
+            width: 80%;
+            max-width: 800px;
+            background-color: #fff;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            margin: 0 auto 20px auto;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 30px;
+            transition: color 0.3s;
+        }
+
+        .description {
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 1.1em;
+            line-height: 1.6;
+        }
+
+        .button {
+            display: block;
+            width: 200px;
+            margin: 20px auto;
+            padding: 15px 25px;
+            background-color: #007bff;
+            color: white;
+            text-align: center;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+            transition: background-color 0.3s;
+        }
+
+        .button:hover {
+            background-color: #0056b3;
+        }
+
+        .lang-switcher {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .lang-switcher button {
+            padding: 8px 15px;
+            margin: 0 5px;
+            cursor: pointer;
+            border: 1px solid #ccc;
+            background: none;
+            border-radius: 4px;
+            transition: all 0.3s;
+        }
+
+        /* Dark Mode */
+        body.dark-mode {
+            background-color: #1a1a1a;
+            color: #f1f1f1;
+        }
+
+        body.dark-mode .container {
+            background-color: #2c2c2c;
+            color: #f1f1f1;
+        }
+
+        body.dark-mode h1 {
+            color: #f1f1f1;
+        }
+
+        body.dark-mode .button {
+            background-color: #5cadff;
+        }
+
+        body.dark-mode .button:hover {
+            background-color: #8ecaff;
+        }
+
+        body.dark-mode .lang-switcher button {
+            background-color: #555;
+            color: #f1f1f1;
+            border-color: #777;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="lang-switcher">
+            <button id="lang-ar">العربية</button>
+            <button id="lang-en">English</button>
+            <button class="theme-toggle-button" id="theme-toggle" data-lang-ar="تبديل الوضع" data-lang-en="Toggle Theme">Toggle Theme</button>
+        </div>
+
+        <h1 data-lang-ar="بطاقة OV-chipkaart" data-lang-en="OV-chipkaart">OV-chipkaart</h1>
+        
+        <div class="description selectable-text" 
+             data-lang-ar="بطاقة OV-chipkaart هي البطاقة الرسمية لاستخدام المواصلات العامة في هولندا. يمكنك استخدامها في القطارات، الحافلات، الترام، والمترو." 
+             data-lang-en="OV-chipkaart is the official card for using public transportation in the Netherlands. You can use it on trains, buses, trams, and metro.">
+        </div>
+
+        <div class="non-selectable">
+            <a href="https://www.ov-chipkaart.nl/en/apply-for-personal-ov-chipcard" 
+               target="_blank" 
+               class="button" 
+               data-lang-ar="طلب البطاقة" 
+               data-lang-en="Apply for Card">
+            </a>
+        </div>
+
+        <div style="margin-top: 40px; text-align: center;">
+            <div class="selectable-text">
+                <p style="margin-bottom: 20px;" 
+                   data-lang-ar="لتخطيط رحلتك بالقطار وشراء التذاكر، يمكنك استخدام تطبيق NS" 
+                   data-lang-en="To plan your train journey and buy tickets, you can use the NS App">
+                </p>
+            </div>
+            
+            <div class="non-selectable">
+                <a href="ns-app.html" 
+                   class="button" 
+                   style="background-color: #4CAF50;"
+                   data-lang-ar="تطبيق NS" 
+                   data-lang-en="NS App">
+                </a>
+            </div>
+
+            <div class="selectable-text">
+                <p style="margin: 30px 0 20px;" 
+                   data-lang-ar="لتخطيط رحلتك باستخدام جميع وسائل النقل العام، يمكنك استخدام تطبيق 9292" 
+                   data-lang-en="To plan your journey using all public transport options, you can use the 9292 App">
+                </p>
+            </div>
+            
+            <div class="non-selectable">
+                <a href="9292.html" 
+                   class="button" 
+                   style="background-color: #007bff;"
+                   data-lang-ar="تطبيق 9292" 
+                   data-lang-en="9292 App">
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const elements = document.querySelectorAll('[data-lang-ar], [data-lang-en]');
+        const btnAr = document.getElementById('lang-ar');
+        const btnEn = document.getElementById('lang-en');
+        const themeToggleButton = document.getElementById('theme-toggle');
+        let currentLang = localStorage.getItem('preferredLanguage') || 'ar';
+
+        // Handle double click for text selection
+        document.addEventListener('dblclick', function(e) {
+            const selectableElement = e.target.closest('.selectable-text');
+            if (selectableElement) {
+                const range = document.createRange();
+                range.selectNodeContents(selectableElement);
+                const selection = window.getSelection();
+                selection.removeAllRanges();
+                selection.addRange(range);
+                e.preventDefault();
+            }
+        });
+
+        // Prevent text selection when clicking links
+        document.querySelectorAll('.non-selectable').forEach(element => {
+            element.addEventListener('mousedown', (e) => {
+                if (window.getSelection) {
+                    window.getSelection().removeAllRanges();
+                }
+            });
+        });
+
+        function setLanguage(lang) {
+            elements.forEach(el => {
+                const text = el.getAttribute(`data-lang-${lang}`);
+                if (text) {
+                    if (el.tagName === 'TITLE') {
+                        document.title = text;
+                    } else {
+                        el.textContent = text;
+                    }
+                }
+            });
+            document.documentElement.lang = lang;
+            document.documentElement.dir = lang === 'ar' ? 'rtl' : 'ltr';
+            localStorage.setItem('preferredLanguage', lang);
+            updateToggleButtonText();
+        }
+
+        function updateToggleButtonText() {
+            const isDarkMode = document.body.classList.contains('dark-mode');
+            const text = isDarkMode ? 
+                (currentLang === 'ar' ? 'الوضع الفاتح' : 'Light Mode') :
+                (currentLang === 'ar' ? 'الوضع المظلم' : 'Dark Mode');
+            themeToggleButton.textContent = text;
+        }
+
+        // Theme toggle functionality
+        const currentTheme = localStorage.getItem('theme');
+        if (currentTheme === 'dark') {
+            document.body.classList.add('dark-mode');
+        }
+
+        themeToggleButton.addEventListener('click', () => {
+            document.body.classList.toggle('dark-mode');
+            localStorage.setItem('theme', document.body.classList.contains('dark-mode') ? 'dark' : 'light');
+            updateToggleButtonText();
+        });
+
+        // Language button listeners
+        btnAr.addEventListener('click', () => {
+            currentLang = 'ar';
+            setLanguage('ar');
+        });
+        btnEn.addEventListener('click', () => {
+            currentLang = 'en';
+            setLanguage('en');
+        });
+
+        // Initial setup
+        setLanguage(currentLang);
+        updateToggleButtonText();
+    </script>
+</body>
+</html> 
