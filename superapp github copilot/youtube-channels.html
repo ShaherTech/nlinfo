@@ -1,0 +1,479 @@
+<html>
+<head>
+    <title data-lang-ar="قنوات يوتيوب" data-lang-en="YouTube Channels">YouTube Channels</title>
+    <style>
+        /* Default Light Mode Styles */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            color: #333;
+            margin: 0;
+            /* padding: 0; */ /* Removed */
+            min-height: 100vh;
+            position: relative; /* Needed for menu */
+            padding-top: 60px; /* Space for menu */
+            transition: background-color 0.3s, color 0.3s; /* Added transition */
+        }
+
+        /* --- START NAVIGATION SIDEBAR STYLES --- */
+        .menu-icon {
+            position: absolute; top: 15px; left: 15px; width: 30px; height: 22px;
+            cursor: pointer; z-index: 1001; display: flex; flex-direction: column;
+            justify-content: space-between;
+        }
+        .menu-icon span { display: block; height: 3px; width: 100%; background-color: #333; border-radius: 3px; transition: background-color 0.3s; }
+        #sidebar {
+            position: fixed; top: 0; left: -250px; width: 250px; height: 100%;
+            background-color: #fff; color: #333; box-shadow: 2px 0 5px rgba(0,0,0,0.2);
+            padding-top: 60px; transition: left 0.3s ease-in-out, background-color 0.3s, color 0.3s;
+            z-index: 1000; display: flex; flex-direction: column;
+        }
+        #sidebar.open { left: 0; }
+        #sidebar ul { list-style: none; padding: 0; margin: 0; }
+        #sidebar li a { display: block; padding: 15px 20px; color: #333; text-decoration: none; border-bottom: 1px solid #eee; font-weight: bold; }
+        #sidebar li a:hover { background-color: #f4f4f4; }
+         /* RTL adjustments for sidebar */
+         [dir="rtl"] .menu-icon { left: auto; right: 15px; }
+         [dir="rtl"] #sidebar { left: auto; right: -250px; box-shadow: -2px 0 5px rgba(0,0,0,0.2); }
+         [dir="rtl"] #sidebar.open { left: auto; right: 0; }
+         [dir="rtl"] #sidebar li a { text-align: right; }
+        /* --- END NAVIGATION SIDEBAR STYLES --- */
+
+        .content {
+            /* Styles for the overall content area if needed */
+            text-align: center; /* Center the title */
+            width: 80%;
+            max-width: 800px;
+            margin: 0 auto 20px auto; /* Centered */
+            background-color: #fff;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            transition: background-color 0.3s, color 0.3s, box-shadow 0.3s; /* Added transition */
+        }
+        .link-item {
+            /* width: 30%; */ /* No longer needed with grid */
+            background-color: #f9f9f9;
+            margin: 0; /* Grid gap handles spacing */
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            text-align: center;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            transition: background-color 0.3s, box-shadow 0.3s; /* Added transition */
+        }
+        .link-list {
+            display: grid;
+            /* grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); */ /* Remove auto-fit grid */
+            grid-template-columns: 1fr; /* Set to one column for vertical layout */
+            gap: 20px;
+            padding: 20px; /* Add padding around the grid */
+            justify-items: stretch; /* Stretch items to fill grid cell */
+        }
+        h1 {
+            margin-bottom: 20px; /* Space below title */
+             color: #333;
+             transition: color 0.3s; /* Added transition */
+        }
+        a {
+            color: #007bff;
+            text-decoration: none;
+            font-weight: bold;
+            transition: color 0.3s; /* Added transition */
+            /* display: block; */ /* Let flex handle display */
+            /* margin-bottom: 5px; */
+        }
+        a:hover {
+            text-decoration: underline;
+             color: #0056b3;
+        }
+        .link-item span {
+            display: block; /* Ensure description is on its own line */
+            font-size: 0.9em;
+            color: #555;
+             transition: color 0.3s; /* Added transition */
+        }
+        /* Styles for language switcher */
+        .lang-switcher {
+            margin-bottom: 20px;
+            text-align: center; /* Center buttons */
+        }
+       /* Combined style for lang and theme buttons */
+       .lang-switcher button, .theme-toggle-button-main {
+            padding: 8px 15px;
+            margin: 0 5px;
+            cursor: pointer;
+            border: 1px solid #ccc;
+            background-color: #f9f9f9;
+            border-radius: 4px;
+            transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+        }
+        .lang-switcher button:hover, .theme-toggle-button-main:hover {
+            background-color: #eee;
+        }
+
+        .link-item-header {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 5px;
+            width: 100%;
+        }
+        .link-item-header a {
+            /* Link styles - no margin needed here */
+            text-decoration: none;
+            color: #007bff;
+            font-weight: bold;
+            transition: color 0.3s;
+        }
+        .link-item-header a:hover {
+            color: #0056b3;
+            text-decoration: underline;
+        }
+
+        /* Specific Heart Icon Styles for this page */
+        .link-item-header .heart-icon {
+            cursor: pointer;
+            font-size: 2.5em !important; /* Increased size, use !important to override */
+            color: #ccc;
+            transition: color 0.2s ease-in-out;
+            line-height: 1;
+            flex-shrink: 0; /* Prevent shrinking */
+        }
+        [dir="ltr"] .link-item-header .heart-icon { 
+            margin-left: 10px !important; /* Spacing for LTR */
+        }
+        [dir="rtl"] .link-item-header .heart-icon { 
+            margin-right: 10px !important; /* Spacing for RTL */
+        }
+        .heart-icon.favorited {
+            color: red !important;
+        }
+        .link-item > span {
+            display: block;
+            font-size: 0.9em;
+            color: #555;
+            margin-top: 5px;
+            width: 100%;
+            transition: color 0.3s; /* Added transition */
+        }
+
+        /* --- START THEME TOGGLE & DARK MODE --- */
+        body.dark-mode {
+            background-color: #1a1a1a;
+            color: #f1f1f1;
+        }
+         /* Dark mode for Navigation */
+         body.dark-mode .menu-icon span { background-color: #f1f1f1; }
+         body.dark-mode #sidebar { background-color: #2c2c2c; color: #f1f1f1; box-shadow: 2px 0 5px rgba(255,255,255,0.1); }
+         [dir="rtl"] body.dark-mode #sidebar { box-shadow: -2px 0 5px rgba(255,255,255,0.1); }
+         body.dark-mode #sidebar li a { color: #f1f1f1; border-bottom: 1px solid #444; }
+         body.dark-mode #sidebar li a:hover { background-color: #444; }
+
+        body.dark-mode .content {
+             background-color: #2c2c2c;
+             box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
+         }
+        body.dark-mode h1 {
+            color: #f1f1f1;
+        }
+        body.dark-mode .link-item {
+            background-color: #3a3a3a;
+            box-shadow: 0 0 5px rgba(255, 255, 255, 0.1);
+        }
+        body.dark-mode a {
+            color: #5cadff;
+        }
+         body.dark-mode a:hover {
+            color: #8ecaff;
+        }
+        body.dark-mode .link-item > span {
+            color: #ccc;
+        }
+        /* Dark mode for lang/theme buttons */
+        body.dark-mode .lang-switcher button, body.dark-mode .theme-toggle-button-main {
+             background-color: #555;
+             color: #f1f1f1;
+             border: 1px solid #777;
+        }
+        body.dark-mode .lang-switcher button:hover, body.dark-mode .theme-toggle-button-main:hover {
+             background-color: #666;
+        }
+        /* --- END THEME TOGGLE & DARK MODE --- */
+    </style>
+</head>
+<body>
+    <!-- Navigation Sidebar -->
+    <div class="menu-icon" id="menu-icon">
+        <span></span>
+        <span></span>
+        <span></span>
+    </div>
+    <div id="sidebar">
+        <ul>
+            <li><a href="index.html" data-lang-ar="الرئيسية" data-lang-en="Home">Home</a></li>
+            <li><a href="favorites.html" data-lang-ar="المفضلات" data-lang-en="Favorites">Favorites</a></li>
+            <!-- Add other common links here -->
+        </ul>
+    </div>
+
+    <div class="content">
+        <div class="lang-switcher">
+            <button id="lang-ar">العربية</button>
+            <button id="lang-en">English</button>
+            <!-- Add Theme toggle button here -->
+            <button class="theme-toggle-button-main" id="theme-toggle" data-lang-ar="تبديل الوضع" data-lang-en="Toggle Theme">Toggle Theme</button>
+        </div>
+        <h1 data-lang-ar="قنوات يوتيوب" data-lang-en="YouTube Channels">YouTube Channels</h1>
+        <div class="link-list">
+            <div class="link-item" data-id="yt-docente1">
+                <div class="link-item-header">
+                    <a href="https://www.youtube.com/@docente_1" target="_blank">خواطر مهاجر</a>
+                    <span class="heart-icon">♡</span>
+                </div>
+                <span data-lang-ar="قناة تعلم اللغة الهولندية للمبتدئين الشرح بالعربي" data-lang-en="Channel to learn Dutch for beginners, explanation in Arabic"></span>
+            </div>
+            <div class="link-item" data-id="yt-adappel">
+                <div class="link-item-header">
+                    <a href="https://www.youtube.com/results?search_query=ad+appel+taaltrainingen" target="_blank">Ad Appel Taaltrainingen</a>
+                    <span class="heart-icon">♡</span>
+                </div>
+                <span data-lang-ar="قناة مهمة جدا لممارسة امتحانات سابقة لكافة المستويات" data-lang-en="Very important channel to practice past exams for all levels"></span>
+            </div>
+            <div class="link-item" data-id="yt-luisteren">
+                <div class="link-item-header">
+                    <a href="https://www.youtube.com/results?search_query=luisteren+nt2" target="_blank">Luisteren</a>
+                    <span class="heart-icon">♡</span>
+                </div>
+                <span data-lang-ar="التدرب على امتحان الاستماع" data-lang-en="Practice for the listening exam"></span>
+            </div>
+            <div class="link-item" data-id="yt-nijntje">
+                <div class="link-item-header">
+                    <a href="https://www.youtube.com/results?search_query=nijntje" target="_blank">nijntje</a>
+                    <span class="heart-icon">♡</span>
+                </div>
+                <span data-lang-ar="قناة مسلسل اطفال كرتوني ممتازة لتحسين لغتك الهولندية" data-lang-en="Excellent children's cartoon series channel to improve your Dutch"></span>
+            </div>
+            <div class="link-item" data-id="yt-klokhuis">
+                <div class="link-item-header">
+                    <a href="https://www.youtube.com/hetklokhuis" target="_blank">Het Klokhuis</a>
+                    <span class="heart-icon">♡</span>
+                </div>
+                <span data-lang-ar="قناة ممتازة فيها محادثات جيدة لتحسين لغتك" data-lang-en="Excellent channel with good conversations to improve your language"></span>
+            </div>
+            <div class="link-item" data-id="yt-nos-makkelijk">
+                <div class="link-item-header">
+                    <a href="https://www.youtube.com/results?search_query=nos+journaal+in+makkelijke+taal" target="_blank">NOS Journaal in Makkelijke Taal</a>
+                    <span class="heart-icon">♡</span>
+                </div>
+                <span data-lang-ar="قناة اخبارية ممتازة جدا لمتابعة الاخبار بللغه سهلة ومفهومة وتحسين لغتك الهولندية" data-lang-en="Excellent news channel to follow the news in easy and understandable language and improve your Dutch"></span>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const translatableElementsStatic = Array.from(document.querySelectorAll('[data-lang-ar]'));
+        const btnAr = document.getElementById('lang-ar');
+        const btnEn = document.getElementById('lang-en');
+        const themeToggleButton = document.getElementById('theme-toggle');
+        const titleElement = document.querySelector('title');
+        let currentLang = document.documentElement.lang || 'ar';
+
+        // Define translations (ensure Toggle Theme is included)
+        const translations = {
+            "YouTube Channels": { ar: "قنوات يوتيوب", en: "YouTube Channels" },
+            "Channel to learn Dutch for beginners...": { ar: "قناة تعلم اللغة الهولندية للمبتدئين الشرح بالعربي", en: "Channel to learn Dutch for beginners, explanation in Arabic" },
+            "Very important channel to practice past exams...": { ar: "قناة مهمة جدا لممارسة امتحانات سابقة لكافة المستويات", en: "Very important channel to practice past exams for all levels" },
+            // ... Add all other translations for this page ...
+            "Toggle Theme": { ar: "تبديل الوضع", en: "Toggle Theme"},
+            // Add sidebar translations
+            "Home": { ar: "الرئيسية", en: "Home" },
+            "Favorites": { ar: "المفضلات", en: "Favorites" }
+        };
+
+        // Function to update button text based on theme and language
+        function updateToggleButtonText() {
+            if (btnAr) btnAr.textContent = "العربية";
+            if (btnEn) btnEn.textContent = "English";
+            const isDarkMode = document.body.classList.contains('dark-mode');
+            const key = "Toggle Theme";
+            let buttonText = translations[key] ? (translations[key][currentLang] || translations[key]['en']) : "Toggle Theme";
+            if (themeToggleButton) themeToggleButton.textContent = buttonText;
+        }
+
+        function setLanguage(lang) {
+            translatableElementsStatic.forEach(el => {
+                if (el.id === 'theme-toggle' || el.closest('.lang-switcher')) return;
+                const key = el.dataset.langEn || el.textContent; // Use data-lang-en as primary key
+
+                if (el.closest('.link-item')) {
+                    updateLinkItemLanguage(el.closest('.link-item'), lang);
+                } else {
+                    // Handle non-link-item elements like title and h1
+                     if (translations[key] && translations[key][lang]) {
+                        if (el.tagName.toLowerCase() === 'title') document.title = translations[key][lang];
+                        else el.textContent = translations[key][lang];
+                    } else if (lang === 'en' && key) {
+                        if (el.tagName.toLowerCase() === 'title') document.title = key;
+                        else el.textContent = key;
+                    } else if (lang === 'ar' && el.dataset.langAr) {
+                        if (el.tagName.toLowerCase() === 'title') document.title = el.dataset.langAr;
+                        else el.textContent = el.dataset.langAr;
+                    }
+                }
+            });
+            currentLang = lang;
+            initializeHearts();
+            document.documentElement.lang = lang;
+            document.documentElement.dir = lang === 'ar' ? 'rtl' : 'ltr';
+            localStorage.setItem('preferredLanguage', lang);
+            updateToggleButtonText(); // Update button texts
+        }
+
+        const favoritesKey = 'userFavorites';
+        function getFavorites() {
+            const f = localStorage.getItem(favoritesKey);
+            return f ? JSON.parse(f) : [];
+        }
+        function saveFavorites(f) {
+            localStorage.setItem(favoritesKey, JSON.stringify(f));
+        }
+        function toggleFavorite(id, data) {
+            let f = getFavorites();
+            const idx = f.findIndex(fav => fav.id === id);
+            if (idx > -1) {
+                f.splice(idx, 1);
+            } else {
+                if(data) f.push(data);
+            }
+            saveFavorites(f);
+        }
+        function updateLinkItemLanguage(item, lang) {
+            const link = item.querySelector('a');
+            const desc = item.querySelector(':scope > span:not(.heart-icon)');
+
+            // Link text translation (seems direct on this page, no data-lang attributes needed for link text)
+            // Assuming link text itself is the key or should remain as is if no direct translation needed
+
+            // Description translation using data-lang attributes
+            if(desc){
+                const descKey = desc.dataset.langEn;
+                 if(translations[descKey] && translations[descKey][lang]) desc.textContent = translations[descKey][lang];
+                 else if (lang === 'en' && descKey) desc.textContent = descKey; // Fallback to EN attribute
+                 else if (lang === 'ar' && desc.dataset.langAr) desc.textContent = desc.dataset.langAr; // Fallback to AR attribute
+                 else desc.textContent = ''; // Clear if no translation
+            }
+        }
+        
+        document.querySelectorAll('.heart-icon').forEach(icon => {
+            icon.addEventListener('click', (event) => {
+                event.stopPropagation(); // Explicitly stop propagation
+                const linkItem = icon.closest('.link-item');
+                const header = icon.closest('.link-item-header');
+                const link = header?.querySelector('a'); // The link is directly inside the header
+                const descriptionSpan = linkItem?.querySelector(':scope > span:not(.heart-icon)'); // Description is outside header
+                const itemId = linkItem?.getAttribute('data-id');
+                
+                if (!linkItem || !link || !itemId) {
+                    console.error("Missing required elements for favorite toggle on item ID:", itemId, linkItem);
+                    return;
+                }
+                
+                const isFavorited = icon.classList.toggle('favorited');
+                icon.textContent = isFavorited ? '♥' : '♡';
+                
+                let itemData = null;
+                if (isFavorited) {
+                    // Get AR/EN attributes from description span, fall back to link text if missing
+                    const descAr = descriptionSpan?.getAttribute('data-lang-ar') || link.textContent; 
+                    const descEn = descriptionSpan?.getAttribute('data-lang-en') || link.textContent;
+
+                    itemData = { 
+                        id: itemId, 
+                        href: link.getAttribute('href'), 
+                        ar: link.textContent, // Use link text for title AR
+                        en: link.textContent, // Use link text for title EN
+                        desc_ar: descAr, 
+                        desc_en: descEn 
+                    };
+                }
+                toggleFavorite(itemId, itemData);
+            });
+        });
+
+        function initializeHearts() {
+            const favorites = getFavorites();
+            const favoriteIds = favorites.map(fav => fav.id);
+            document.querySelectorAll('.link-item').forEach(item => {
+                updateLinkItemLanguage(item, currentLang);
+                const itemId = item.getAttribute('data-id');
+                const heartIcon = item.querySelector('.heart-icon');
+                if (heartIcon) {
+                    if (favoriteIds.includes(itemId)) {
+                        heartIcon.classList.add('favorited');
+                        heartIcon.textContent = '♥';
+                    } 
+                    else {
+                        heartIcon.classList.remove('favorited');
+                        heartIcon.textContent = '♡';
+                    }
+                }
+            });
+        }
+
+        btnAr.addEventListener('click', () => setLanguage('ar'));
+        btnEn.addEventListener('click', () => setLanguage('en'));
+        setLanguage('ar'); // Initial Load
+
+        // Apply saved theme on load
+        const currentTheme = localStorage.getItem('theme');
+        if (currentTheme === 'dark') {
+            document.body.classList.add('dark-mode');
+        }
+        updateToggleButtonText(); // Call after defining function
+
+        // Add click listener for theme toggle
+        if (themeToggleButton) {
+            themeToggleButton.addEventListener('click', () => {
+                document.body.classList.toggle('dark-mode');
+                let newTheme = document.body.classList.contains('dark-mode') ? 'dark' : 'light';
+                localStorage.setItem('theme', newTheme);
+                updateToggleButtonText();
+            });
+        }
+
+        // --- START Navigation Sidebar Logic --- //
+        const menuIcon = document.getElementById('menu-icon');
+        const sidebar = document.getElementById('sidebar');
+
+        if(menuIcon && sidebar) {
+            menuIcon.addEventListener('click', () => {
+                sidebar.classList.toggle('open');
+            });
+
+            // Optional: Close sidebar when clicking outside of it
+            document.addEventListener('click', (event) => {
+                if (!sidebar.contains(event.target) && !menuIcon.contains(event.target) && sidebar.classList.contains('open')) {
+                    sidebar.classList.remove('open');
+                }
+            });
+        }
+        // --- END Navigation Sidebar Logic --- //
+
+        // Translate sidebar links
+        document.querySelectorAll('#sidebar a[data-lang-en]').forEach(el => {
+            const key = el.dataset.langEn;
+            if (translations[key] && translations[key][lang]) {
+                el.textContent = translations[key][lang];
+            } else if (lang === 'en' && key) {
+                el.textContent = key;
+            } else if (lang === 'ar' && el.dataset.langAr) {
+                el.textContent = el.dataset.langAr;
+            }
+        });
+    </script>
+</body>
+</html> 

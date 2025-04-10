@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title data-lang-ar="معلومات عن هولندا" data-lang-en="Netherlands Info">Netherlands Info</title>
+    <meta name="description" content="دليل شامل للروابط والمعلومات الهامة عن هولندا، بما في ذلك تعلم اللغة، المواقع الحكومية، العمل، الصحة، التعليم، والمزيد.">
+    <style>
+        /* Copy relevant styles from index.html for body, sidebar, container, categories, link-item, heart-icon, etc. */
+        body { font-family: Arial, sans-serif; background-color: #f4f4f9; color: #333; margin: 0; min-height: 100vh; position: relative; padding-top: 60px; transition: background-color 0.3s, color 0.3s; }
+        /* --- START NAVIGATION SIDEBAR STYLES (Copied from index.html) --- */
+        .menu-icon { position: absolute; top: 15px; left: 15px; width: 30px; height: 22px; cursor: pointer; z-index: 1001; display: flex; flex-direction: column; justify-content: space-between; }
+        .menu-icon span { display: block; height: 3px; width: 100%; background-color: #333; border-radius: 3px; transition: background-color 0.3s; }
+        #sidebar { position: fixed; top: 0; left: -250px; width: 250px; height: 100vh; background-color: #fff; color: #333; box-shadow: 2px 0 5px rgba(0,0,0,0.2); padding-top: 60px; transition: left 0.3s ease-in-out, background-color 0.3s, color 0.3s; z-index: 1000; display: flex; flex-direction: column; overflow-y: auto; }
+        #sidebar.open { left: 0; }
+        #sidebar ul { list-style: none; padding: 0; margin: 0; flex-grow: 1; }
+        #sidebar li a { display: block; padding: 15px 20px; color: #333; text-decoration: none; border-bottom: 1px solid #eee; font-weight: bold; cursor: pointer; background: none; border: none; width: 100%; text-align: left; font-size: inherit; }
+        #sidebar li a:hover { background-color: #f4f4f4; }
+        [dir="rtl"] .menu-icon { left: auto; right: 15px; }
+        [dir="rtl"] #sidebar { left: auto; right: -250px; box-shadow: -2px 0 5px rgba(0,0,0,0.2); }
+        [dir="rtl"] #sidebar.open { left: auto; right: 0; }
+        [dir="rtl"] #sidebar li a { text-align: right; }
+        body.dark-mode .menu-icon span { background-color: #f1f1f1; }
+        body.dark-mode #sidebar { background-color: #2c2c2c; color: #f1f1f1; box-shadow: 2px 0 5px rgba(255,255,255,0.1); }
+        [dir="rtl"] body.dark-mode #sidebar { box-shadow: -2px 0 5px rgba(255,255,255,0.1); }
+        body.dark-mode #sidebar li a { color: #f1f1f1; border-bottom: 1px solid #444; }
+        body.dark-mode #sidebar li a:hover { background-color: #444; }
+        /* --- END NAVIGATION SIDEBAR STYLES --- */
+        .container { width: 80%; max-width: 800px; background-color: #fff; color: #333; padding: 20px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); border-radius: 8px; margin: 20px auto 0; transition: background-color 0.3s, color 0.3s; }
+        h1 { text-align: center; color: #333; margin-bottom: 20px; transition: color 0.3s; }
+        .categories { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; padding: 20px 0; }
+        .link-item { background-color: #f9f9f9; border-radius: 8px; padding: 15px; box-shadow: 0 0 5px rgba(0, 0, 0, 0.1); text-align: center; position: relative; display: flex; flex-direction: column; align-items: center; transition: background-color 0.3s, box-shadow 0.3s; color: #333; text-decoration: none; /* Make card itself a link? Check index */ }
+        .link-item-header { display: flex; justify-content: center; align-items: center; margin-bottom: 10px; width: 100%; min-height: 40px; }
+        .link-item-header span:first-child { font-size: 1.1em; font-weight: bold; color: #333; margin-right: 10px; flex-grow: 1; text-align: center; user-select: text; }
+        .heart-icon { cursor: pointer; font-size: 2.5em; color: #ccc; transition: color 0.2s ease-in-out; flex-shrink: 0; padding: 0 5px; line-height: 1; }
+        [dir="ltr"] .heart-icon { margin-left: 10px; }
+        [dir="rtl"] .heart-icon { margin-right: 10px; }
+        .heart-icon.favorited { color: red; }
+        .link-item > span:not(.heart-icon){ display: block; font-size: 0.9em; color: #555; margin-top: 10px; margin-bottom: 10px; width: 100%; min-height: 40px; transition: color 0.3s; user-select: text;}
+        .learn-more-link { text-decoration: none; color: #007bff; font-weight: bold; transition: color 0.3s; margin-top: auto; padding-top: 10px; cursor: pointer; user-select: none; }
+        .learn-more-link:hover { color: #0056b3; text-decoration: underline; }
+        .lang-switcher { text-align: center; margin-bottom: 20px; }
+        .lang-switcher button, .theme-toggle-button-main { padding: 5px 10px; margin: 0 5px; cursor: pointer; border: 1px solid #ccc; background-color: #f9f9f9; border-radius: 4px; }
+        /* Dark Mode */
+        body.dark-mode { background-color: #1a1a1a; color: #f1f1f1; }
+        body.dark-mode .container { background-color: #2c2c2c; color: #f1f1f1; box-shadow: 0 0 10px rgba(255, 255, 255, 0.1); }
+        body.dark-mode h1 { color: #f1f1f1; }
+        body.dark-mode .link-item { background-color: #3a3a3a; box-shadow: 0 0 5px rgba(255, 255, 255, 0.1); color: #f1f1f1; }
+        body.dark-mode .link-item-header span:first-child { color: #f1f1f1; }
+        body.dark-mode .link-item > span:not(.heart-icon){ color: #ccc; }
+        body.dark-mode .learn-more-link { color: #5cadff; }
+        body.dark-mode .learn-more-link:hover { color: #8ecaff; }
+        body.dark-mode .lang-switcher button, body.dark-mode .theme-toggle-button-main { background-color: #555; color: #f1f1f1; border: 1px solid #777; }
+        body.dark-mode .lang-switcher button:hover, body.dark-mode .theme-toggle-button-main:hover { background-color: #666; }
+    </style>
+</head>
+<body>
+    <!-- Navigation Sidebar -->
+    <div class="menu-icon" id="menu-icon">
+        <span></span>
+        <span></span>
+        <span></span>
+    </div>
+    <nav id="sidebar">
+        <ul>
+             <li><a href="index.html" data-lang-ar="الرئيسية" data-lang-en="Home">Home</a></li> <!-- Link back to index -->
+             <li><a href="favorites.html" data-lang-ar="المفضلات" data-lang-en="Favorites">Favorites</a></li>
+             <li><a href="news.html" data-lang-ar="الأخبار" data-lang-en="News">News</a></li>
+             <li><a href="notifications.html" data-lang-ar="الإشعارات" data-lang-en="Notifications">Notifications</a></li>
+             <li><a href="faq.html" data-lang-ar="الأسئلة الشائعة" data-lang-en="FAQ">FAQ</a></li>
+             <!-- Add other common links here, using relative paths -->
+        </ul>
+    </nav>
+
+    <div class="container">
+        <div class="lang-switcher">
+            <button id="lang-ar">العربية</button>
+            <button id="lang-en">English</button>
+            <button class="theme-toggle-button-main" id="theme-toggle" data-lang-ar="تبديل الوضع" data-lang-en="Toggle Theme">Toggle Theme</button>
+        </div>
+
+        <h1 data-lang-ar="معلومات عن هولندا" data-lang-en="Netherlands Info">Netherlands Info</h1>
+
+        <div class="categories">
+            <!-- Paste all the link-item divs previously deleted from index.html here -->
+            <!-- Example: -->
+             <!-- Learning Dutch -->
+            <div class="link-item" data-id="learning-dutch">
+                <div class="link-item-header">
+                    <span data-lang-ar="تعلم اللغة الهولندية" data-lang-en="Learning Dutch">Learning Dutch</span>
+                    <span class="heart-icon">♡</span>
+                </div>
+                <img src="imags/4.png" alt="أيقونة كتاب وقلم لتعلم اللغة الهولندية" style="width: 100%; max-width: 150px; height: auto; margin-top: 10px; margin-bottom: 10px;">
+                <span data-lang-ar="موارد لتعلم اللغة الهولندية." data-lang-en="Resources for learning the Dutch language." style="margin-bottom: 10px; min-height: 40px;">Resources for learning the Dutch language.</span>
+                <a href="learning-dutch.html" class="learn-more-link" data-lang-ar="اعرف المزيد" data-lang-en="Learn More">Learn More</a>
+            </div>
+             <!-- Government Sites -->
+            <div class="link-item" data-id="government-sites">
+                <div class="link-item-header">
+                    <span data-lang-ar="مواقع حكومية" data-lang-en="Government Sites">Government Sites</span>
+                    <span class="heart-icon">♡</span>
+                </div>
+                <img src="imags/3.jpeg" alt="أيقونة مبنى حكومي للمواقع الحكومية الهولندية" style="width: 100%; max-width: 150px; height: auto; margin-top: 10px; margin-bottom: 10px;">
+                <span data-lang-ar="روابط لمواقع حكومية هولندية مهمة." data-lang-en="Links to important Dutch government websites." style="margin-bottom: 10px; min-height: 40px;">Links to important Dutch government websites.</span>
+                <a href="government-sites.html" class="learn-more-link" data-lang-ar="اعرف المزيد" data-lang-en="Learn More">Learn More</a>
+            </div>
+            <!-- Work and Training -->
+             <div class="link-item" data-id="work-training">
+                 <div class="link-item-header">
+                     <span data-lang-ar="العمل والتدريب" data-lang-en="Work and Training">Work and Training</span>
+                     <span class="heart-icon">♡</span>
+                 </div>
+                 <img src="imags/6.jpeg" alt="Work and Training Icon" style="width: 100%; max-width: 150px; height: auto; margin-top: 10px; margin-bottom: 10px;">
+                 <span data-lang-ar="معلومات عن البحث عن عمل وفرص التدريب." data-lang-en="Information on job searching and training opportunities." style="margin-bottom: 10px; min-height: 40px;">Information on job searching and training opportunities.</span>
+                 <a href="work-and-training.html" class="learn-more-link" data-lang-ar="اعرف المزيد" data-lang-en="Learn More">Learn More</a>
+             </div>
+             <!-- Gemeente Rotterdam -->
+             <div class="link-item" data-id="gemeente-rotterdam">
+                 <div class="link-item-header">
+                     <span data-lang-ar="بلدية روتردام" data-lang-en="Gemeente Rotterdam">Gemeente Rotterdam</span>
+                     <span class="heart-icon">♡</span>
+                 </div>
+                 <img src="imags/7.jpeg" alt="Gemeente Rotterdam Icon" style="width: 100%; max-width: 150px; height: auto; margin-top: 10px; margin-bottom: 10px;">
+                 <span data-lang-ar="معلومات وخدمات من بلدية روتردام." data-lang-en="Information and services from the Municipality of Rotterdam." style="margin-bottom: 10px; min-height: 40px;">Information and services from the Municipality of Rotterdam.</span>
+                 <a href="gemeente-rotterdam.html" class="learn-more-link" data-lang-ar="اعرف المزيد" data-lang-en="Learn More">Learn More</a>
+             </div>
+              <!-- Other Useful Sites -->
+             <div class="link-item" data-id="other-useful-sites">
+                 <div class="link-item-header">
+                     <span data-lang-ar="مواقع اخرى مفيدة" data-lang-en="Other Useful Sites">Other Useful Sites</span>
+                     <span class="heart-icon">♡</span>
+                 </div>
+                 <img src="imags/5.jpeg" alt="Other Useful Sites Icon" style="width: 100%; max-width: 150px; height: auto; margin-top: 10px; margin-bottom: 10px;">
+                 <span data-lang-ar="روابط متنوعة لمواقع قد تكون مفيدة." data-lang-en="Various links to potentially useful websites." style="margin-bottom: 10px; min-height: 40px;">Various links to potentially useful websites.</span>
+                 <a href="other-useful-sites.html" class="learn-more-link" data-lang-ar="اعرف المزيد" data-lang-en="Learn More">Learn More</a>
+             </div>
+              <!-- Noodfonds Energie -->
+             <div class="link-item" data-id="noodfonds-energie">
+                 <div class="link-item-header">
+                     <span data-lang-ar="Noodfonds Energie" data-lang-en="Noodfonds Energie">Noodfonds Energie</span>
+                     <span class="heart-icon">♡</span>
+                 </div>
+                 <img src="imags/10.jpeg" alt="Noodfonds Energie Icon" style="width: 100%; max-width: 150px; height: auto; margin-top: 10px; margin-bottom: 10px;">
+                 <span data-lang-ar="سوف يبدا التقديم على صندوق الطوارئ لدعم الطاقة ب تاريخ 21 إبريل..." data-lang-en="Description for Noodfonds Energie" style="margin-bottom: 10px; min-height: 40px;">Applications for the Emergency Fund for energy support will begin on April 21st...</span>
+                 <a href="https://www.noodfondsenergie.nl/news#noodfonds-open-april" target="_blank" class="learn-more-link" data-lang-ar="اعرف المزيد" data-lang-en="Learn More">Learn More</a>
+             </div>
+              <!-- Health and Insurance -->
+             <div class="link-item" data-id="health-insurance">
+                 <div class="link-item-header">
+                     <span data-lang-ar="الصحة والتأمينات" data-lang-en="Health and Insurance">Health and Insurance</span>
+                     <span class="heart-icon">♡</span>
+                 </div>
+                 <img src="imags/8.jpeg" alt="Health and Insurance Icon" style="width: 100%; max-width: 150px; height: auto; margin-top: 10px; margin-bottom: 10px;">
+                 <span data-lang-ar="معلومات حول التأمين الصحي في هولندا." data-lang-en="Information about health insurance in the Netherlands." style="margin-bottom: 10px; min-height: 40px;">Information about health insurance in the Netherlands.</span>
+                 <a href="health-insurance.html" class="learn-more-link" data-lang-ar="اعرف المزيد" data-lang-en="Learn More">Learn More</a>
+             </div>
+             <!-- Education -->
+             <div class="link-item" data-id="education">
+                 <div class="link-item-header">
+                     <span data-lang-ar="التعليم" data-lang-en="Education">Education</span>
+                     <span class="heart-icon">♡</span>
+                 </div>
+                 <img src="imags/9.jpeg" alt="Education Icon" style="width: 100%; max-width: 150px; height: auto; margin-top: 10px; margin-bottom: 10px;">
+                 <span data-lang-ar="معلومات حول نظام التعليم في هولندا." data-lang-en="Information about the education system in the Netherlands." style="margin-bottom: 10px; min-height: 40px;">Information about the education system in the Netherlands.</span>
+                 <a href="onderwijs.html" class="learn-more-link" data-lang-ar="اعرف المزيد" data-lang-en="Learn More">Learn More</a>
+             </div>
+             <!-- Transportation -->
+             <div class="link-item" data-id="transportation">
+                 <div class="link-item-header">
+                     <span data-lang-ar="النقل والمواصلات" data-lang-en="Transportation">Transportation</span>
+                     <span class="heart-icon">♡</span>
+                 </div>
+                 <img src="imags/11.jpeg" alt="Transportation Icon" style="width: 100%; max-width: 150px; height: auto; margin-top: 10px; margin-bottom: 10px;">
+                 <span data-lang-ar="معلومات عن وسائل النقل والمواصلات في هولندا." data-lang-en="Information about transportation in the Netherlands." style="margin-bottom: 10px; min-height: 40px;">Information about transportation in the Netherlands.</span>
+                 <a href="transportation/ov-chipkaart.html" class="learn-more-link" data-lang-ar="اعرف المزيد" data-lang-en="Learn More">Learn More</a>
+             </div>
+        </div>
+    </div>
+
+    <script>
+        // Copy relevant JavaScript from index.html for sidebar, language, theme, favorites
+        const elements = document.querySelectorAll('[data-lang-ar], [data-lang-en]');
+        const btnAr = document.getElementById('lang-ar');
+        const btnEn = document.getElementById('lang-en');
+        const themeToggleButton = document.getElementById('theme-toggle');
+        let currentLang = localStorage.getItem('preferredLanguage') || 'ar';
+
+        // Define translations object (copy from index.html and ensure all needed keys are present)
+        const translations = {
+             "Netherlands Info": { ar: "معلومات عن هولندا", en: "Netherlands Info" },
+             "Home": { ar: "الرئيسية", en: "Home" },
+             "Favorites": { ar: "المفضلات", en: "Favorites" },
+             "News": { ar: "الأخبار", en: "News" },
+             "Notifications": { ar: "الإشعارات", en: "Notifications" },
+             "FAQ": { ar: "الأسئلة الشائعة", en: "FAQ" },
+             "Government Sites": { ar: "مواقع حكومية", en: "Government Sites" },
+             "Description for Government Sites": { ar: "روابط لمواقع حكومية هولندية مهمة.", en: "Links to important Dutch government websites." },
+             "Gemeente Rotterdam": { ar: "بلدية روتردام", en: "Gemeente Rotterdam" },
+             "Description for Municipality Rotterdam": { ar: "معلومات وخدمات من بلدية روتردام.", en: "Information and services from the Municipality of Rotterdam." },
+             "Health and Insurance": { ar: "الصحة والتأمينات", en: "Health and Insurance" },
+             "Description for Health Insurance": { ar: "معلومات حول التأمين الصحي في هولندا.", en: "Information about health insurance in the Netherlands." },
+             "Learning Dutch": { ar: "تعلم اللغة الهولندية", en: "Learning Dutch" },
+             "Description for Learning Dutch": { ar: "موارد لتعلم اللغة الهولندية.", en: "Resources for learning the Dutch language." },
+             "Work and Training": { ar: "العمل والتدريب", en: "Work and Training" },
+             "Description for Work and Training": { ar: "معلومات عن البحث عن عمل وفرص التدريب.", en: "Information on job searching and training opportunities." },
+             "Other Useful Sites": { ar: "مواقع اخرى مفيدة", en: "Other Useful Sites" },
+             "Description for Other Useful Sites": { ar: "روابط متنوعة لمواقع قد تكون مفيدة.", en: "Various links to potentially useful websites." },
+             "Noodfonds Energie": { ar: "Noodfonds Energie", en: "Noodfonds Energie" },
+             "Description for Noodfonds Energie": { ar: "سوف يبدا التقديم على صندوق الطوارئ لدعم الطاقة ب تاريخ 21 إبريل...", en: "Applications for the Emergency Fund for energy support will begin on April 21st..."},
+             "Education": { ar: "التعليم", en: "Education" },
+             "Description for Education": { ar: "معلومات حول نظام التعليم في هولندا.", en: "Information about the education system in the Netherlands." },
+             "Toggle Theme": { ar: "تبديل الوضع", en: "Toggle Theme"},
+             "Learn More": { ar: "اقرأ المزيد", en: "Learn More" },
+             "Transportation": { ar: "النقل والمواصلات", en: "Transportation" },
+             "Description for Transportation": { ar: "معلومات عن وسائل النقل والمواصلات في هولندا.", en: "Information about transportation in the Netherlands." },
+             "Educational Platforms": { ar: "منصات تعليمية", en: "Educational Platforms" },
+             "Description for Educational Platforms": { ar: "منصات ومواقع للتعلم عبر الإنترنت.", en: "Platforms and websites for online learning." }
+        };
+
+        // Function to translate sidebar links
+        function translateSidebarLinks(lang) {
+            const sidebar = document.getElementById('sidebar');
+            if (!sidebar) return;
+            const sidebarLinks = sidebar.querySelectorAll('a[data-lang-en]');
+            sidebarLinks.forEach(el => {
+                 const key = el.dataset.langEn;
+                 const targetText = translations[key]?.[lang] || el.dataset[lang === 'ar' ? 'langAr' : 'langEn'] || key;
+                 if (targetText && el.textContent !== targetText) {
+                     el.textContent = targetText;
+                 }
+            });
+        }
+
+        // Function to update link item content
+        function updateLinkItemLanguage(item, lang) {
+            const titleSpan = item.querySelector('.link-item-header > span:first-child');
+            const descSpan = item.querySelector(':scope > span:not(.heart-icon)');
+            const learnMoreLink = item.querySelector('.learn-more-link');
+
+            if (titleSpan) {
+                const titleKey = titleSpan.dataset.langEn || titleSpan.textContent.trim();
+                const titleText = translations[titleKey]?.[lang] || titleSpan.dataset[lang === 'ar' ? 'langAr' : 'langEn'] || titleKey;
+                if (titleText) titleSpan.textContent = titleText;
+            }
+            if (descSpan) {
+                const titleKeyForDesc = titleSpan?.dataset.langEn || titleSpan?.textContent.trim();
+                const descKey = titleKeyForDesc ? `Description for ${titleKeyForDesc}` : (descSpan.dataset.langEn || 'Default Description');
+                const descText = translations[descKey]?.[lang] || descSpan.dataset[lang === 'ar' ? 'langAr' : 'langEn'] || '';
+                if (descText) descSpan.textContent = descText;
+                else descSpan.textContent = '';
+            }
+            if (learnMoreLink) {
+                const learnMoreKey = "Learn More";
+                const learnMoreText = translations[learnMoreKey]?.[lang] || learnMoreLink.dataset[lang === 'ar' ? 'langAr' : 'langEn'] || learnMoreKey;
+                if(learnMoreText) learnMoreLink.textContent = learnMoreText;
+            }
+        }
+
+        function setLanguage(lang) {
+            // Translate non-link-item elements first
+            elements.forEach(el => {
+                if (!el.closest('#sidebar') && !el.closest('.link-item')) {
+                     const key = el.dataset.langEn || el.textContent.trim();
+                     const targetText = translations[key]?.[lang] || el.getAttribute(`data-lang-${lang}`);
+                     if (targetText) {
+                         if (el.tagName === 'TITLE') { document.title = targetText; }
+                         else if (el.tagName === 'H1') { el.textContent = targetText; }
+                         else if (el.id === 'theme-toggle') { el.textContent = targetText; }
+                     }
+                }
+            });
+            // Translate link items
+            document.querySelectorAll('.link-item').forEach(item => {
+                 updateLinkItemLanguage(item, lang);
+            });
+            translateSidebarLinks(lang);
+            initializeHearts();
+            document.documentElement.lang = lang;
+            document.documentElement.dir = lang === 'ar' ? 'rtl' : 'ltr';
+            localStorage.setItem('preferredLanguage', lang);
+            updateToggleButtonText();
+        }
+
+        function updateToggleButtonText() {
+             const isDarkMode = document.body.classList.contains('dark-mode');
+             const currentLang = localStorage.getItem('preferredLanguage') || 'ar';
+             const key = "Toggle Theme";
+             let buttonText = translations[key]?.[currentLang] || translations[key]?.['en'] || "Toggle Theme";
+             if (themeToggleButton) themeToggleButton.textContent = buttonText;
+             if (btnAr) btnAr.textContent = "العربية";
+             if (btnEn) btnEn.textContent = "English";
+        }
+
+        // Theme toggle functionality
+        const currentTheme = localStorage.getItem('theme');
+        if (currentTheme === 'dark') {
+            document.body.classList.add('dark-mode');
+        }
+        if (themeToggleButton) {
+            themeToggleButton.addEventListener('click', () => {
+                document.body.classList.toggle('dark-mode');
+                localStorage.setItem('theme', document.body.classList.contains('dark-mode') ? 'dark' : 'light');
+                updateToggleButtonText();
+            });
+        }
+
+        // Language button listeners
+        if (btnAr) btnAr.addEventListener('click', () => setLanguage('ar'));
+        if (btnEn) btnEn.addEventListener('click', () => setLanguage('en'));
+
+        // --- START Favorite Logic (Copied from index.html) --- //
+        const favoritesKey = 'userFavorites';
+        function getFavorites() { return JSON.parse(localStorage.getItem(favoritesKey) || '[]'); }
+        function saveFavorites(favorites) { localStorage.setItem(favoritesKey, JSON.stringify(favorites)); }
+        function toggleFavorite(itemId, itemData) {
+            let favorites = getFavorites();
+            const index = favorites.findIndex(fav => fav.id === itemId);
+            if (index > -1) { favorites.splice(index, 1); } 
+            else if (itemData) { 
+                 // Ensure itemData is complete before adding
+                 if (itemData.id && itemData.href && itemData.en && itemData.ar) {
+                     favorites.push(itemData);
+                 } else {
+                     console.warn("Attempted to save incomplete favorite data for ID:", itemId);
+                 }
+             }
+            saveFavorites(favorites);
+        }
+        function initializeHearts() {
+            const favorites = getFavorites();
+            const favIds = favorites.map(f => f.id);
+            document.querySelectorAll('.link-item').forEach(item => {
+                const heartIcon = item.querySelector('.heart-icon');
+                if (heartIcon) {
+                    const itemId = item.dataset.id;
+                    const isFav = favIds.includes(itemId);
+                    heartIcon.classList.toggle('favorited', isFav);
+                    heartIcon.textContent = isFav ? '♥' : '♡';
+                }
+            });
+        }
+        document.querySelectorAll('.heart-icon').forEach(icon => {
+            icon.addEventListener('click', (e) => {
+                e.preventDefault(); // Prevent link navigation
+                e.stopPropagation(); // Stop event bubbling
+                const linkItem = icon.closest('.link-item');
+                const titleSpan = linkItem?.querySelector('.link-item-header span:first-child');
+                const descriptionSpan = linkItem?.querySelector(':scope > span:not(.heart-icon)');
+                const learnMoreLink = linkItem?.querySelector('.learn-more-link');
+                const itemId = linkItem?.dataset.id;
+                const linkHref = learnMoreLink?.getAttribute('href'); // Get href from Learn More link
+                
+                if (!itemId || !linkHref || !titleSpan) { console.error("Missing data for favorite:", itemId); return; }
+                
+                const isFavoritedNow = !icon.classList.contains('favorited');
+                let itemData = null;
+                if(isFavoritedNow){
+                    itemData = { 
+                        id: itemId, 
+                        href: linkHref, 
+                        en: titleSpan.dataset.langEn || titleSpan.textContent, 
+                        ar: titleSpan.dataset.langAr || titleSpan.textContent, 
+                        desc_en: descriptionSpan?.dataset.langEn || descriptionSpan?.textContent,
+                        desc_ar: descriptionSpan?.dataset.langAr || descriptionSpan?.textContent
+                    };
+                }
+                toggleFavorite(itemId, itemData);
+                icon.classList.toggle('favorited');
+                icon.textContent = icon.classList.contains('favorited') ? '♥' : '♡';
+            });
+        });
+        // --- END Favorite Logic --- //
+
+        // --- START Navigation Sidebar Logic --- //
+        const menuIcon = document.getElementById('menu-icon');
+        const sidebar = document.getElementById('sidebar');
+        if(menuIcon && sidebar) {
+            menuIcon.addEventListener('click', () => sidebar.classList.toggle('open'));
+            document.addEventListener('click', (event) => {
+                if (!sidebar.contains(event.target) && !menuIcon.contains(event.target) && sidebar.classList.contains('open')) {
+                    sidebar.classList.remove('open');
+                }
+            });
+        }
+        // --- END Navigation Sidebar Logic --- //
+        
+        // --- Text selection / Link click logic (Copied from index.html) --- //
+        document.querySelectorAll('.link-item').forEach(item => {
+            const link = item.querySelector('.learn-more-link');
+            const img = item.querySelector('img');
+            const href = link ? link.getAttribute('href') : null;
+
+            if (img && href) {
+                img.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    window.location.href = href;
+                });
+            }
+            item.addEventListener('click', (e) => {
+                if (!e.target.classList.contains('learn-more-link') && 
+                    !e.target.classList.contains('heart-icon')) {
+                    e.preventDefault();
+                }
+            });
+        });
+        document.querySelectorAll('.link-item span:not(.heart-icon)').forEach(span => {
+            span.addEventListener('mousedown', (e) => { e.stopPropagation(); });
+            span.addEventListener('dblclick', (e) => {
+                e.stopPropagation();
+                const range = document.createRange();
+                range.selectNodeContents(span);
+                const selection = window.getSelection();
+                selection.removeAllRanges();
+                selection.addRange(range);
+            });
+        });
+        document.querySelectorAll('.link-item a, .link-item img, .heart-icon').forEach(element => {
+            element.addEventListener('mousedown', function(e) { e.stopPropagation(); });
+        });
+        // --- End Text selection / Link click logic --- //
+
+        // Initial setup
+        setLanguage(currentLang); // Set initial language on load
+
+    </script>
+</body>
+</html> 

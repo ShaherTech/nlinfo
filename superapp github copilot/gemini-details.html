@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title data-lang-ar="تفاصيل Gemini" data-lang-en="Gemini Details">Gemini Details</title>
+    <meta name="description" content="معلومات وروابط تحميل تطبيق Google Gemini الرسمي للأندرويد والآيفون، بالإضافة إلى رابط تطبيق الويب.">
+    <style>
+        /* Copy standard styles from ai-info.html/chatgpt-details.html */
+        body { font-family: Arial, sans-serif; background-color: #f4f4f9; color: #333; margin: 0; min-height: 100vh; position: relative; padding-top: 60px; transition: background-color 0.3s, color 0.3s; }
+        /* --- Sidebar Styles --- */
+        .menu-icon { position: absolute; top: 15px; left: 15px; width: 30px; height: 22px; cursor: pointer; z-index: 1001; display: flex; flex-direction: column; justify-content: space-between; }
+        .menu-icon span { display: block; height: 3px; width: 100%; background-color: #333; border-radius: 3px; transition: background-color 0.3s; }
+        #sidebar { position: fixed; top: 0; left: -250px; width: 250px; height: 100vh; background-color: #fff; color: #333; box-shadow: 2px 0 5px rgba(0,0,0,0.2); padding-top: 60px; transition: left 0.3s ease-in-out, background-color 0.3s, color 0.3s; z-index: 1000; display: flex; flex-direction: column; overflow-y: auto; }
+        #sidebar.open { left: 0; }
+        #sidebar ul { list-style: none; padding: 0; margin: 0; flex-grow: 1; }
+        #sidebar li a { display: block; padding: 15px 20px; color: #333; text-decoration: none; border-bottom: 1px solid #eee; font-weight: bold; cursor: pointer; background: none; border: none; width: 100%; text-align: left; font-size: inherit; }
+        #sidebar li a:hover { background-color: #f4f4f4; }
+        [dir="rtl"] .menu-icon { left: auto; right: 15px; }
+        [dir="rtl"] #sidebar { left: auto; right: -250px; box-shadow: -2px 0 5px rgba(0,0,0,0.2); }
+        [dir="rtl"] #sidebar.open { left: auto; right: 0; }
+        [dir="rtl"] #sidebar li a { text-align: right; }
+        body.dark-mode .menu-icon span { background-color: #f1f1f1; }
+        body.dark-mode #sidebar { background-color: #2c2c2c; color: #f1f1f1; box-shadow: 2px 0 5px rgba(255,255,255,0.1); }
+        [dir="rtl"] body.dark-mode #sidebar { box-shadow: -2px 0 5px rgba(255,255,255,0.1); }
+        body.dark-mode #sidebar li a { color: #f1f1f1; border-bottom: 1px solid #444; }
+        body.dark-mode #sidebar li a:hover { background-color: #444; }
+        /* --- End Sidebar Styles --- */
+        .container { width: 80%; max-width: 800px; background-color: #fff; color: #333; padding: 20px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); border-radius: 8px; margin: 20px auto 0; transition: background-color 0.3s, color 0.3s; }
+        h1, h2 { text-align: center; color: #333; margin-bottom: 20px; transition: color 0.3s; }
+        p { line-height: 1.6; margin-bottom: 15px; text-align: center; }
+        .link-buttons { display: flex; flex-direction: column; align-items: center; gap: 15px; margin-top: 20px; }
+        .link-buttons a {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+            text-align: center;
+            min-width: 200px; /* Ensure buttons have similar width */
+        }
+        .link-buttons a:hover { background-color: #0056b3; }
+        .lang-switcher { text-align: center; margin-bottom: 20px; }
+        .lang-switcher button, .theme-toggle-button-main { padding: 5px 10px; margin: 0 5px; cursor: pointer; border: 1px solid #ccc; background-color: #f9f9f9; border-radius: 4px; }
+        /* Dark Mode */
+        body.dark-mode { background-color: #1a1a1a; color: #f1f1f1; }
+        body.dark-mode .container { background-color: #2c2c2c; color: #f1f1f1; box-shadow: 0 0 10px rgba(255, 255, 255, 0.1); }
+        body.dark-mode h1, body.dark-mode h2 { color: #f1f1f1; }
+        body.dark-mode p { color: #ccc; }
+        body.dark-mode .link-buttons a { background-color: #5cadff; }
+        body.dark-mode .link-buttons a:hover { background-color: #8ecaff; }
+        body.dark-mode .lang-switcher button, body.dark-mode .theme-toggle-button-main { background-color: #555; color: #f1f1f1; border: 1px solid #777; }
+        body.dark-mode .lang-switcher button:hover, body.dark-mode .theme-toggle-button-main:hover { background-color: #666; }
+    </style>
+</head>
+<body>
+    <!-- Navigation Sidebar -->
+    <div class="menu-icon" id="menu-icon">
+        <span></span>
+        <span></span>
+        <span></span>
+    </div>
+    <nav id="sidebar">
+        <ul>
+             <li><a href="index.html" data-lang-ar="الرئيسية" data-lang-en="Home">Home</a></li>
+             <li><a href="ai-info.html" data-lang-ar="AI الذكاء الصناعي" data-lang-en="AI Artificial Intelligence">AI Artificial Intelligence</a></li> <!-- Link back to AI category -->
+             <li><a href="favorites.html" data-lang-ar="المفضلات" data-lang-en="Favorites">Favorites</a></li>
+             <li><a href="news.html" data-lang-ar="الأخبار" data-lang-en="News">News</a></li>
+             <li><a href="notifications.html" data-lang-ar="الإشعارات" data-lang-en="Notifications">Notifications</a></li>
+             <li><a href="faq.html" data-lang-ar="الأسئلة الشائعة" data-lang-en="FAQ">FAQ</a></li>
+        </ul>
+    </nav>
+
+    <div class="container">
+        <div class="lang-switcher">
+            <button id="lang-ar">العربية</button>
+            <button id="lang-en">English</button>
+            <button class="theme-toggle-button-main" id="theme-toggle" data-lang-ar="تبديل الوضع" data-lang-en="Toggle Theme">Toggle Theme</button>
+        </div>
+
+        <h1 data-lang-ar="Google Gemini" data-lang-en="Google Gemini">Google Gemini</h1>
+        <p data-lang-ar="هو نظام ذكاء صناعي متعدد الأغراض يستخدم تقنيات تعلم الآلة والتعلم العميق. يمكنه التعامل مع مهام متنوعة مثل معالجة اللغة الطبيعية، التعرف على الصور، وتحليل البيانات." data-lang-en="It is a multipurpose AI system using machine learning and deep learning techniques. It can handle various tasks like natural language processing, image recognition, and data analysis.">
+            It is a multipurpose AI system using machine learning and deep learning techniques. It can handle various tasks like natural language processing, image recognition, and data analysis.
+        </p>
+
+        <h2 data-lang-ar="الروابط" data-lang-en="Links">Links</h2>
+        <div class="link-buttons">
+            <a href="https://gemini.google.com/app" target="_blank" data-lang-ar="تطبيق الويب" data-lang-en="Web App">Web App</a>
+            <a href="https://play.google.com/store/apps/details?id=com.google.android.apps.bard" target="_blank" data-lang-ar="تحميل للأندرويد (Google Play)" data-lang-en="Download for Android (Google Play)">Download for Android (Google Play)</a>
+            <a href="https://apps.apple.com/us/app/google-gemini/id6477489729" target="_blank" data-lang-ar="تحميل للآيفون (App Store)" data-lang-en="Download for iPhone (App Store)">Download for iPhone (App Store)</a>
+        </div>
+
+    </div>
+
+    <script>
+        // Copy relevant JavaScript
+        const elements = document.querySelectorAll('[data-lang-ar], [data-lang-en]');
+        const btnAr = document.getElementById('lang-ar');
+        const btnEn = document.getElementById('lang-en');
+        const themeToggleButton = document.getElementById('theme-toggle');
+        let currentLang = localStorage.getItem('preferredLanguage') || 'ar';
+
+        const translations = {
+             "Gemini Details": { ar: "تفاصيل Gemini", en: "Gemini Details" },
+             "Google Gemini": { ar: "Google Gemini", en: "Google Gemini" }, // Use full name for title/h1
+             "Gemini Description": { ar: "هو نظام ذكاء صناعي متعدد الأغراض يستخدم تقنيات تعلم الآلة والتعلم العميق. يمكنه التعامل مع مهام متنوعة مثل معالجة اللغة الطبيعية، التعرف على الصور، وتحليل البيانات.", en: "It is a multipurpose AI system using machine learning and deep learning techniques. It can handle various tasks like natural language processing, image recognition, and data analysis." },
+             "Links": { ar: "الروابط", en: "Links" },
+             "Web App": { ar: "تطبيق الويب", en: "Web App" },
+             "Download for Android (Google Play)": { ar: "تحميل للأندرويد (Google Play)", en: "Download for Android (Google Play)" },
+             "Download for iPhone (App Store)": { ar: "تحميل للآيفون (App Store)", en: "Download for iPhone (App Store)" },
+             "Home": { ar: "الرئيسية", en: "Home" },
+             "AI Artificial Intelligence": { ar: "AI الذكاء الصناعي", en: "AI Artificial Intelligence" },
+             "Favorites": { ar: "المفضلات", en: "Favorites" },
+             "News": { ar: "الأخبار", en: "News" },
+             "Notifications": { ar: "الإشعارات", en: "Notifications" },
+             "FAQ": { ar: "الأسئلة الشائعة", en: "FAQ" },
+             "Toggle Theme": { ar: "تبديل الوضع", en: "Toggle Theme"}
+        };
+
+        function translatePageElements(lang) {
+            elements.forEach(el => {
+                 const key = el.dataset.langEn || el.textContent.trim();
+                 const targetText = translations[key]?.[lang] || el.getAttribute(`data-lang-${lang}`);
+                 if (targetText) {
+                     if (el.tagName === 'TITLE') { document.title = targetText; }
+                     else { el.textContent = targetText; }
+                 }
+            });
+        }
+
+        function setLanguage(lang) {
+            translatePageElements(lang);
+            document.documentElement.lang = lang;
+            document.documentElement.dir = lang === 'ar' ? 'rtl' : 'ltr';
+            localStorage.setItem('preferredLanguage', lang);
+            updateToggleButtonText();
+        }
+
+        function updateToggleButtonText() {
+             const key = "Toggle Theme";
+             let buttonText = translations[key]?.[currentLang] || translations[key]?.['en'] || "Toggle Theme";
+             if (themeToggleButton) themeToggleButton.textContent = buttonText;
+             if (btnAr) btnAr.textContent = "العربية";
+             if (btnEn) btnEn.textContent = "English";
+        }
+
+        // Theme toggle functionality
+        const currentTheme = localStorage.getItem('theme');
+        if (currentTheme === 'dark') {
+            document.body.classList.add('dark-mode');
+        }
+        if (themeToggleButton) {
+            themeToggleButton.addEventListener('click', () => {
+                document.body.classList.toggle('dark-mode');
+                localStorage.setItem('theme', document.body.classList.contains('dark-mode') ? 'dark' : 'light');
+                updateToggleButtonText();
+            });
+        }
+
+        // Language button listeners
+        if (btnAr) btnAr.addEventListener('click', () => setLanguage('ar'));
+        if (btnEn) btnEn.addEventListener('click', () => setLanguage('en'));
+
+        // --- Sidebar Logic --- //
+        const menuIcon = document.getElementById('menu-icon');
+        const sidebar = document.getElementById('sidebar');
+        if(menuIcon && sidebar) {
+            menuIcon.addEventListener('click', () => sidebar.classList.toggle('open'));
+            document.addEventListener('click', (event) => {
+                if (!sidebar.contains(event.target) && !menuIcon.contains(event.target) && sidebar.classList.contains('open')) {
+                    sidebar.classList.remove('open');
+                }
+            });
+        }
+        // --- End Sidebar Logic --- //
+
+        // Initial setup
+        setLanguage(currentLang); // Set initial language on load
+
+    </script>
+</body>
+</html> 

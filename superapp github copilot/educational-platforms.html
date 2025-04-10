@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title data-lang-ar="منصات تعليمية" data-lang-en="Educational Platforms">Educational Platforms</title>
+    <meta name="description" content="استكشف منصات تعليمية عبر الإنترنت مثل Coursera و edX للحصول على دورات وشهادات من جامعات عالمية.">
+    <style>
+        /* Default Light Mode Styles (including sidebar) */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            color: #333;
+            margin: 0;
+            min-height: 100vh;
+            position: relative;
+            padding-top: 60px; /* Space for menu */
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        /* --- START NAVIGATION SIDEBAR STYLES --- */
+        .menu-icon { position: absolute; top: 15px; left: 15px; width: 30px; height: 22px; cursor: pointer; z-index: 1001; display: flex; flex-direction: column; justify-content: space-between; }
+        .menu-icon span { display: block; height: 3px; width: 100%; background-color: #333; border-radius: 3px; transition: background-color 0.3s; }
+        #sidebar { position: fixed; top: 0; left: -250px; width: 250px; height: 100vh; background-color: #fff; color: #333; box-shadow: 2px 0 5px rgba(0,0,0,0.2); padding-top: 60px; transition: left 0.3s ease-in-out, background-color 0.3s, color 0.3s; z-index: 1000; display: flex; flex-direction: column; overflow-y: auto; }
+        #sidebar.open { left: 0; }
+        #sidebar ul { list-style: none; padding: 0; margin: 0; flex-grow: 1; }
+        #sidebar li a { display: block; padding: 15px 20px; color: #333; text-decoration: none; border-bottom: 1px solid #eee; font-weight: bold; }
+        #sidebar li a:hover { background-color: #f4f4f4; }
+        [dir="rtl"] .menu-icon { left: auto; right: 15px; }
+        [dir="rtl"] #sidebar { left: auto; right: -250px; box-shadow: -2px 0 5px rgba(0,0,0,0.2); }
+        [dir="rtl"] #sidebar.open { left: auto; right: 0; }
+        [dir="rtl"] #sidebar li a { text-align: right; }
+        /* Dark Mode Styles for Sidebar */
+        body.dark-mode .menu-icon span { background-color: #f1f1f1; }
+        body.dark-mode #sidebar { background-color: #2c2c2c; color: #f1f1f1; box-shadow: 2px 0 5px rgba(255,255,255,0.1); }
+        [dir="rtl"] body.dark-mode #sidebar { box-shadow: -2px 0 5px rgba(255,255,255,0.1); }
+        body.dark-mode #sidebar li a { color: #f1f1f1; border-bottom: 1px solid #444; }
+        body.dark-mode #sidebar li a:hover { background-color: #444; }
+        /* --- END NAVIGATION SIDEBAR STYLES --- */
+
+        .container {
+            width: 80%;
+            max-width: 800px;
+            background-color: #fff;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            margin: 0 auto 20px auto; /* Centered */
+            transition: background-color 0.3s, color 0.3s;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 20px;
+            transition: color 0.3s;
+        }
+        .links {
+            display: grid;
+            grid-template-columns: 1fr; /* Or repeat(auto-fit, minmax(250px, 1fr)) for grid layout */
+            gap: 20px;
+            padding: 20px 0;
+        }
+        .link-item {
+            background-color: #f9f9f9;
+            border-radius: 8px;
+            padding: 15px;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            transition: background-color 0.3s, box-shadow 0.3s;
+            text-decoration: none; /* Apply to the link item if it's an <a> tag */
+            color: inherit;
+        }
+        .link-item:hover {
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        }
+        .link-item-header {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 5px;
+            width: 100%;
+        }
+        .link-item-header a, .link-item-header span /* Style both links and spans in header */
+         {
+            text-decoration: none;
+            color: #007bff;
+            font-weight: bold;
+            transition: color 0.3s;
+            font-size: 1.1em; /* Make title slightly larger */
+        }
+        .link-item-header a:hover {
+            color: #0056b3;
+            text-decoration: underline;
+        }
+        .heart-icon {
+            cursor: pointer;
+            font-size: 2.5em; /* Larger heart */
+            color: #ccc;
+            transition: color 0.2s ease-in-out;
+            line-height: 1;
+            flex-shrink: 0;
+        }
+        [dir="ltr"] .heart-icon { margin-left: 10px; }
+        [dir="rtl"] .heart-icon { margin-right: 10px; }
+        .heart-icon.favorited { color: red; }
+        .link-item > span:not(.heart-icon) { /* Description style */
+            display: block;
+            font-size: 0.9em;
+            color: #555;
+            margin-top: 5px;
+            width: 100%;
+            transition: color 0.3s;
+        }
+       .lang-switcher {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+       /* Combined style for lang and theme buttons */
+       .lang-switcher button, .theme-toggle-button-main {
+            padding: 8px 15px;
+            margin: 0 5px;
+            cursor: pointer;
+            border: 1px solid #ccc;
+            background-color: #f9f9f9;
+            border-radius: 4px;
+            transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+        }
+        .lang-switcher button:hover, .theme-toggle-button-main:hover {
+            background-color: #eee;
+        }
+        /* --- START THEME TOGGLE & DARK MODE --- */
+        body.dark-mode {
+            background-color: #1a1a1a;
+            color: #f1f1f1;
+        }
+        body.dark-mode .container {
+            background-color: #2c2c2c;
+            color: #f1f1f1;
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
+        }
+        body.dark-mode h1 { color: #f1f1f1; }
+        body.dark-mode .link-item { background-color: #3a3a3a; box-shadow: 0 0 5px rgba(255, 255, 255, 0.1); }
+        body.dark-mode .link-item:hover { box-shadow: 0 0 10px rgba(255, 255, 255, 0.2); }
+        body.dark-mode .link-item-header a, body.dark-mode .link-item-header span { color: #5cadff; }
+        body.dark-mode .link-item-header a:hover { color: #8ecaff; }
+        body.dark-mode .link-item > span:not(.heart-icon) { color: #ccc; }
+        /* Dark mode for lang/theme buttons */
+        body.dark-mode .lang-switcher button, body.dark-mode .theme-toggle-button-main {
+             background-color: #555;
+             color: #f1f1f1;
+             border: 1px solid #777;
+        }
+        body.dark-mode .lang-switcher button:hover, body.dark-mode .theme-toggle-button-main:hover {
+             background-color: #666;
+        }
+        /* --- END THEME TOGGLE & DARK MODE --- */
+    </style>
+</head>
+<body>
+    <!-- Navigation Sidebar -->
+    <div class="menu-icon" id="menu-icon">
+        <span></span>
+        <span></span>
+        <span></span>
+    </div>
+    <nav id="sidebar">
+        <ul>
+            <li><a href="index.html" data-lang-ar="الرئيسية" data-lang-en="Home">Home</a></li>
+            <li><a href="favorites.html" data-lang-ar="المفضلات" data-lang-en="Favorites">Favorites</a></li>
+            <li><a href="news.html" data-lang-ar="الأخبار" data-lang-en="News">News</a></li>
+            <li><a href="notifications.html" data-lang-ar="الإشعارات" data-lang-en="Notifications">Notifications</a></li>
+            <li><a href="faq.html" data-lang-ar="الأسئلة الشائعة" data-lang-en="FAQ">FAQ</a></li>
+            <!-- Add other common links here, using relative paths -->
+        </ul>
+    </nav>
+
+    <div class="container">
+        <div class="lang-switcher">
+            <button id="lang-ar">العربية</button>
+            <button id="lang-en">English</button>
+            <button class="theme-toggle-button-main" id="theme-toggle" data-lang-ar="تبديل الوضع" data-lang-en="Toggle Theme">Toggle Theme</button>
+        </div>
+
+        <h1 data-lang-ar="منصات تعليمية" data-lang-en="Educational Platforms">Educational Platforms</h1>
+
+        <div style="text-align: center; margin-bottom: 20px;">
+            <img src="imags/12.jpeg" alt="طلاب يتعلمون عبر الإنترنت باستخدام أجهزة الكمبيوتر المحمولة" style="max-width: 100%; height: auto; max-height: 200px; border-radius: 8px;">
+        </div>
+
+        <div class="links">
+            <!-- Link to Coursera -->
+            <a href="educational-platforms/coursera.html" class="link-item" data-id="coursera">
+                <div class="link-item-header">
+                    <span data-lang-ar="كورسيرا" data-lang-en="Coursera">Coursera</span>
+                    <span class="heart-icon">♡</span>
+                </div>
+                <span data-lang-ar="دورات وبرامج متخصصة وشهادات من جامعات وشركات عالمية." data-lang-en="Courses, specializations, and degrees from global universities and companies."></span>
+            </a>
+
+            <!-- Link to edX -->
+            <a href="educational-platforms/edx.html" class="link-item" data-id="edx">
+                <div class="link-item-header">
+                    <span data-lang-ar="إيدكس" data-lang-en="edX">edX</span>
+                    <span class="heart-icon">♡</span>
+                </div>
+                <span data-lang-ar="دورات مجانية ومدفوعة من جامعات ومؤسسات عالمية." data-lang-en="Free and paid courses from global universities and institutions."></span>
+            </a>
+
+            <!-- Add more educational platform links here -->
+
+        </div>
+    </div>
+
+    <script>
+        const elements = document.querySelectorAll('[data-lang-ar], [data-lang-en]');
+        const btnAr = document.getElementById('lang-ar');
+        const btnEn = document.getElementById('lang-en');
+        const themeToggleButton = document.getElementById('theme-toggle');
+        let currentLang = localStorage.getItem('preferredLanguage') || 'ar';
+
+        // Define translations object including sidebar items and new cards
+        const translations = {
+            "Educational Platforms": { ar: "منصات تعليمية", en: "Educational Platforms" },
+            "Coursera": { ar: "كورسيرا", en: "Coursera" },
+            "Coursera Description": { ar: "دورات وبرامج متخصصة وشهادات من جامعات وشركات عالمية.", en: "Courses, specializations, and degrees from global universities and companies." },
+            "edX": { ar: "إيدكس", en: "edX" },
+            "edX Description": { ar: "دورات مجانية ومدفوعة من جامعات ومؤسسات عالمية.", en: "Free and paid courses from global universities and institutions." },
+            "Toggle Theme": { ar: "تبديل الوضع", en: "Toggle Theme" },
+            // Sidebar translations
+            "Home": { ar: "الرئيسية", en: "Home" },
+            "Favorites": { ar: "المفضلات", en: "Favorites" },
+            "News": { ar: "الأخبار", en: "News" },
+            "Notifications": { ar: "الإشعارات", en: "Notifications" },
+            "FAQ": { ar: "الأسئلة الشائعة", en: "FAQ" }
+        };
+
+        // Function to translate sidebar links
+        function translateSidebarLinks(lang) {
+            const sidebar = document.getElementById('sidebar');
+            if (!sidebar) return;
+            const sidebarLinks = sidebar.querySelectorAll('a[data-lang-en]');
+            sidebarLinks.forEach(el => {
+                 const key = el.dataset.langEn;
+                 const targetText = translations[key]?.[lang] || el.dataset[lang === 'ar' ? 'langAr' : 'langEn'] || key;
+                 if (targetText && el.textContent !== targetText) {
+                     el.textContent = targetText;
+                 }
+            });
+        }
+
+        // Function to update link item content
+        function updateLinkItemLanguage(item, lang) {
+            const headerSpan = item.querySelector('.link-item-header > span:not(.heart-icon)');
+            const descSpan = item.querySelector(':scope > span:not(.heart-icon)');
+            
+            if (headerSpan) {
+                const titleKey = headerSpan.dataset.langEn || headerSpan.textContent.trim();
+                const titleText = translations[titleKey]?.[lang] || headerSpan.dataset[lang === 'ar' ? 'langAr' : 'langEn'] || titleKey;
+                if (titleText) headerSpan.textContent = titleText;
+            }
+            
+            if (descSpan) {
+                 const titleKeyForDesc = headerSpan?.dataset.langEn || headerSpan?.textContent.trim();
+                 const descKey = titleKeyForDesc ? `${titleKeyForDesc} Description` : (descSpan.dataset.langEn || 'Default Description');
+                 const descText = translations[descKey]?.[lang] || descSpan.dataset[lang === 'ar' ? 'langAr' : 'langEn'] || ''; // Use specific AR/EN data attribute first
+                 if (descText) descSpan.textContent = descText;
+                 else descSpan.textContent = ''; // Clear if no translation found
+            }
+        }
+
+        function setLanguage(lang) {
+            // Translate non-link-item elements first
+            elements.forEach(el => {
+                if (!el.closest('#sidebar') && !el.closest('.link-item')) {
+                     const key = el.dataset.langEn || el.textContent.trim();
+                     const targetText = translations[key]?.[lang] || el.getAttribute(`data-lang-${lang}`);
+                     if (targetText) {
+                         if (el.tagName === 'TITLE') { document.title = targetText; }
+                         else if (el.tagName === 'H1') { el.textContent = targetText; }
+                         else if (el.id === 'theme-toggle') { el.textContent = targetText; }
+                     }
+                }
+            });
+
+            // Translate link items
+            document.querySelectorAll('.link-item').forEach(item => {
+                 updateLinkItemLanguage(item, lang);
+            });
+
+            translateSidebarLinks(lang); // Translate sidebar links separately
+            initializeHearts(); // Re-initialize hearts after translation
+
+            document.documentElement.lang = lang;
+            document.documentElement.dir = lang === 'ar' ? 'rtl' : 'ltr';
+            localStorage.setItem('preferredLanguage', lang);
+            updateToggleButtonText(); // Update theme button text
+        }
+
+        function updateToggleButtonText() {
+             const isDarkMode = document.body.classList.contains('dark-mode');
+             const currentLang = localStorage.getItem('preferredLanguage') || 'ar';
+             const key = "Toggle Theme";
+             let buttonText = translations[key]?.[currentLang] || translations[key]?.['en'] || "Toggle Theme";
+             if (themeToggleButton) themeToggleButton.textContent = buttonText;
+             if (btnAr) btnAr.textContent = "العربية";
+             if (btnEn) btnEn.textContent = "English";
+        }
+
+        // Theme toggle functionality
+        const currentTheme = localStorage.getItem('theme');
+        if (currentTheme === 'dark') {
+            document.body.classList.add('dark-mode');
+        }
+        if (themeToggleButton) {
+            themeToggleButton.addEventListener('click', () => {
+                document.body.classList.toggle('dark-mode');
+                localStorage.setItem('theme', document.body.classList.contains('dark-mode') ? 'dark' : 'light');
+                updateToggleButtonText();
+            });
+        }
+
+        // Language button listeners
+        if (btnAr) btnAr.addEventListener('click', () => setLanguage('ar'));
+        if (btnEn) btnEn.addEventListener('click', () => setLanguage('en'));
+
+        // --- START Favorite Logic (Adapted from index.html) --- //
+        const favoritesKey = 'userFavorites';
+        function getFavorites() { return JSON.parse(localStorage.getItem(favoritesKey) || '[]'); }
+        function saveFavorites(favorites) { localStorage.setItem(favoritesKey, JSON.stringify(favorites)); }
+        function toggleFavorite(itemId, itemData) {
+            let favorites = getFavorites();
+            const index = favorites.findIndex(fav => fav.id === itemId);
+            if (index > -1) { favorites.splice(index, 1); } 
+            else if (itemData) { favorites.push(itemData); }
+            saveFavorites(favorites);
+        }
+        function initializeHearts() {
+            const favorites = getFavorites();
+            const favIds = favorites.map(f => f.id);
+            document.querySelectorAll('.link-item').forEach(item => {
+                const heartIcon = item.querySelector('.heart-icon');
+                if (heartIcon) {
+                    const itemId = item.dataset.id;
+                    const isFav = favIds.includes(itemId);
+                    heartIcon.classList.toggle('favorited', isFav);
+                    heartIcon.textContent = isFav ? '♥' : '♡';
+                }
+            });
+        }
+        document.querySelectorAll('.heart-icon').forEach(icon => {
+            icon.addEventListener('click', (e) => {
+                e.preventDefault(); // Prevent link navigation
+                e.stopPropagation(); // Stop event bubbling
+                const linkItem = icon.closest('.link-item');
+                const headerSpan = linkItem?.querySelector('.link-item-header > span:not(.heart-icon)');
+                const descriptionSpan = linkItem?.querySelector(':scope > span:not(.heart-icon)');
+                const itemId = linkItem?.dataset.id;
+                const linkHref = linkItem?.getAttribute('href'); // Get href from the link item itself
+                
+                if (!itemId || !linkHref || !headerSpan) { console.error("Missing data for favorite:", itemId); return; }
+                
+                const isFavoritedNow = !icon.classList.contains('favorited');
+                let itemData = null;
+                if(isFavoritedNow){
+                    itemData = { 
+                        id: itemId, 
+                        href: linkHref, 
+                        en: headerSpan.dataset.langEn || headerSpan.textContent, 
+                        ar: headerSpan.dataset.langAr || headerSpan.textContent, 
+                        desc_en: descriptionSpan?.dataset.langEn || descriptionSpan?.textContent,
+                        desc_ar: descriptionSpan?.dataset.langAr || descriptionSpan?.textContent
+                    };
+                }
+                toggleFavorite(itemId, itemData);
+                icon.classList.toggle('favorited');
+                icon.textContent = icon.classList.contains('favorited') ? '♥' : '♡';
+            });
+        });
+        // --- END Favorite Logic --- //
+
+        // --- START Navigation Sidebar Logic --- //
+        const menuIcon = document.getElementById('menu-icon');
+        const sidebar = document.getElementById('sidebar');
+        if(menuIcon && sidebar) {
+            menuIcon.addEventListener('click', () => sidebar.classList.toggle('open'));
+            document.addEventListener('click', (event) => {
+                if (!sidebar.contains(event.target) && !menuIcon.contains(event.target) && sidebar.classList.contains('open')) {
+                    sidebar.classList.remove('open');
+                }
+            });
+        }
+        // --- END Navigation Sidebar Logic --- //
+
+        // Initial setup
+        setLanguage(currentLang); // Set initial language on load
+
+    </script>
+</body>
+</html> 

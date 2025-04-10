@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title data-lang-ar="تطبيق NS" data-lang-en="NS App">NS App</title>
+    <meta name="description" content="تعرف على تطبيق NS لتخطيط رحلات القطار في هولندا، شراء التذاكر، والاطلاع على معلومات السفر.">
+    <style>
+        /* Default Light Mode Styles */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            color: #333;
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            position: relative;
+            padding-top: 60px;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        .container {
+            width: 80%;
+            max-width: 800px;
+            background-color: #fff;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            margin: 0 auto 20px auto;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 30px;
+            transition: color 0.3s;
+        }
+
+        .description {
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 1.1em;
+            line-height: 1.6;
+        }
+
+        .button {
+            display: block;
+            width: 200px;
+            margin: 20px auto;
+            padding: 15px 25px;
+            background-color: #4CAF50;
+            color: white;
+            text-align: center;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+            transition: background-color 0.3s;
+        }
+
+        .button:hover {
+            background-color: #45a049;
+        }
+
+        .lang-switcher {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .lang-switcher button {
+            padding: 8px 15px;
+            margin: 0 5px;
+            cursor: pointer;
+            border: 1px solid #ccc;
+            background: none;
+            border-radius: 4px;
+            transition: all 0.3s;
+        }
+
+        /* Dark Mode */
+        body.dark-mode {
+            background-color: #1a1a1a;
+            color: #f1f1f1;
+        }
+
+        body.dark-mode .container {
+            background-color: #2c2c2c;
+            color: #f1f1f1;
+        }
+
+        body.dark-mode h1 {
+            color: #f1f1f1;
+        }
+
+        body.dark-mode .button {
+            background-color: #45a049;
+        }
+
+        body.dark-mode .button:hover {
+            background-color: #357a38;
+        }
+
+        body.dark-mode .lang-switcher button {
+            background-color: #555;
+            color: #f1f1f1;
+            border-color: #777;
+        }
+
+        /* --- START NAVIGATION SIDEBAR STYLES --- */
+        .menu-icon { position: absolute; top: 15px; left: 15px; width: 30px; height: 22px; cursor: pointer; z-index: 1001; display: flex; flex-direction: column; justify-content: space-between; }
+        .menu-icon span { display: block; height: 3px; width: 100%; background-color: #333; border-radius: 3px; transition: background-color 0.3s; }
+        #sidebar { position: fixed; top: 0; left: -250px; width: 250px; height: 100vh; background-color: #fff; color: #333; box-shadow: 2px 0 5px rgba(0,0,0,0.2); padding-top: 60px; transition: left 0.3s ease-in-out, background-color 0.3s, color 0.3s; z-index: 1000; display: flex; flex-direction: column; overflow-y: auto; }
+        #sidebar.open { left: 0; }
+        #sidebar ul { list-style: none; padding: 0; margin: 0; flex-grow: 1; }
+        #sidebar li a { display: block; padding: 15px 20px; color: #333; text-decoration: none; border-bottom: 1px solid #eee; font-weight: bold; }
+        #sidebar li a:hover { background-color: #f4f4f4; }
+        [dir="rtl"] .menu-icon { left: auto; right: 15px; }
+        [dir="rtl"] #sidebar { left: auto; right: -250px; box-shadow: -2px 0 5px rgba(0,0,0,0.2); }
+        [dir="rtl"] #sidebar.open { left: auto; right: 0; }
+        [dir="rtl"] #sidebar li a { text-align: right; }
+        /* Dark Mode Styles for Sidebar */
+        body.dark-mode .menu-icon span { background-color: #f1f1f1; }
+        body.dark-mode #sidebar { background-color: #2c2c2c; color: #f1f1f1; box-shadow: 2px 0 5px rgba(255,255,255,0.1); }
+        [dir="rtl"] body.dark-mode #sidebar { box-shadow: -2px 0 5px rgba(255,255,255,0.1); }
+        body.dark-mode #sidebar li a { color: #f1f1f1; border-bottom: 1px solid #444; }
+        body.dark-mode #sidebar li a:hover { background-color: #444; }
+        /* --- END NAVIGATION SIDEBAR STYLES --- */
+    </style>
+</head>
+<body>
+    <!-- Navigation Sidebar -->
+    <div class="menu-icon" id="menu-icon">
+        <span></span>
+        <span></span>
+        <span></span>
+    </div>
+    <nav id="sidebar">
+        <ul>
+            <li><a href="../index.html" data-lang-ar="الرئيسية" data-lang-en="Home">Home</a></li>
+            <li><a href="../favorites.html" data-lang-ar="المفضلات" data-lang-en="Favorites">Favorites</a></li>
+            <li><a href="../news.html" data-lang-ar="الأخبار" data-lang-en="News">News</a></li>
+            <li><a href="../notifications.html" data-lang-ar="الإشعارات" data-lang-en="Notifications">Notifications</a></li>
+            <li><a href="../faq.html" data-lang-ar="الأسئلة الشائعة" data-lang-en="FAQ">FAQ</a></li>
+            <!-- Add other common links here, using relative paths -->
+        </ul>
+    </nav>
+
+    <div class="container">
+        <div class="lang-switcher">
+            <button id="lang-ar">العربية</button>
+            <button id="lang-en">English</button>
+            <button class="theme-toggle-button" id="theme-toggle" data-lang-ar="تبديل الوضع" data-lang-en="Toggle Theme">Toggle Theme</button>
+        </div>
+
+        <h1 data-lang-ar="تطبيق NS" data-lang-en="NS App">NS App</h1>
+        
+        <div class="description" 
+             data-lang-ar="التطبيق الرسمي للسكك الحديدية الهولندية (NS). يمكنك من خلاله التخطيط لرحلتك، معرفة مواعيد القطارات، وشراء التذاكر." 
+             data-lang-en="The official app for Dutch Railways (NS). You can plan your journey, check train schedules, and buy tickets.">
+        </div>
+
+        <a href="https://play.google.com/store/apps/details?id=nl.ns.android.activity" 
+           target="_blank" 
+           class="button" 
+           data-lang-ar="تحميل التطبيق" 
+           data-lang-en="Download App">
+        </a>
+
+        <div style="margin-top: 40px; text-align: center;">
+            <p style="margin-bottom: 20px;" 
+               data-lang-ar="للمزيد من المعلومات حول بطاقة OV-chipkaart وكيفية الحصول عليها" 
+               data-lang-en="For more information about the OV-chipkaart and how to get one">
+            </p>
+            <a href="ov-chipkaart.html" 
+               class="button" 
+               style="background-color: #007bff;"
+               data-lang-ar="بطاقة OV-chipkaart" 
+               data-lang-en="OV-chipkaart">
+            </a>
+        </div>
+    </div>
+
+    <script>
+        const elements = document.querySelectorAll('[data-lang-ar], [data-lang-en]');
+        const btnAr = document.getElementById('lang-ar');
+        const btnEn = document.getElementById('lang-en');
+        const themeToggleButton = document.getElementById('theme-toggle');
+        let currentLang = localStorage.getItem('preferredLanguage') || 'ar';
+
+        // --- Define translations object including sidebar items --- //
+        const translations = {
+            "NS App": { ar: "تطبيق NS", en: "NS App" },
+            "The official app for Dutch Railways...": { ar: "التطبيق الرسمي للسكك الحديدية الهولندية (NS). يمكنك من خلاله التخطيط لرحلتك، معرفة مواعيد القطارات، وشراء التذاكر.", en: "The official app for Dutch Railways (NS). You can plan your journey, check train schedules, and buy tickets." },
+            "Download App": { ar: "تحميل التطبيق", en: "Download App" },
+            "For more information about the OV-chipkaart...": { ar: "للمزيد من المعلومات حول بطاقة OV-chipkaart وكيفية الحصول عليها", en: "For more information about the OV-chipkaart and how to get one" },
+            "OV-chipkaart": { ar: "بطاقة OV-chipkaart", en: "OV-chipkaart" },
+            "Toggle Theme": { ar: "تبديل الوضع", en: "Toggle Theme" },
+             // Sidebar translations
+            "Home": { ar: "الرئيسية", en: "Home" },
+            "Favorites": { ar: "المفضلات", en: "Favorites" },
+            "News": { ar: "الأخبار", en: "News" },
+            "Notifications": { ar: "الإشعارات", en: "Notifications" },
+            "FAQ": { ar: "الأسئلة الشائعة", en: "FAQ" }
+        };
+
+        // --- Function to translate sidebar links --- //
+        function translateSidebarLinks(lang) {
+            const sidebar = document.getElementById('sidebar');
+            if (!sidebar) return;
+            const sidebarLinks = sidebar.querySelectorAll('a[data-lang-en]');
+            sidebarLinks.forEach(el => {
+                 const key = el.dataset.langEn;
+                 const targetText = translations[key]?.[lang] || el.dataset[lang === 'ar' ? 'langAr' : 'langEn'] || key;
+                 if (targetText && el.textContent !== targetText) {
+                     el.textContent = targetText;
+                 }
+            });
+        }
+
+        function setLanguage(lang) {
+            // Translate main content elements
+            elements.forEach(el => {
+                // Skip sidebar elements here as they are handled by translateSidebarLinks
+                if (!el.closest('#sidebar')) {
+                    const key = el.dataset.langEn || el.textContent.trim(); // Use data-lang-en or text as key
+                    const text = translations[key]?.[lang] || el.getAttribute(`data-lang-${lang}`);
+                    if (text) {
+                        if (el.tagName === 'TITLE') {
+                            document.title = text;
+                        } else {
+                            el.textContent = text;
+                        }
+                    }
+                }
+            });
+            // Translate sidebar links
+            translateSidebarLinks(lang);
+
+            document.documentElement.lang = lang;
+            document.documentElement.dir = lang === 'ar' ? 'rtl' : 'ltr';
+            localStorage.setItem('preferredLanguage', lang);
+            updateToggleButtonText();
+        }
+
+        function updateToggleButtonText() {
+            const isDarkMode = document.body.classList.contains('dark-mode');
+            const text = isDarkMode ? 
+                (currentLang === 'ar' ? 'الوضع الفاتح' : 'Light Mode') :
+                (currentLang === 'ar' ? 'الوضع المظلم' : 'Dark Mode');
+            themeToggleButton.textContent = text;
+        }
+
+        // Theme toggle functionality
+        const currentTheme = localStorage.getItem('theme');
+        if (currentTheme === 'dark') {
+            document.body.classList.add('dark-mode');
+        }
+
+        themeToggleButton.addEventListener('click', () => {
+            document.body.classList.toggle('dark-mode');
+            localStorage.setItem('theme', document.body.classList.contains('dark-mode') ? 'dark' : 'light');
+            updateToggleButtonText();
+        });
+
+        // Language button listeners
+        btnAr.addEventListener('click', () => {
+            currentLang = 'ar';
+            setLanguage('ar');
+        });
+        btnEn.addEventListener('click', () => {
+            currentLang = 'en';
+            setLanguage('en');
+        });
+
+        // --- START Navigation Sidebar Logic --- //
+        const menuIcon = document.getElementById('menu-icon');
+        const sidebar = document.getElementById('sidebar');
+
+        if(menuIcon && sidebar) {
+            menuIcon.addEventListener('click', () => {
+                sidebar.classList.toggle('open');
+            });
+
+            // Optional: Close sidebar when clicking outside of it
+            document.addEventListener('click', (event) => {
+                if (!sidebar.contains(event.target) && !menuIcon.contains(event.target) && sidebar.classList.contains('open')) {
+                    sidebar.classList.remove('open');
+                }
+            });
+        }
+        // --- END Navigation Sidebar Logic --- //
+
+        // Initial setup
+        setLanguage(currentLang);
+        updateToggleButtonText();
+    </script>
+</body>
+</html> 

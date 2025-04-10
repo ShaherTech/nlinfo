@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title data-lang-ar="كورسيرا" data-lang-en="Coursera">Coursera</title>
+    <meta name="description" content="اكتشف الدورات والبرامج المتخصصة والشهادات عبر الإنترنت من جامعات وشركات عالمية رائدة على منصة كورسيرا.">
+    <style>
+        /* Default Light Mode Styles */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            color: #333;
+            margin: 0;
+            min-height: 100vh;
+            position: relative;
+            padding-top: 60px; /* Space for menu */
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        /* --- START NAVIGATION SIDEBAR STYLES --- */
+        .menu-icon { position: absolute; top: 15px; left: 15px; width: 30px; height: 22px; cursor: pointer; z-index: 1001; display: flex; flex-direction: column; justify-content: space-between; }
+        .menu-icon span { display: block; height: 3px; width: 100%; background-color: #333; border-radius: 3px; transition: background-color 0.3s; }
+        #sidebar { position: fixed; top: 0; left: -250px; width: 250px; height: 100vh; background-color: #fff; color: #333; box-shadow: 2px 0 5px rgba(0,0,0,0.2); padding-top: 60px; transition: left 0.3s ease-in-out, background-color 0.3s, color 0.3s; z-index: 1000; display: flex; flex-direction: column; overflow-y: auto; }
+        #sidebar.open { left: 0; }
+        #sidebar ul { list-style: none; padding: 0; margin: 0; flex-grow: 1; }
+        #sidebar li a { display: block; padding: 15px 20px; color: #333; text-decoration: none; border-bottom: 1px solid #eee; font-weight: bold; }
+        #sidebar li a:hover { background-color: #f4f4f4; }
+        [dir="rtl"] .menu-icon { left: auto; right: 15px; }
+        [dir="rtl"] #sidebar { left: auto; right: -250px; box-shadow: -2px 0 5px rgba(0,0,0,0.2); }
+        [dir="rtl"] #sidebar.open { left: auto; right: 0; }
+        [dir="rtl"] #sidebar li a { text-align: right; }
+        /* Dark Mode Styles for Sidebar */
+        body.dark-mode .menu-icon span { background-color: #f1f1f1; }
+        body.dark-mode #sidebar { background-color: #2c2c2c; color: #f1f1f1; box-shadow: 2px 0 5px rgba(255,255,255,0.1); }
+        [dir="rtl"] body.dark-mode #sidebar { box-shadow: -2px 0 5px rgba(255,255,255,0.1); }
+        body.dark-mode #sidebar li a { color: #f1f1f1; border-bottom: 1px solid #444; }
+        body.dark-mode #sidebar li a:hover { background-color: #444; }
+        /* --- END NAVIGATION SIDEBAR STYLES --- */
+
+        .container {
+            width: 80%;
+            max-width: 800px;
+            background-color: #fff;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            margin: 0 auto 20px auto; /* Centered */
+            transition: background-color 0.3s, color 0.3s;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 20px;
+            transition: color 0.3s;
+        }
+        .description {
+            line-height: 1.6;
+            color: #555;
+            transition: color 0.3s;
+            margin-bottom: 25px;
+            text-align: justify;
+        }
+        .button-container {
+            text-align: center;
+            margin-top: 20px;
+        }
+        .button {
+            display: inline-block;
+            padding: 12px 25px;
+            background-color: #007bff;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+            transition: background-color 0.3s;
+            border: none;
+            cursor: pointer;
+        }
+        .button:hover {
+            background-color: #0056b3;
+        }
+       .lang-switcher {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+       /* Combined style for lang and theme buttons */
+       .lang-switcher button, .theme-toggle-button-main {
+            padding: 8px 15px;
+            margin: 0 5px;
+            cursor: pointer;
+            border: 1px solid #ccc;
+            background-color: #f9f9f9;
+            border-radius: 4px;
+            transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+        }
+        .lang-switcher button:hover, .theme-toggle-button-main:hover {
+            background-color: #eee;
+        }
+
+        /* --- START THEME TOGGLE & DARK MODE --- */
+        body.dark-mode {
+            background-color: #1a1a1a;
+            color: #f1f1f1;
+        }
+        body.dark-mode .container {
+            background-color: #2c2c2c;
+            color: #f1f1f1;
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
+        }
+        body.dark-mode h1 { color: #f1f1f1; }
+        body.dark-mode .description { color: #ccc; }
+        body.dark-mode .button { background-color: #5cadff; }
+        body.dark-mode .button:hover { background-color: #8ecaff; }
+        /* Dark mode for lang/theme buttons */
+        body.dark-mode .lang-switcher button, body.dark-mode .theme-toggle-button-main {
+             background-color: #555;
+             color: #f1f1f1;
+             border: 1px solid #777;
+        }
+        body.dark-mode .lang-switcher button:hover, body.dark-mode .theme-toggle-button-main:hover {
+             background-color: #666;
+        }
+        /* --- END THEME TOGGLE & DARK MODE --- */
+    </style>
+</head>
+<body>
+    <!-- Navigation Sidebar -->
+    <div class="menu-icon" id="menu-icon">
+        <span></span>
+        <span></span>
+        <span></span>
+    </div>
+    <nav id="sidebar">
+        <ul>
+            <li><a href="../index.html" data-lang-ar="الرئيسية" data-lang-en="Home">Home</a></li>
+            <li><a href="../favorites.html" data-lang-ar="المفضلات" data-lang-en="Favorites">Favorites</a></li>
+            <li><a href="../news.html" data-lang-ar="الأخبار" data-lang-en="News">News</a></li>
+            <li><a href="../notifications.html" data-lang-ar="الإشعارات" data-lang-en="Notifications">Notifications</a></li>
+            <li><a href="../faq.html" data-lang-ar="الأسئلة الشائعة" data-lang-en="FAQ">FAQ</a></li>
+            <!-- Add other common links here, using relative paths -->
+        </ul>
+    </nav>
+
+    <div class="container">
+        <div class="lang-switcher">
+            <button id="lang-ar">العربية</button>
+            <button id="lang-en">English</button>
+            <button class="theme-toggle-button-main" id="theme-toggle" data-lang-ar="تبديل الوضع" data-lang-en="Toggle Theme">Toggle Theme</button>
+        </div>
+
+        <h1 data-lang-ar="كورسيرا" data-lang-en="Coursera">Coursera</h1>
+
+        <div class="description">
+            <p data-lang-ar="كورسيرا (Coursera) هي منصة تعليمية عبر الإنترنت تقدم دورات تدريبية، برامج متخصصة، وشهادات دراسات عليا بالتعاون مع جامعات وشركات عالمية. تغطي المنصة مجموعة واسعة من المواضيع، مثل علوم الكمبيوتر، الأعمال، العلوم الاجتماعية، والعلوم الصحية، بهدف توفير تعليم مرن يمكن الوصول إليه من أي مكان." data-lang-en="Coursera is an online learning platform offering courses, specialized programs, and postgraduate degrees in collaboration with universities and global companies. The platform covers a wide range of topics, such as computer science, business, social sciences, and health sciences, aiming to provide flexible education accessible from anywhere.">
+                Coursera is an online learning platform offering courses, specialized programs, and postgraduate degrees in collaboration with universities and global companies. The platform covers a wide range of topics, such as computer science, business, social sciences, and health sciences, aiming to provide flexible education accessible from anywhere.
+            </p>
+        </div>
+
+        <div class="button-container">
+            <a href="https://www.coursera.org/" target="_blank" class="button" data-lang-ar="زيارة موقع كورسيرا" data-lang-en="Visit Coursera">Visit Coursera</a>
+        </div>
+    </div>
+
+    <script>
+        const elements = document.querySelectorAll('[data-lang-ar], [data-lang-en]');
+        const btnAr = document.getElementById('lang-ar');
+        const btnEn = document.getElementById('lang-en');
+        const themeToggleButton = document.getElementById('theme-toggle');
+        let currentLang = localStorage.getItem('preferredLanguage') || 'ar';
+
+        // Define translations object including sidebar items
+        const translations = {
+            "Coursera": { ar: "كورسيرا", en: "Coursera" },
+            "Coursera Description": { ar: "كورسيرا (Coursera) هي منصة تعليمية عبر الإنترنت تقدم دورات تدريبية، برامج متخصصة، وشهادات دراسات عليا بالتعاون مع جامعات وشركات عالمية. تغطي المنصة مجموعة واسعة من المواضيع، مثل علوم الكمبيوتر، الأعمال، العلوم الاجتماعية، والعلوم الصحية، بهدف توفير تعليم مرن يمكن الوصول إليه من أي مكان.", en: "Coursera is an online learning platform offering courses, specialized programs, and postgraduate degrees in collaboration with universities and global companies. The platform covers a wide range of topics, such as computer science, business, social sciences, and health sciences, aiming to provide flexible education accessible from anywhere." },
+            "Visit Coursera": { ar: "زيارة موقع كورسيرا", en: "Visit Coursera" },
+            "Toggle Theme": { ar: "تبديل الوضع", en: "Toggle Theme" },
+            // Sidebar translations
+            "Home": { ar: "الرئيسية", en: "Home" },
+            "Favorites": { ar: "المفضلات", en: "Favorites" },
+            "News": { ar: "الأخبار", en: "News" },
+            "Notifications": { ar: "الإشعارات", en: "Notifications" },
+            "FAQ": { ar: "الأسئلة الشائعة", en: "FAQ" }
+        };
+
+        // Function to translate sidebar links
+        function translateSidebarLinks(lang) {
+            const sidebar = document.getElementById('sidebar');
+            if (!sidebar) return;
+            const sidebarLinks = sidebar.querySelectorAll('a[data-lang-en]');
+            sidebarLinks.forEach(el => {
+                 const key = el.dataset.langEn;
+                 const targetText = translations[key]?.[lang] || el.dataset[lang === 'ar' ? 'langAr' : 'langEn'] || key;
+                 if (targetText && el.textContent !== targetText) {
+                     el.textContent = targetText;
+                 }
+            });
+        }
+
+        function setLanguage(lang) {
+            // Translate main content elements
+            elements.forEach(el => {
+                if (!el.closest('#sidebar')) { // Skip sidebar links here
+                     let key = el.dataset.langEn;
+                     // Special case for the main description paragraph
+                     if (el.parentElement && el.parentElement.classList.contains('description') && el.tagName === 'P') {
+                         key = "Coursera Description";
+                     }
+                     const targetText = translations[key]?.[lang] || el.getAttribute(`data-lang-${lang}`);
+                     if (targetText) {
+                         if (el.tagName === 'TITLE') { document.title = targetText; }
+                         else if (el.tagName === 'A' && el.classList.contains('button')) { el.textContent = targetText; } // Translate button text
+                         else if (el.tagName === 'P' || el.tagName === 'H1') { el.textContent = targetText; } // Translate paragraphs and headers
+                         else if (el.id === 'theme-toggle') { el.textContent = targetText; } // Translate theme button explicitly if needed
+                     }
+                }
+            });
+
+            translateSidebarLinks(lang); // Translate sidebar links separately
+
+            document.documentElement.lang = lang;
+            document.documentElement.dir = lang === 'ar' ? 'rtl' : 'ltr';
+            localStorage.setItem('preferredLanguage', lang);
+            updateToggleButtonText(); // Update theme button text
+        }
+
+        function updateToggleButtonText() {
+             const isDarkMode = document.body.classList.contains('dark-mode');
+             const currentLang = localStorage.getItem('preferredLanguage') || 'ar';
+             const key = "Toggle Theme";
+             let buttonText = translations[key]?.[currentLang] || translations[key]?.['en'] || "Toggle Theme";
+             if (themeToggleButton) themeToggleButton.textContent = buttonText;
+             // Update lang button text explicitly
+             if (btnAr) btnAr.textContent = "العربية";
+             if (btnEn) btnEn.textContent = "English";
+        }
+
+        // Theme toggle functionality
+        const currentTheme = localStorage.getItem('theme');
+        if (currentTheme === 'dark') {
+            document.body.classList.add('dark-mode');
+        }
+        if (themeToggleButton) {
+            themeToggleButton.addEventListener('click', () => {
+                document.body.classList.toggle('dark-mode');
+                localStorage.setItem('theme', document.body.classList.contains('dark-mode') ? 'dark' : 'light');
+                updateToggleButtonText();
+            });
+        }
+
+        // Language button listeners
+        if (btnAr) btnAr.addEventListener('click', () => setLanguage('ar'));
+        if (btnEn) btnEn.addEventListener('click', () => setLanguage('en'));
+
+        // --- START Navigation Sidebar Logic --- //
+        const menuIcon = document.getElementById('menu-icon');
+        const sidebar = document.getElementById('sidebar');
+
+        if(menuIcon && sidebar) {
+            menuIcon.addEventListener('click', () => {
+                sidebar.classList.toggle('open');
+            });
+            document.addEventListener('click', (event) => {
+                if (!sidebar.contains(event.target) && !menuIcon.contains(event.target) && sidebar.classList.contains('open')) {
+                    sidebar.classList.remove('open');
+                }
+            });
+        }
+        // --- END Navigation Sidebar Logic --- //
+
+        // Initial setup
+        setLanguage(currentLang); // Set initial language on load
+
+    </script>
+</body>
+</html> 
