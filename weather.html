@@ -1,0 +1,940 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title data-lang-ar="حالة الطقس" data-lang-en="Weather">Weather</title>
+    <meta name="description" content="Check the current weather conditions for any city.">
+    <style>
+        /* Default Light Mode Styles (Include styles from index.html/common CSS file) */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            color: #333;
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            position: relative;
+            padding-top: 50px;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        .menu-icon {
+            position: fixed; /* Changed to fixed */
+            top: 15px;
+            left: 15px;
+            width: 30px;
+            height: 22px;
+            cursor: pointer;
+            z-index: 1001;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .menu-icon span {
+            display: block;
+            height: 3px;
+            width: 100%;
+            background-color: #333;
+            border-radius: 3px;
+            transition: background-color 0.3s;
+        }
+
+        #sidebar {
+            position: fixed;
+            top: 0;
+            left: -250px;
+            width: 250px;
+            height: 100vh; /* Use vh for full height */
+            background-color: #fff;
+            color: #333;
+            box-shadow: 2px 0 5px rgba(0,0,0,0.2);
+            padding-top: 60px;
+            transition: left 0.3s ease-in-out, background-color 0.3s, color 0.3s;
+            z-index: 1000;
+            display: flex;
+            flex-direction: column;
+            overflow-y: auto; /* Allow scrolling if links exceed height */
+        }
+
+        #sidebar.open {
+            left: 0;
+        }
+
+        #sidebar ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            flex-grow: 1;
+        }
+
+        #sidebar li a {
+            display: block;
+            padding: 15px 20px;
+            color: #333;
+            text-decoration: none;
+            border-bottom: 1px solid #eee;
+            font-weight: bold;
+            transition: background-color 0.2s;
+        }
+
+        #sidebar li a:hover {
+            background-color: #f4f4f4;
+        }
+
+        .container {
+            width: 90%; /* Slightly wider for smaller screens */
+            max-width: 600px; /* Adjusted max-width for weather focus */
+            background-color: #fff;
+            color: #333;
+            padding: 30px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            margin: 40px auto 20px;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 30px;
+            transition: color 0.3s;
+            font-size: 2em;
+        }
+
+        .lang-switcher {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .lang-switcher button, .theme-toggle-button-main {
+            padding: 8px 15px;
+            margin: 0 5px;
+            cursor: pointer;
+            border: 1px solid #ccc;
+            background-color: #f9f9f9;
+            border-radius: 4px;
+            transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+        }
+        .lang-switcher button:hover, .theme-toggle-button-main:hover {
+            background-color: #eee;
+        }
+
+        /* Weather Specific Styles */
+        .weather-search {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 30px;
+        }
+
+        .weather-search input[type="text"] {
+            flex-grow: 1;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 1em;
+            transition: border-color 0.3s;
+        }
+        .weather-search input[type="text"]:focus {
+            outline: none;
+            border-color: #007bff;
+        }
+
+        .weather-search button {
+            padding: 12px 20px;
+            border: none;
+            background-color: #007bff;
+            color: white;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1em;
+            transition: background-color 0.3s;
+        }
+        .weather-search button:hover {
+            background-color: #0056b3;
+        }
+
+        .weather-info {
+            text-align: center;
+            background-color: #eef2f7; /* Light blue background */
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: inset 0 0 8px rgba(0, 0, 0, 0.05);
+            display: none; /* Hidden by default */
+            transition: background-color 0.3s, color 0.3s;
+            color: #333; /* Default text color */
+        }
+
+        .weather-info.visible {
+            display: block;
+        }
+
+        .weather-info h2 {
+            margin-top: 0;
+            margin-bottom: 15px;
+            font-size: 1.8em;
+            color: #1a237e; /* Dark blue heading */
+        }
+
+        .weather-icon {
+            width: 100px;
+            height: 100px;
+            margin: 0 auto 10px;
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+        }
+
+        .weather-temp {
+            font-size: 3em;
+            font-weight: bold;
+            margin: 5px 0;
+            color: #007bff; /* Temperature color */
+        }
+
+        .weather-desc {
+            font-size: 1.2em;
+            margin-bottom: 20px;
+            text-transform: capitalize;
+            color: #555;
+        }
+
+        .weather-details {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap; /* Allow wrapping on smaller screens */
+            gap: 15px; /* Add gap between items */
+            font-size: 0.95em;
+            color: #444;
+        }
+
+        .weather-details span {
+            display: block; /* Ensure spans take block space */
+        }
+        .weather-details strong {
+            margin-right: 5px;
+        }
+
+        .error-message {
+            color: #dc3545;
+            text-align: center;
+            margin-top: 15px;
+            font-weight: bold;
+            display: none; /* Hidden by default */
+        }
+        .error-message.visible {
+            display: block;
+        }
+
+        /* Dark Mode Styles */
+        body.dark-mode {
+            background-color: #1a1a1a;
+            color: #f1f1f1;
+        }
+        body.dark-mode .menu-icon span { background-color: #f1f1f1; }
+        body.dark-mode #sidebar { background-color: #2c2c2c; color: #f1f1f1; box-shadow: 2px 0 5px rgba(255,255,255,0.1); }
+        [dir="rtl"] body.dark-mode #sidebar { box-shadow: -2px 0 5px rgba(255,255,255,0.1); }
+        body.dark-mode #sidebar li a { color: #f1f1f1; border-bottom: 1px solid #444; }
+        body.dark-mode #sidebar li a:hover { background-color: #444; }
+        body.dark-mode .container { background-color: #2c2c2c; color: #f1f1f1; box-shadow: 0 0 15px rgba(255, 255, 255, 0.1); }
+        body.dark-mode h1 { color: #f1f1f1; }
+        body.dark-mode .lang-switcher button, body.dark-mode .theme-toggle-button-main { background-color: #555; color: #f1f1f1; border: 1px solid #777; }
+        body.dark-mode .lang-switcher button:hover, body.dark-mode .theme-toggle-button-main:hover { background-color: #666; }
+        body.dark-mode .weather-search input[type="text"] { background-color: #3a3a3a; color: #f1f1f1; border-color: #555; }
+        body.dark-mode .weather-search input[type="text"]:focus { border-color: #5cadff; }
+        body.dark-mode .weather-search button { background-color: #0d6efd; }
+        body.dark-mode .weather-search button:hover { background-color: #0a58ca; }
+        body.dark-mode .weather-info { background-color: #3a3a3a; color: #ccc; box-shadow: inset 0 0 8px rgba(255, 255, 255, 0.05); }
+        body.dark-mode .weather-info h2 { color: #8ecaff; }
+        body.dark-mode .weather-temp { color: #5cadff; }
+        body.dark-mode .weather-desc { color: #bbb; }
+        body.dark-mode .weather-details { color: #aaa; }
+        body.dark-mode .error-message { color: #ff8a80; }
+
+
+        /* --- RTL Adjustments --- */
+        [dir="rtl"] .menu-icon { left: auto; right: 15px; }
+        [dir="rtl"] #sidebar { left: auto; right: -250px; }
+        [dir="rtl"] #sidebar.open { left: auto; right: 0; }
+        [dir="rtl"] #sidebar li a { text-align: right; }
+        [dir="rtl"] .weather-details strong { margin-left: 5px; margin-right: 0; }
+
+         /* Responsive adjustments */
+        @media (max-width: 600px) {
+            .container {
+                width: 95%;
+                padding: 20px;
+            }
+            h1 {
+                font-size: 1.8em;
+            }
+            .weather-search {
+                flex-direction: column; /* Stack search elements */
+            }
+            .weather-temp {
+                font-size: 2.5em;
+            }
+            .weather-details {
+                flex-direction: column; /* Stack details */
+                align-items: center;
+                gap: 10px;
+            }
+        }
+
+        .weather-details-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); /* Responsive grid */
+            gap: 15px; /* Space between grid items */
+            margin-top: 20px;
+            font-size: 0.95em;
+            color: #444;
+            text-align: left; /* Align text left within grid items */
+        }
+
+        .weather-details-grid > div {
+            background-color: rgba(0, 0, 0, 0.02); /* Subtle background for each item */
+            padding: 10px;
+            border-radius: 5px;
+        }
+
+        [dir="rtl"] .weather-details-grid {
+            text-align: right; /* Align text right for RTL */
+        }
+
+        .weather-details-grid strong {
+            display: block; /* Make label take full width */
+            margin-bottom: 3px;
+            color: #111;
+            font-weight: bold;
+        }
+
+        .weather-details-grid span {
+            display: block; /* Ensure value is on its own line */
+        }
+
+        .data-time {
+             font-size: 0.8em;
+             margin-top: 15px;
+             color: #666;
+             text-align: center;
+        }
+
+        body.dark-mode .weather-details-grid {
+             color: #aaa;
+        }
+        body.dark-mode .weather-details-grid > div {
+            background-color: rgba(255, 255, 255, 0.05);
+        }
+         body.dark-mode .weather-details-grid strong {
+             color: #ddd;
+        }
+         body.dark-mode .data-time {
+            color: #888;
+        }
+        body.dark-mode .error-message { color: #ff8a80; }
+
+        /* Quick City Button Styles */
+        .quick-cities {
+            text-align: center;
+            margin-bottom: 30px;
+            display: flex;
+            flex-wrap: wrap; /* Allow buttons to wrap */
+            justify-content: center;
+            gap: 10px; /* Space between buttons */
+        }
+
+        .city-button {
+            padding: 8px 15px;
+            border: 1px solid #007bff;
+            background-color: #fff;
+            color: #007bff;
+            border-radius: 20px; /* Rounded buttons */
+            cursor: pointer;
+            font-size: 0.9em;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        .city-button:hover {
+            background-color: #007bff;
+            color: #fff;
+        }
+
+        /* Dark mode for quick city buttons */
+        body.dark-mode .city-button {
+            border-color: #5cadff;
+            background-color: #3a3a3a;
+            color: #5cadff;
+        }
+        body.dark-mode .city-button:hover {
+            background-color: #5cadff;
+            color: #1a1a1a;
+        }
+
+        /* Forecast Styles */
+        .forecast-container h3 {
+            color: #333;
+            transition: color 0.3s;
+        }
+        body.dark-mode .forecast-container h3 {
+            color: #eee;
+        }
+
+        .forecast-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(100px, 1fr)); /* Responsive grid for forecast days */
+            gap: 15px;
+        }
+
+        .forecast-item {
+            background-color: rgba(0, 0, 0, 0.03);
+            border-radius: 8px;
+            padding: 15px;
+            text-align: center;
+            font-size: 0.9em;
+        }
+
+        .forecast-item .day {
+            font-weight: bold;
+            margin-bottom: 8px;
+            display: block;
+        }
+
+        .forecast-item .icon {
+            width: 50px;
+            height: 50px;
+            margin: 5px auto;
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+        }
+
+        .forecast-item .temps {
+            margin-top: 8px;
+        }
+        .forecast-item .temps .max {
+            font-weight: bold;
+        }
+        .forecast-item .temps .min {
+            color: #666;
+            margin-left: 5px;
+        }
+
+        /* Dark mode for forecast */
+        body.dark-mode .forecast-item {
+            background-color: rgba(255, 255, 255, 0.06);
+        }
+        body.dark-mode .forecast-item .min {
+            color: #999;
+        }
+
+    </style>
+</head>
+<body>
+    <div id="menu-icon" class="menu-icon">
+        <span></span>
+        <span></span>
+        <span></span>
+    </div>
+
+    <nav id="sidebar">
+         <ul>
+            <li><a href="index.html" data-lang-ar="الرئيسية" data-lang-en="Home">Home</a></li>
+            <li><a href="favorites.html" data-lang-ar="المفضلات" data-lang-en="Favorites">Favorites</a></li>
+            <li><a href="weather.html" data-lang-ar="حالة الطقس" data-lang-en="Weather">Weather</a></li>
+            <li><a href="news.html" data-lang-ar="الأخبار" data-lang-en="News">News</a></li>
+            <li><a href="notifications.html" data-lang-ar="الإشعارات" data-lang-en="Notifications">Notifications</a></li>
+            <li><a href="faq.html" data-lang-ar="الأسئلة الشائعة" data-lang-en="FAQ">FAQ</a></li>
+        </ul>
+    </nav>
+
+    <div class="container">
+        <div class="lang-switcher">
+            <button id="lang-ar">العربية</button>
+            <button id="lang-en">English</button>
+            <button class="theme-toggle-button-main" id="theme-toggle" data-lang-ar="تبديل الوضع" data-lang-en="Toggle Theme">Toggle Theme</button>
+        </div>
+
+        <h1 data-lang-ar="حالة الطقس" data-lang-en="Weather Conditions">Weather Conditions</h1>
+
+        <div class="weather-search">
+            <input type="text" id="city-input" placeholder="Enter city name..." data-lang-placeholder-ar="أدخل اسم المدينة..." data-lang-placeholder-en="Enter city name...">
+            <button id="search-button" data-lang-ar="بحث" data-lang-en="Search">Search</button>
+        </div>
+
+        <!-- Quick City Links -->
+        <div class="quick-cities">
+            <button class="city-button" data-city="Rotterdam">Rotterdam</button>
+            <button class="city-button" data-city="Amsterdam">Amsterdam</button>
+            <button class="city-button" data-city="Den Haag">Den Haag</button>
+            <button class="city-button" data-city="Utrecht">Utrecht</button>
+        </div>
+
+        <div class="weather-info" id="weather-info">
+            <h2 id="city-name"></h2>
+            <div class="weather-icon" id="weather-icon"></div>
+            <div class="weather-temp" id="weather-temp"></div>
+            <div class="weather-desc" id="weather-desc"></div>
+
+            <!-- Enhanced Details Section -->
+            <div class="weather-details-grid">
+                 <div>
+                    <strong data-lang-ar="الإحساس الفعلي:" data-lang-en="Feels Like:">Feels Like:</strong>
+                    <span id="feels-like">--</span>
+                 </div>
+                 <div>
+                    <strong data-lang-ar="الرطوبة:" data-lang-en="Humidity:">Humidity:</strong>
+                    <span id="humidity">--</span>
+                 </div>
+                 <div>
+                    <strong data-lang-ar="الرياح:" data-lang-en="Wind:">Wind:</strong>
+                    <span id="wind-speed">--</span>
+                 </div>
+                 <div>
+                    <strong data-lang-ar="الضغط الجوي:" data-lang-en="Pressure:">Pressure:</strong>
+                    <span id="pressure">--</span>
+                 </div>
+                <div>
+                    <strong data-lang-ar="الغيوم:" data-lang-en="Cloudiness:">Cloudiness:</strong>
+                    <span id="cloudiness">--</span>
+                 </div>
+                 <div>
+                    <strong data-lang-ar="الرؤية:" data-lang-en="Visibility:">Visibility:</strong>
+                    <span id="visibility">--</span>
+                 </div>
+                 <div>
+                     <strong data-lang-ar="المطر (1 س):" data-lang-en="Rain (1h):">Rain (1h):</strong>
+                     <span id="rain-1h">--</span>
+                 </div>
+                 <div>
+                    <strong data-lang-ar="شروق الشمس:" data-lang-en="Sunrise:">Sunrise:</strong>
+                    <span id="sunrise">--</span>
+                 </div>
+                 <div>
+                    <strong data-lang-ar="غروب الشمس:" data-lang-en="Sunset:">Sunset:</strong>
+                    <span id="sunset">--</span>
+                 </div>
+                <!-- Min/Max Temp (Optional, less reliable for 'current')
+                 <div>
+                    <strong data-lang-ar="أدنى حرارة:" data-lang-en="Min Temp:">Min Temp:</strong>
+                    <span id="temp-min">--</span>
+                 </div>
+                 <div>
+                    <strong data-lang-ar="أقصى حرارة:" data-lang-en="Max Temp:">Max Temp:</strong>
+                    <span id="temp-max">--</span>
+                 </div>
+                 -->
+            </div>
+            <div class="data-time" id="data-time" style="font-size: 0.8em; margin-top: 15px; color: #666;"></div>
+        </div>
+        <div class="error-message" id="error-message"></div>
+
+        <!-- 5-Day Forecast Section -->
+        <div class="forecast-container" id="forecast-container" style="display: none; margin-top: 30px;">
+            <h3 data-lang-ar="توقعات الطقس (5 أيام)" data-lang-en="5-Day Forecast" style="text-align: center; margin-bottom: 15px;">5-Day Forecast</h3>
+            <div class="forecast-grid" id="forecast-grid">
+                <!-- Forecast items will be injected here by JS -->
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        const translatableElementsStatic = document.querySelectorAll('[data-lang-ar], [data-lang-en], [data-lang-placeholder-ar], [data-lang-placeholder-en]');
+        const btnAr = document.getElementById('lang-ar');
+        const btnEn = document.getElementById('lang-en');
+        const themeToggleButton = document.getElementById('theme-toggle');
+        let currentLang = localStorage.getItem('preferredLanguage') || 'en';
+
+        // --- Translations ---
+        const translations = {
+            "Weather": { ar: "حالة الطقس", en: "Weather" }, // For Title and Sidebar
+            "Weather Conditions": { ar: "حالة الطقس", en: "Weather Conditions" }, // For H1
+            "Home": { ar: "الرئيسية", en: "Home" },
+            "Favorites": { ar: "المفضلات", en: "Favorites" },
+            "News": { ar: "الأخبار", en: "News" },
+            "Notifications": { ar: "الإشعارات", en: "Notifications" },
+            "FAQ": { ar: "الأسئلة الشائعة", en: "FAQ" },
+            "Toggle Theme": { ar: "تبديل الوضع", en: "Toggle Theme" },
+            "Enter city name...": { ar: "أدخل اسم المدينة...", en: "Enter city name..." },
+            "Search": { ar: "بحث", en: "Search" },
+            "Humidity:": { ar: "الرطوبة:", en: "Humidity:" },
+            "Wind:": { ar: "الرياح:", en: "Wind:" },
+            "Feels Like:": { ar: "الإحساس الفعلي:", en: "Feels Like:" },
+            "Pressure:": { ar: "الضغط الجوي:", en: "Pressure:" },
+            "Cloudiness:": { ar: "الغيوم:", en: "Cloudiness:" },
+            "Visibility:": { ar: "الرؤية:", en: "Visibility:" },
+            "Rain (1h):": { ar: "المطر (1 س):", en: "Rain (1h):" },
+            "Sunrise:": { ar: "شروق الشمس:", en: "Sunrise:" },
+            "Sunset:": { ar: "غروب الشمس:", en: "Sunset:" },
+            "Data calculated at:": { ar: "تم حساب البيانات في:", en: "Data calculated at:" },
+            "Error fetching weather.": { ar: "خطأ في جلب الطقس.", en: "Error fetching weather." },
+            "City not found.": { ar: "لم يتم العثور على المدينة.", en: "City not found." },
+            "Please enter a city name.": { ar: "يرجى إدخال اسم المدينة.", en: "Please enter a city name." },
+            "Wind Speed Unit": { ar: " م/ث", en: " m/s" },
+            "5-Day Forecast": { ar: "توقعات الطقس (5 أيام)", en: "5-Day Forecast" },
+            "Sun": { ar: "الأحد", en: "Sun" },
+            "Mon": { ar: "الاثنين", en: "Mon" },
+            "Tue": { ar: "الثلاثاء", en: "Tue" },
+            "Wed": { ar: "الأربعاء", en: "Wed" },
+            "Thu": { ar: "الخميس", en: "Thu" },
+            "Fri": { ar: "الجمعة", en: "Fri" },
+            "Sat": { ar: "السبت", en: "Sat" },
+            "Error fetching forecast.": { ar: "خطأ في جلب التوقعات.", en: "Error fetching forecast." }
+        };
+
+        function getTranslation(key, lang, isPlaceholder = false) {
+            if (!key) return '';
+             const transKey = isPlaceholder ? `placeholder-${key}` : key; // Check for specific placeholder key if needed later
+             return translations[key]?.[lang] || key; // Fallback to the key itself
+        }
+
+
+        function updateToggleButtonText() {
+            const isDarkMode = document.body.classList.contains('dark-mode');
+            const key = "Toggle Theme";
+            let buttonText = getTranslation(key, currentLang);
+             if (themeToggleButton) {
+                 themeToggleButton.textContent = buttonText;
+            }
+             if(btnAr) btnAr.textContent = "العربية";
+             if(btnEn) btnEn.textContent = "English";
+        }
+
+        function setLanguage(lang) {
+             document.documentElement.lang = lang;
+             document.documentElement.dir = lang === 'ar' ? 'rtl' : 'ltr';
+             currentLang = lang;
+
+             document.querySelectorAll('[data-lang-en], [data-lang-placeholder-en]').forEach(el => {
+                let key, targetAttribute;
+                if (el.hasAttribute('data-lang-placeholder-en')) {
+                    key = el.dataset.langPlaceholderEn;
+                    targetAttribute = 'placeholder';
+                } else {
+                    key = el.dataset.langEn;
+                    targetAttribute = 'textContent'; // Default target is textContent
+                }
+
+                // Special handling for Title
+                 if (el.tagName.toLowerCase() === 'title') {
+                    targetAttribute = 'textContent'; // Actually, it's the textContent of the title tag
+                     document.title = getTranslation(key, lang);
+                     return; // Skip further processing for title
+                 }
+
+                let targetText = getTranslation(key, lang);
+
+                // Update text content or placeholder
+                if (targetAttribute === 'textContent') {
+                    // Avoid updating if it's an input/button handled by placeholder/value later if needed
+                    if (el.tagName.toLowerCase() !== 'input') {
+                         if(el.textContent !== targetText) el.textContent = targetText;
+                    }
+                } else if (targetAttribute === 'placeholder') {
+                    if(el.placeholder !== targetText) el.placeholder = targetText;
+                }
+             });
+
+            // Translate sidebar links specifically
+            document.querySelectorAll('#sidebar a[data-lang-en]').forEach(el => {
+                 const key = el.dataset.langEn;
+                 el.textContent = getTranslation(key, currentLang);
+            });
+
+
+             // Retranslate any currently displayed weather data if needed
+             if (window.lastWeatherData) {
+                 displayWeather(window.lastWeatherData); // Re-display with new language/units
+             }
+
+             localStorage.setItem('preferredLanguage', lang);
+             updateToggleButtonText();
+        }
+
+        // --- Sidebar Logic ---
+        const menuIcon = document.getElementById('menu-icon');
+        const sidebar = document.getElementById('sidebar');
+        if (menuIcon && sidebar) {
+             menuIcon.addEventListener('click', () => sidebar.classList.toggle('open'));
+             document.addEventListener('click', (event) => {
+                 if (!sidebar.contains(event.target) && !menuIcon.contains(event.target) && sidebar.classList.contains('open')) {
+                     sidebar.classList.remove('open');
+                 }
+             });
+        }
+
+        // --- Theme Toggle Logic ---
+        const currentTheme = localStorage.getItem('theme');
+        if (currentTheme === 'dark') {
+            document.body.classList.add('dark-mode');
+        }
+        updateToggleButtonText();
+        if (themeToggleButton) {
+             themeToggleButton.addEventListener('click', () => {
+                 document.body.classList.toggle('dark-mode');
+                 let newTheme = document.body.classList.contains('dark-mode') ? 'dark' : 'light';
+                 localStorage.setItem('theme', newTheme);
+                 updateToggleButtonText();
+             });
+        }
+
+        // --- Weather API Logic ---
+        const apiKey = "12ced00f30785840689a1125d9844902";
+        const cityInput = document.getElementById('city-input');
+        const searchButton = document.getElementById('search-button');
+        const weatherInfoDiv = document.getElementById('weather-info');
+        const errorMessageDiv = document.getElementById('error-message');
+        const cityNameEl = document.getElementById('city-name');
+        const weatherIconEl = document.getElementById('weather-icon');
+        const weatherTempEl = document.getElementById('weather-temp');
+        const weatherDescEl = document.getElementById('weather-desc');
+        const humidityEl = document.getElementById('humidity');
+        const windSpeedEl = document.getElementById('wind-speed');
+        // New element references
+        const feelsLikeEl = document.getElementById('feels-like');
+        const pressureEl = document.getElementById('pressure');
+        const visibilityEl = document.getElementById('visibility');
+        const cloudinessEl = document.getElementById('cloudiness');
+        const rain1hEl = document.getElementById('rain-1h');
+        const sunriseEl = document.getElementById('sunrise');
+        const sunsetEl = document.getElementById('sunset');
+        const dataTimeEl = document.getElementById('data-time');
+        // Forecast elements
+        const forecastContainer = document.getElementById('forecast-container');
+        const forecastGrid = document.getElementById('forecast-grid');
+
+        window.lastWeatherData = null;
+        window.lastLatLon = null; // Store last coordinates
+
+        // Reverted getWeather function using /weather endpoint
+        async function getWeather(city) {
+            errorMessageDiv.classList.remove('visible');
+            weatherInfoDiv.classList.remove('visible');
+            forecastContainer.style.display = 'none'; // Hide forecast initially
+
+            if (!city) {
+                errorMessageDiv.textContent = getTranslation("Please enter a city name.", currentLang);
+                errorMessageDiv.classList.add('visible');
+                return;
+            }
+
+            searchButton.disabled = true;
+            searchButton.textContent = '...';
+
+            const langParam = currentLang === 'ar' ? 'ar' : 'en';
+            const apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${encodeURIComponent(city)}&appid=${apiKey}&units=metric&lang=${langParam}`;
+
+            try {
+                const response = await fetch(apiUrl);
+                if (!response.ok) {
+                    if (response.status === 404) {
+                        throw new Error(getTranslation("City not found.", currentLang));
+                    } else {
+                         const errorData = await response.json().catch(() => ({ message: 'Unknown API error' }));
+                         throw new Error(`${getTranslation("Error fetching weather.", currentLang)} ${errorData.message || ''}`);
+                    }
+                }
+                const data = await response.json();
+                window.lastWeatherData = data;
+                window.lastLatLon = data.coord; // Store coordinates
+
+                displayWeather(data); // Display current weather
+
+                // Fetch forecast using coordinates if available
+                if (window.lastLatLon) {
+                    await getForecast(window.lastLatLon.lat, window.lastLatLon.lon);
+                }
+
+            } catch (error) {
+                 console.error("Weather fetch error:", error);
+                 errorMessageDiv.textContent = error.message;
+                 errorMessageDiv.classList.add('visible');
+                 window.lastWeatherData = null;
+                 window.lastLatLon = null;
+            } finally {
+                 searchButton.disabled = false;
+                 searchButton.textContent = getTranslation("Search", currentLang);
+            }
+        }
+
+         // Function to fetch 5-day/3-hour forecast data
+         async function getForecast(lat, lon) {
+            const langParam = currentLang === 'ar' ? 'ar' : 'en';
+            const forecastUrl = `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${apiKey}&units=metric&lang=${langParam}`;
+
+            try {
+                const response = await fetch(forecastUrl);
+                 if (!response.ok) {
+                    const errorData = await response.json().catch(() => ({ message: 'Unknown API error' }));
+                    throw new Error(`${getTranslation("Error fetching forecast.", currentLang)} ${errorData.message || ''}`);
+                 }
+                 const forecastData = await response.json();
+                 displayForecast(forecastData.list);
+            } catch (error) {
+                 console.error("Forecast fetch error:", error);
+                 // Optionally display a less intrusive forecast error
+                 // errorMessageDiv.textContent += `\n${error.message}`; // Append error
+                 forecastContainer.style.display = 'none'; // Hide forecast section on error
+            }
+         }
+
+
+        // Helper function to format Unix timestamp to HH:MM time in the city's local timezone
+        function formatTime(unixTimestamp, timezoneOffsetSeconds) {
+            const date = new Date(unixTimestamp * 1000);
+            const adjustedMillis = date.getTime() + (timezoneOffsetSeconds * 1000);
+            const cityDate = new Date(adjustedMillis);
+            const hours = cityDate.getUTCHours().toString().padStart(2, '0');
+            const minutes = cityDate.getUTCMinutes().toString().padStart(2, '0');
+            return `${hours}:${minutes}`;
+        }
+
+         // Reverted displayWeather to match /weather endpoint structure
+         function displayWeather(data) {
+             if (!data || !data.name) { 
+                 console.error("Invalid weather data received:", data);
+                 errorMessageDiv.textContent = getTranslation("Error fetching weather.", currentLang);
+                 errorMessageDiv.classList.add('visible');
+                 weatherInfoDiv.classList.remove('visible');
+                 return;
+             }
+
+            cityNameEl.textContent = data.name + (data.sys.country ? `, ${data.sys.country}` : '');
+            const iconCode = data.weather[0].icon;
+            weatherIconEl.style.backgroundImage = `url('https://openweathermap.org/img/wn/${iconCode}@2x.png')`;
+            weatherTempEl.textContent = `${Math.round(data.main.temp)}°C`;
+            weatherDescEl.textContent = data.weather[0].description;
+
+            feelsLikeEl.textContent = `${Math.round(data.main.feels_like)}°C`;
+            humidityEl.textContent = `${data.main.humidity}%`;
+            windSpeedEl.textContent = `${data.wind.speed}${getTranslation("Wind Speed Unit", currentLang)}`;
+            pressureEl.textContent = `${data.main.pressure} hPa`;
+            cloudinessEl.textContent = `${data.clouds.all}%`;
+            visibilityEl.textContent = data.visibility ? `${(data.visibility / 1000).toFixed(1)} km` : 'N/A';
+            rain1hEl.textContent = data.rain && data.rain['1h'] ? `${data.rain['1h']} mm` : 'N/A';
+
+            const timezoneOffset = data.timezone;
+            sunriseEl.textContent = data.sys.sunrise ? formatTime(data.sys.sunrise, timezoneOffset) : 'N/A';
+            sunsetEl.textContent = data.sys.sunset ? formatTime(data.sys.sunset, timezoneOffset) : 'N/A';
+
+            const calculationTime = data.dt ? new Date(data.dt * 1000) : null;
+             if (calculationTime) {
+                 dataTimeEl.textContent = `${getTranslation("Data calculated at:", currentLang)} ${calculationTime.toLocaleTimeString()}`;
+             } else {
+                 dataTimeEl.textContent = '';
+             }
+
+            document.querySelectorAll('#weather-info [data-lang-en]').forEach(el => {
+                 const key = el.dataset.langEn;
+                 el.textContent = getTranslation(key, currentLang);
+            });
+
+            // Translate forecast title (if needed, though static)
+            const forecastTitle = forecastContainer.querySelector('h3');
+            if (forecastTitle) {
+                forecastTitle.textContent = getTranslation("5-Day Forecast", currentLang);
+            }
+
+            errorMessageDiv.classList.remove('visible');
+            weatherInfoDiv.classList.add('visible');
+        }
+
+        // Function to display 5-day forecast
+        function displayForecast(forecastList) {
+             if (!forecastList || forecastList.length === 0) {
+                 forecastContainer.style.display = 'none';
+                 return;
+             }
+
+             forecastGrid.innerHTML = ''; // Clear previous forecast
+
+             // Process data to get daily summaries (simple approach: use midday data)
+             const dailyData = {};
+             const daysOrder = [];
+
+             forecastList.forEach(item => {
+                 const date = new Date(item.dt * 1000);
+                 const dayKey = date.toISOString().split('T')[0]; // YYYY-MM-DD
+
+                 if (!dailyData[dayKey]) {
+                     dailyData[dayKey] = {
+                         temps: [],
+                         icons: [],
+                         descriptions: [],
+                         date: date // Store the first date object for the day
+                     };
+                     daysOrder.push(dayKey);
+                 }
+                 dailyData[dayKey].temps.push(item.main.temp);
+                 dailyData[dayKey].icons.push(item.weather[0].icon);
+                 dailyData[dayKey].descriptions.push(item.weather[0].description);
+             });
+
+             // Keep only the next 5 days (or fewer if API returns less)
+             const displayDays = daysOrder.slice(0, 5);
+
+            const dayNames = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]; // Keys for translation
+
+             displayDays.forEach(dayKey => {
+                 const dayInfo = dailyData[dayKey];
+                 const dayOfWeekIndex = dayInfo.date.getDay();
+                 const dayNameKey = dayNames[dayOfWeekIndex];
+                 const dayName = getTranslation(dayNameKey, currentLang);
+
+                 const minTemp = Math.min(...dayInfo.temps);
+                 const maxTemp = Math.max(...dayInfo.temps);
+
+                 // Simple approach for icon: use the most frequent one, or the first one
+                 // A better approach might be to find the dominant weather condition for the day
+                 const icon = dayInfo.icons[0]; // Just take the first icon for simplicity
+
+                 const forecastItem = document.createElement('div');
+                 forecastItem.classList.add('forecast-item');
+                 forecastItem.innerHTML = `
+                     <span class="day">${dayName}</span>
+                     <div class="icon" style="background-image: url('https://openweathermap.org/img/wn/${icon}.png')"></div>
+                     <div class="temps">
+                         <span class="max">${Math.round(maxTemp)}°C</span>
+                         <span class="min">${Math.round(minTemp)}°C</span>
+                     </div>
+                 `;
+                 forecastGrid.appendChild(forecastItem);
+             });
+
+             forecastContainer.style.display = 'block'; // Show the forecast section
+        }
+
+        // Event listeners remain the same but now call the reverted getWeather
+        searchButton.addEventListener('click', () => {
+            getWeather(cityInput.value.trim());
+        });
+
+        cityInput.addEventListener('keypress', (event) => {
+            if (event.key === 'Enter') {
+                getWeather(cityInput.value.trim());
+            }
+        });
+
+        // Add event listeners for quick city buttons
+        document.querySelectorAll('.city-button').forEach(button => {
+            button.addEventListener('click', () => {
+                const city = button.getAttribute('data-city');
+                if (city) {
+                    cityInput.value = city; // Optional: Update the input field
+                    getWeather(city);
+                }
+            });
+        });
+
+        // --- Initial Setup ---
+        btnAr.addEventListener('click', () => setLanguage('ar'));
+        btnEn.addEventListener('click', () => setLanguage('en'));
+
+        const preferredLanguage = localStorage.getItem('preferredLanguage');
+        setLanguage(preferredLanguage || 'en'); // Default to English
+
+    </script>
+
+</body>
+</html> 
