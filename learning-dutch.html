@@ -282,6 +282,14 @@
                  </div>
                  <span data-lang-ar="​هذا الموقع يقدم موارد تعليمية متخصصة لمدرّسي اللغة الهولندية كلغة ثانية (NT2)، بما في ذلك دورات إلكترونية وورش عمل حول قواعد اللغة وأساليب تدريسها. كما يوفر نصائح دراسية وأدوات تعليمية لدعم المعلمين في تحسين مهارات الطلاب في الكتابة والتواصل.​" data-lang-en="This site offers specialized educational resources for teachers of Dutch as a second language (NT2), including e-courses and workshops on grammar and teaching methods. It also provides study tips and educational tools to support teachers in improving students' writing and communication skills."></span>
              </div>
+            <!-- Oefenen (Inburgeren) -->
+            <div class="link-item" data-id="oefenen-inburgeren">
+                 <div class="link-item-header">
+                     <a href="https://www.inburgeren.nl/examen-doen/oefenen.jsp" target="_blank" data-lang-ar="تمارين (Inburgeren)" data-lang-en="Practice (Inburgeren)">Practice (Inburgeren)</a>
+                     <span class="heart-icon">♡</span>
+                 </div>
+                 <span data-lang-ar="هذا الموقع يقدم تدريبات امتحانات الأعوام السابقة، ويشمل تمارين من موقع الـ DUO للمهارات الأربع (القراءة، الكتابة، الاستماع، والمحادثة)، بالإضافة إلى امتحانات الاندماج KNM." data-lang-en="This website provides practice exams from previous years, including exercises from the DUO website for the four skills (Reading, Writing, Listening, and Speaking), in addition to KNM integration exams.">This website provides practice exams from previous years, including exercises from the DUO website for the four skills (Reading, Writing, Listening, and Speaking), in addition to KNM integration exams.</span>
+             </div>
         </div>
     </div>
     <script>
@@ -290,7 +298,7 @@
         const btnEn = document.getElementById('lang-en');
         const themeToggleButton = document.getElementById('theme-toggle');
         const titleElement = document.querySelector('title');
-        let currentLang = document.documentElement.lang || 'ar';
+        let currentLang = localStorage.getItem('preferredLanguage') || 'ar';
 
         const translations = {
             "Learning Dutch": { ar: "تعلم اللغة الهولندية", en: "Learning Dutch" },
@@ -308,7 +316,16 @@
             "Grammar for NT2 Teachers": {ar: "قواعد اللغة لمدرسي NT2", en: "Grammar for NT2 Teachers"},
             "This site offers specialized educational resources...": {ar: "​هذا الموقع يقدم موارد تعليمية متخصصة لمدرّسي اللغة الهولندية كلغة ثانية (NT2)، بما في ذلك دورات إلكترونية وورش عمل حول قواعد اللغة وأساليب تدريسها. كما يوفر نصائح دراسية وأدوات تعليمية لدعم المعلمين في تحسين مهارات الطلاب في الكتابة والتواصل.​", en: "This site offers specialized educational resources for teachers of Dutch as a second language (NT2), including e-courses and workshops on grammar and teaching methods. It also provides study tips and educational tools to support teachers in improving students' writing and communication skills."},
             "Home": { ar: "الرئيسية", en: "Home" },
-            "Favorites": { ar: "المفضلات", en: "Favorites" }
+            "Favorites": { ar: "المفضلات", en: "Favorites" },
+            "News": { ar: "الأخبار", en: "News" },
+            "Notifications": { ar: "الإشعارات", en: "Notifications" },
+            "FAQ": { ar: "الأسئلة الشائعة", en: "FAQ" },
+            "Dutch Grammar": { ar: "قواعد اللغة الهولندية", en: "Dutch Grammar" },
+            "Dutch Grammar Description": { ar: "موقع يقدم شرحاً تفصيلياً لقواعد اللغة الهولندية.", en: "A website offering detailed explanations of Dutch grammar rules." },
+            "LearnDutch.org": { ar: "LearnDutch.org", en: "LearnDutch.org" },
+            "LearnDutch.org Description": { ar: "منصة لتعلم اللغة الهولندية مع دروس وتمارين تفاعلية.", en: "A platform for learning Dutch with interactive lessons and exercises." },
+            "Practice (Inburgeren)": { ar: "تمارين (Inburgeren)", en: "Practice (Inburgeren)" },
+            "Practice (Inburgeren) Description": { ar: "هذا الموقع يقدم تدريبات امتحانات الأعوام السابقة، ويشمل تمارين من موقع الـ DUO للمهارات الأربع (القراءة، الكتابة، الاستماع، والمحادثة)، بالإضافة إلى امتحانات الاندماج KNM.", en: "This website provides practice exams from previous years, including exercises from the DUO website for the four skills (Reading, Writing, Listening, and Speaking), in addition to KNM integration exams." }
         };
 
         function updateToggleButtonText() {
