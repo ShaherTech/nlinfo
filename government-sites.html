@@ -239,22 +239,22 @@
         </div>
         <h1 data-lang-ar="مواقع حكومية" data-lang-en="Government Sites">Government Sites</h1>
         <div class="links">
-            <a href="https://www.belastingdienst.nl/wps/wcm/connect/nl/home/home" target="_blank" class="link-item" data-id="belastingdienst">
+            <div class="link-item" data-id="belastingdienst">
                 <div class="link-item-header">
-                    <span data-lang-ar="مصلحة الضرائب" data-lang-en="Tax Authorities">Belastingdienst</span>
+                    <a href="https://www.belastingdienst.nl/wps/wcm/connect/nl/home/home" target="_blank" data-lang-ar="مصلحة الضرائب" data-lang-en="Tax Authorities">Belastingdienst</a>
                     <span class="heart-icon">♡</span>
                 </div>
-                <img src="imags/belastingdienst.png" alt="شعار مصلحة الضرائب الهولندية (Belastingdienst)" style="width: 100%; max-width: 150px; height: auto; margin-top: 10px; margin-bottom: 10px;">
+                <img src="imags/belasteng.PNG" alt="Logo Belastingdienst" style="width: 100%; max-width: 150px; height: auto; margin-top: 10px; margin-bottom: 10px;">
                 <span data-lang-ar="الموقع الرسمي لمصلحة الضرائب الهولندية." data-lang-en="Official website of the Dutch Tax and Customs Administration.">Official website of the Dutch Tax and Customs Administration.</span>
-            </a>
+            </div>
 
-            <a href="https://mijn.overheid.nl/" target="_blank" class="link-item" data-id="mijn-overheid">
+            <div class="link-item" data-id="mijn-overheid">
                 <div class="link-item-header">
-                    <span data-lang-ar="Mijn Overheid" data-lang-en="Mijn Overheid">Mijn Overheid</span>
+                     <a href="https://mijn.overheid.nl/" target="_blank" data-lang-ar="Mijn Overheid" data-lang-en="Mijn Overheid">Mijn Overheid</a>
                     <span class="heart-icon">♡</span>
                 </div>
                 <span data-lang-ar="هذا الموقع يتيح للمواطنين في هولندا الوصول إلى معلومات حكومية هامة وإجراء المعاملات الحكومية الرقمية. يشمل ذلك مجالات مثل الضرائب، الرعاية الصحية، المعاشات، والوظائف. يمكن للمستخدمين إدارة حساباتهم الحكومية بأمان وسهولة عبر الموقع." data-lang-en="This site allows citizens in the Netherlands to access important government information and conduct digital government transactions. This includes areas such as taxes, healthcare, pensions, and jobs. Users can securely and easily manage their government accounts through the site."></span>
-            </a>
+            </div>
             <div class="link-item" data-id="mijn-ind">
                 <div class="link-item-header">
                     <a href="https://ind.nl/nl/mijn-ind" target="_blank" data-lang-ar="Mijn IND" data-lang-en="Mijn IND">Mijn IND</a>
@@ -276,8 +276,18 @@
                      <a href="https://www.rijksoverheid.nl/" target="_blank" data-lang-ar="الحكومة المركزية (Rijksoverheid)" data-lang-en="Central Government (Rijksoverheid)">Central Government (Rijksoverheid)</a>
                      <span class="heart-icon">♡</span>
                  </div>
-                  <img src="imags/rijksoverheid.png" alt="شعار الحكومة المركزية الهولندية (Rijksoverheid)" style="width: 100%; max-width: 150px; height: auto; margin-top: 10px; margin-bottom: 10px;"> 
+                  <img src="imags/14.PNG" alt="Logo Rijksoverheid" style="width: 100%; max-width: 150px; height: auto; margin-top: 10px; margin-bottom: 10px;">
                  <span data-lang-ar="الموقع الرسمي للحكومة الهولندية." data-lang-en="Official website of the Dutch central government.">Official website of the Dutch central government.</span>
+            </div>
+            <!-- Add more government site links here -->
+
+            <!-- Mijn Toeslagen -->
+            <div class="link-item" data-id="mijn-toeslagen">
+                 <div class="link-item-header">
+                     <a href="https://www.belastingdienst.nl/wps/wcm/connect/nl/toeslagen/content/inloggen-op-mijn-toeslagen" target="_blank" data-lang-ar="Mijn Toeslagen" data-lang-en="Mijn Toeslagen">Mijn Toeslagen</a>
+                     <span class="heart-icon">♡</span>
+                 </div>
+                 <span data-lang-ar="موقع Mijn Toeslagen هو منصة حكومية هولندية تمكن المستخدمين من طلب وإدارة الدعم المالي مثل دعم الإيجار ودعم التأمين الصحي ودعم الأطفال ودعم رعاية الأطفال. من خلال الموقع يمكن تعديل البيانات الشخصية مثل الدخل والحالة العائلية، متابعة المدفوعات، إيقاف الدعم في حال عدم الأهلية، ومراجعة القرارات الحكومية بشأن الدعم." data-lang-en="Mijn Toeslagen is a Dutch government platform allowing users to apply for and manage financial allowances like rent, health insurance, child, and childcare benefits. Users can update personal data (income, family status), track payments, stop allowances if ineligible, and review government decisions."></span>
             </div>
         </div>
     </div>
@@ -287,18 +297,50 @@
         const btnEn = document.getElementById('lang-en');
         const themeToggleButton = document.getElementById('theme-toggle');
         const titleElement = document.querySelector('title');
-        let currentLang = document.documentElement.lang || 'ar';
+        let currentLang = localStorage.getItem('preferredLanguage') || 'ar';
 
+        // Define translations object
         const translations = {
-            "Government Sites": { ar: "مواقع حكومية", en: "Government Sites" },
-            "Tax Authorities": { ar: "مصلحة الضرائب", en: "Tax Authorities" },
-            "Mijn Overheid": { ar: "Mijn Overheid", en: "Mijn Overheid" },
-            "This site allows citizens...": { ar: "هذا الموقع يتيح للمواطنين في هولندا الوصول إلى معلومات حكومية هامة وإجراء المعاملات الحكومية الرقمية. يشمل ذلك مجالات مثل الضرائب، الرعاية الصحية، المعاشات، والوظائف. يمكن للمستخدمين إدارة حساباتهم الحكومية بأمان وسهولة عبر الموقع.", en: "This site allows citizens in the Netherlands to access important government information and conduct digital government transactions. This includes areas such as taxes, healthcare, pensions, and jobs. Users can securely and easily manage their government accounts through the site." },
-            "Mijn IND": { ar: "Mijn IND", en: "Mijn IND" },
-            "This site allows users to track...": { ar: "هذا الموقع يتيح للمستخدمين متابعة وإدارة طلبات الإقامة والهجرة في هولندا، مثل تحديث البيانات الشخصية، تحميل المستندات، ومتابعة حالة الطلبات بشكل آمن وسهل.", en: "This site allows users to track and manage residency and immigration applications in the Netherlands, such as updating personal data, uploading documents, and securely and easily monitoring application status." },
-            "Toggle Theme": { ar: "تبديل الوضع", en: "Toggle Theme"},
-            "Home": { ar: "الرئيسية", en: "Home" },
-            "Favorites": { ar: "المفضلات", en: "Favorites" }
+             "Government Sites": { ar: "مواقع حكومية", en: "Government Sites" },
+             "Home": { ar: "الرئيسية", en: "Home" },
+             "Favorites": { ar: "المفضلات", en: "Favorites" },
+             "News": { ar: "الأخبار", en: "News" },
+             "Notifications": { ar: "الإشعارات", en: "Notifications" },
+             "FAQ": { ar: "الأسئلة الشائعة", en: "FAQ" },
+             "Toggle Theme": { ar: "تبديل الوضع", en: "Toggle Theme"},
+             "Tax Authorities": { ar: "مصلحة الضرائب", en: "Tax Authorities" },
+             "Tax Authorities Description": { ar: "الموقع الرسمي لمصلحة الضرائب الهولندية.", en: "Official website of the Dutch Tax and Customs Administration." },
+             "Mijn Overheid": { ar: "Mijn Overheid", en: "Mijn Overheid" },
+             "Mijn Overheid Description": { ar: "هذا الموقع يتيح للمواطنين في هولندا الوصول إلى معلومات حكومية هامة وإجراء المعاملات الحكومية الرقمية. يشمل ذلك مجالات مثل الضرائب، الرعاية الصحية، المعاشات، والوظائف. يمكن للمستخدمين إدارة حساباتهم الحكومية بأمان وسهولة عبر الموقع.", en: "This site allows citizens in the Netherlands to access important government information and conduct digital government transactions. This includes areas such as taxes, healthcare, pensions, and jobs. Users can securely and easily manage their government accounts through the site." },
+             "Mijn IND": { ar: "Mijn IND", en: "Mijn IND" },
+             "Mijn IND Description": { ar: "هذا الموقع يتيح للمستخدمين متابعة وإدارة طلبات الإقامة والهجرة في هولندا، مثل تحديث البيانات الشخصية، تحميل المستندات، ومتابعة حالة الطلبات بشكل آمن وسهل.", en: "This site allows users to track and manage residency and immigration applications in the Netherlands, such as updating personal data, uploading documents, and securely and easily monitoring application status." },
+             "Government of the Netherlands": { ar: "حكومة هولندا", en: "Government of the Netherlands" },
+             "Government of the Netherlands Description": { ar: "الموقع الرسمي لحكومة هولندا باللغة الإنجليزية، يوفر معلومات عن السياسات والأخبار والوزارات والخدمات.", en: "The official website of the Government of the Netherlands in English, providing information on policies, news, ministries, and services." },
+             "Central Government (Rijksoverheid)": { ar: "الحكومة المركزية (Rijksoverheid)", en: "Central Government (Rijksoverheid)" },
+             "Central Government (Rijksoverheid) Description": { ar: "الموقع الرسمي للحكومة الهولندية.", en: "Official website of the Dutch central government." },
+             "Mijn Toeslagen": { ar: "Mijn Toeslagen", en: "Mijn Toeslagen" },
+             "Mijn Toeslagen Description": { ar: "موقع Mijn Toeslagen هو منصة حكومية هولندية تمكن المستخدمين من طلب وإدارة الدعم المالي مثل دعم الإيجار ودعم التأمين الصحي ودعم الأطفال ودعم رعاية الأطفال. من خلال الموقع يمكن تعديل البيانات الشخصية مثل الدخل والحالة العائلية، متابعة المدفوعات، إيقاف الدعم في حال عدم الأهلية، ومراجعة القرارات الحكومية بشأن الدعم.", en: "Mijn Toeslagen is a Dutch government platform allowing users to apply for and manage financial allowances like rent, health insurance, child, and childcare benefits. Users can update personal data (income, family status), track payments, stop allowances if ineligible, and review government decisions." },
+             // Keep existing entries if they are distinct from the above
+             "IND": { ar: "IND", en: "IND" }, // Assuming this was intended as a separate entry
+             "IND Description": { ar: "دائرة الهجرة والتجنيس الهولندية. معلومات حول تصاريح الإقامة، التأشيرات، والجنسية.", en: "The Dutch Immigration and Naturalisation Service. Information on residence permits, visas, and citizenship." }, // Assuming this was intended
+             "UWV": { ar: "UWV", en: "UWV" },
+             "UWV Description": { ar: "معهد تأمين الموظفين. مسؤول عن إعانات البطالة، العجز عن العمل، وإعادة الاندماج في سوق العمل.", en: "Employee Insurance Agency. Responsible for unemployment benefits, incapacity benefits, and reintegration into the labor market." },
+             "Belastingdienst": { ar: "Belastingdienst", en: "Belastingdienst" }, // General Belastingdienst link/card?
+             "Belastingdienst Description": { ar: "مصلحة الضرائب الهولندية. معلومات حول الضرائب، الإقرارات الضريبية، والبدلات (Toeslagen).", en: "The Dutch Tax and Customs Administration. Information about taxes, tax returns, and allowances (Toeslagen)." },
+             "SVB": { ar: "SVB", en: "SVB" },
+             "SVB Description": { ar: "بنك التأمين الاجتماعي. يدير التأمينات الوطنية مثل معاش الشيخوخة (AOW) وبدل الأطفال.", en: "Social Insurance Bank. Manages national insurance schemes like the state pension (AOW) and child benefit." },
+             "DigiD": { ar: "DigiD", en: "DigiD" },
+             "DigiD Description": { ar: "هويتك الرقمية لتسجيل الدخول إلى مواقع الحكومة والخدمات الصحية.", en: "Your digital identity for logging into government and healthcare websites." },
+             "Rijksoverheid": { ar: "Rijksoverheid", en: "Rijksoverheid" }, // Separate Rijksoverheid card?
+             "Rijksoverheid Description": { ar: "الموقع الرسمي لحكومة هولندا. أخبار، معلومات، وسياسات الحكومة المركزية.", en: "The official website of the Government of the Netherlands. News, information, and policies from the central government." },
+             "DUO": { ar: "DUO", en: "DUO" },
+             "DUO Description": { ar: "وكالة التعليم التنفيذية. معلومات حول تمويل الدراسة، القروض الطلابية، وامتحانات الاندماج.", en: "The Education Executive Agency. Information about study finance, student loans, and integration exams." },
+             "CBR": { ar: "CBR", en: "CBR" },
+             "CBR Description": { ar: "المكتب المركزي لرخص القيادة. مسؤول عن امتحانات القيادة النظرية والعملية.", en: "Central Bureau for Driving Licenses. Responsible for theoretical and practical driving exams." },
+             "RDW": { ar: "RDW", en: "RDW" },
+             "RDW Description": { ar: "هيئة المركبات الهولندية. معلومات حول تسجيل المركبات، لوحات الترخيص، وفحص المركبات الدوري (APK).", en: "Netherlands Vehicle Authority. Information about vehicle registration, license plates, and periodic technical inspection (APK)." },
+             "KvK": { ar: "KvK", en: "KvK" },
+             "KvK Description": { ar: "غرفة التجارة الهولندية. تسجيل الشركات والمعلومات التجارية.", en: "Netherlands Chamber of Commerce. Business registration and trade information." }
         };
 
         function updateToggleButtonText() {
