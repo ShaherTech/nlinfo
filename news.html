@@ -130,6 +130,39 @@
              background-color: #666;
         }
          /* --- END THEME TOGGLE & DARK MODE --- */
+
+        .news-item {
+            margin-top: 30px;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+        .news-item:hover {
+            transform: translateY(-2px);
+        }
+        .news-item h2 {
+            color: #333;
+            margin-bottom: 15px;
+            font-size: 1.5em;
+        }
+        .news-item p {
+            margin-bottom: 20px;
+            color: #555;
+        }
+        .read-more-btn {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .read-more-btn:hover {
+            background-color: #0056b3;
+        }
     </style>
 </head>
 <body>
@@ -156,6 +189,14 @@
         </div>
 
         <h1 data-lang-ar="الأخبار" data-lang-en="News">الأخبار</h1>
+        
+        <div class="news-item">
+            <h2 data-lang-ar="صندوق الطوارئ للطاقة" data-lang-en="Energy Emergency Fund">صندوق الطوارئ للطاقة</h2>
+            <p data-lang-ar="سيفتح صندوق الطوارئ لمساعدة ذوي الدخل المنخفض في تكاليف الطاقة في هولندا بتارخ 21 ابريل للتفاصيل يمكنك زياره الرابط" data-lang-en="The Energy Emergency Fund will reopen to assist low-income individuals with energy costs in the Netherlands on April 21. For more details, visit the link.">سيفتح صندوق الطوارئ لمساعدة ذوي الدخل المنخفض في تكاليف الطاقة في هولندا بتارخ 21 ابريل للتفاصيل يمكنك زياره الرابط</p>
+            <a href="https://www.noodfondsenergie.nl/news#noodfonds-open-april" target="_blank" rel="noopener noreferrer">
+                <button class="read-more-btn" data-lang-ar="اقرأ المزيد" data-lang-en="Read More">اقرأ المزيد</button>
+            </a>
+        </div>
         <p data-lang-ar="سيتم إضافة المحتوى هنا لاحقًا." data-lang-en="Content will be added here later.">سيتم إضافة المحتوى هنا لاحقًا.</p>
         <!-- Link back to home -->
         <a href="index.html" data-lang-ar="العودة للرئيسية" data-lang-en="Back to Home">العودة للرئيسية</a>
@@ -173,7 +214,11 @@
              "Toggle Theme": { ar: "تبديل الوضع", en: "Toggle Theme"},
              // Add sidebar translations
              "Home": { ar: "الرئيسية", en: "Home" },
-             "Favorites": { ar: "المفضلات", en: "Favorites" }
+             "Favorites": { ar: "المفضلات", en: "Favorites" },
+             "Energy Emergency Fund": { ar: "صندوق الطوارئ للطاقة", en: "Energy Emergency Fund" },
+             "The Energy Emergency Fund will reopen on April 21, 2025": { ar: "سيفتح صندوق الطوارئ للطاقة مرة أخرى في 21 أبريل 2025", en: "The Energy Emergency Fund will reopen on April 21, 2025" },
+             "The Energy Emergency Fund will reopen to assist low-income individuals with energy costs in the Netherlands on April 21. For more details, visit the link.": { ar: "سيفتح صندوق الطوارئ لمساعدة ذوي الدخل المنخفض في تكاليف الطاقة في هولندا بتارخ 21 ابريل للتفاصيل يمكنك زياره الرابط", en: "The Energy Emergency Fund will reopen to assist low-income individuals with energy costs in the Netherlands on April 21. For more details, visit the link." },
+             "Read More": { ar: "اقرأ المزيد", en: "Read More" }
          };
 
         function setLanguage(lang) {
