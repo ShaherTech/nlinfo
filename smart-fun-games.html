@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title data-lang-ar="العاب ذكية ومسلية" data-lang-en="Smart & Fun Games">العاب ذكية ومسلية</title>
+    <meta name="description" content="مجموعة من الألعاب الذكية والمسلية لتنمية الذكاء والترفيه.">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            color: #333;
+            margin: 0;
+            min-height: 100vh;
+            position: relative;
+            padding-top: 60px;
+            transition: background-color 0.3s, color 0.3s;
+        }
+        .menu-icon { position: absolute; top: 15px; right: 15px; width: 30px; height: 22px; cursor: pointer; z-index: 1001; display: flex; flex-direction: column; justify-content: space-between; }
+        .menu-icon span { display: block; height: 3px; width: 100%; background-color: #333; border-radius: 3px; transition: background-color 0.3s; }
+        #sidebar { position: fixed; top: 0; right: -250px; width: 250px; height: 100vh; background-color: #fff; color: #333; box-shadow: -2px 0 5px rgba(0,0,0,0.2); padding-top: 60px; transition: right 0.3s ease-in-out, background-color 0.3s, color 0.3s; z-index: 1000; display: flex; flex-direction: column; overflow-y: auto; }
+        #sidebar.open { right: 0; }
+        #sidebar ul { list-style: none; padding: 0; margin: 0; flex-grow: 1; }
+        #sidebar li a { display: block; padding: 15px 20px; color: #333; text-decoration: none; border-bottom: 1px solid #eee; font-weight: bold; text-align: right; }
+        #sidebar li a:hover { background-color: #f4f4f4; }
+        body.dark-mode .menu-icon span { background-color: #f1f1f1; }
+        body.dark-mode #sidebar { background-color: #2c2c2c; color: #f1f1f1; box-shadow: -2px 0 5px rgba(255,255,255,0.1); }
+        body.dark-mode #sidebar li a { color: #f1f1f1; border-bottom: 1px solid #444; }
+        body.dark-mode #sidebar li a:hover { background-color: #444; }
+        .container {
+            width: 80%;
+            max-width: 800px;
+            background-color: #fff;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            margin: 0 auto 20px auto;
+            transition: background-color 0.3s, color 0.3s;
+        }
+        h1 { text-align: center; color: #333; margin-bottom: 20px; transition: color 0.3s; }
+        .games-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
+            margin-top: 30px;
+        }
+        .game-card {
+            background: #fff;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px #ddd;
+            padding: 20px;
+            min-width: 220px;
+            max-width: 300px;
+            text-align: center;
+            transition: box-shadow 0.3s, background 0.3s;
+        }
+        .game-card h3 { margin-bottom: 10px; }
+        .game-card p { margin-bottom: 18px; }
+        .game-card a {
+            display: inline-block;
+            padding: 8px 18px;
+            background: #2b6777;
+            color: #fff;
+            border-radius: 5px;
+            text-decoration: none;
+            transition: background 0.3s;
+        }
+        .game-card a:hover { background: #52ab98; }
+        .lang-switcher {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 10px;
+        }
+        .lang-switcher button, .theme-toggle-button-main {
+            padding: 8px 15px;
+            margin: 0 5px;
+            cursor: pointer;
+            border: none;
+            border-radius: 5px;
+            background: #eee;
+            color: #333;
+            font-weight: bold;
+            transition: background 0.3s, color 0.3s;
+        }
+        .lang-switcher button:hover, .theme-toggle-button-main:hover { background: #2b6777; color: #fff; }
+        body.dark-mode { background-color: #232323; color: #f1f1f1; }
+        body.dark-mode .container { background-color: #2c2c2c; color: #f1f1f1; }
+        body.dark-mode .game-card { background: #3a3a3a; box-shadow: 0 0 5px rgba(255,255,255,0.1); color: #f1f1f1; }
+        body.dark-mode .game-card a { background: #52ab98; color: #232323; }
+        body.dark-mode .game-card a:hover { background: #ffe066; color: #232323; }
+    </style>
+</head>
+<body>
+    <!-- Navigation Sidebar -->
+    <div class="menu-icon" id="menu-icon">
+        <span></span>
+        <span></span>
+        <span></span>
+    </div>
+    <nav id="sidebar">
+        <ul>
+            <li><a href="index.html">الرئيسية</a></li>
+            <li><a href="ai-info.html">الذكاء الصناعي</a></li>
+            <li><a href="educational-platforms.html">منصات تعليمية</a></li>
+            <li><a href="weather.html">الطقس</a></li>
+            <li><a href="smart-fun-games.html" style="color:#2b6777;">العاب ذكية ومسلية</a></li>
+        </ul>
+    </nav>
+    <div class="container">
+        <div class="lang-switcher">
+            <button id="lang-ar">العربية</button>
+            <button id="lang-en">English</button>
+            <button class="theme-toggle-button-main" id="theme-toggle" data-lang-ar="تبديل الوضع" data-lang-en="Toggle Theme">تبديل الوضع</button>
+        </div>
+        <div style="display:flex; flex-direction:column; align-items:center; gap:10px; margin-bottom:10px;">
+            <img src="imags/15.jpeg" alt="أيقونة العاب ذكية ومسلية" style="width: 80px; height: 80px; object-fit: cover; border-radius: 18px; box-shadow: 0 2px 10px #bbb;">
+            <h1 data-lang-ar="العاب ذكية ومسلية" data-lang-en="Smart & Fun Games" style="margin:0;">العاب ذكية ومسلية</h1>
+        </div>
+        <section>
+            <h2 style="text-align:center;" data-lang-ar="مرحباً بك في قسم الألعاب الذكية والمسلية!" data-lang-en="Welcome to the Smart & Fun Games section!">مرحباً بك في قسم الألعاب الذكية والمسلية!</h2>
+            <p style="text-align:center;" data-lang-ar="هنا ستجد مجموعة من الألعاب التي تنمي الذكاء وتبعث على التسلية. اختر لعبة وابدأ التحدي!" data-lang-en="Here you will find a collection of games that boost your brain and provide fun. Choose a game and start the challenge!">هنا ستجد مجموعة من الألعاب التي تنمي الذكاء وتبعث على التسلية. اختر لعبة وابدأ التحدي!</p>
+            <div class="games-list" style="display:flex; gap:24px; flex-wrap:wrap; justify-content:center;">
+                <!-- لعبة الذاكرة -->
+                <div class="game-card" style="min-width:220px; flex:1 1 220px; max-width:330px;">
+                    <h3 data-lang-ar="لعبة الذاكرة" data-lang-en="Memory Game">لعبة الذاكرة</h3>
+                    <p data-lang-ar="اختبر ذاكرتك وقوة تركيزك في لعبة ممتعة!" data-lang-en="Test your memory and focus in a fun game!">اختبر ذاكرتك وقوة تركيزك في لعبة ممتعة!</p>
+                    <a href="memory.html" data-lang-ar="ابدأ اللعبة" data-lang-en="Start Game" style="margin-top:10px;">ابدأ اللعبة</a>
+                </div>
+                <!-- لعبة الكلمات المتقاطعة -->
+                <div class="game-card" style="min-width:220px; flex:1 1 220px; max-width:330px;">
+                    
+                </div>
+            </div>
+        </section>
+    </div>
+    <script>
+        // Sidebar toggle logic
+        const menuIcon = document.getElementById('menu-icon');
+        const sidebar = document.getElementById('sidebar');
+        menuIcon.onclick = function() {
+            sidebar.classList.toggle('open');
+        };
+        // Theme toggle logic
+        const themeToggle = document.getElementById('theme-toggle');
+        themeToggle.onclick = function() {
+            document.body.classList.toggle('dark-mode');
+            localStorage.setItem('theme', document.body.classList.contains('dark-mode') ? 'dark' : 'light');
+        };
+        // Language switcher logic (with translation)
+        function setLanguage(lang) {
+            document.documentElement.lang = lang;
+            document.body.dir = (lang === 'ar') ? 'rtl' : 'ltr';
+            document.querySelectorAll('[data-lang-ar]').forEach(function(el) {
+                el.textContent = el.getAttribute(lang === 'ar' ? 'data-lang-ar' : 'data-lang-en');
+            });
+        }
+        document.getElementById('lang-ar').onclick = function() { setLanguage('ar'); };
+        document.getElementById('lang-en').onclick = function() { setLanguage('en'); };
+        // Initialize language on load
+        setLanguage(document.documentElement.lang || 'ar');
+        // Apply saved theme on load
+        const currentTheme = localStorage.getItem('theme');
+        if (currentTheme === 'dark') {
+            document.body.classList.add('dark-mode');
+        }
+    </script>
+</body>
+</html>
