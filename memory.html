@@ -206,7 +206,45 @@
 </head>
 <body>
   <h1 style="text-align:center;color:#2b6777;font-family:'Cairo',sans-serif;margin-top:32px;margin-bottom:30px;">ألعاب الذاكرة</h1>
-  <div class="games-flex-container" style="display:flex;gap:32px;justify-content:center;align-items:flex-start;flex-wrap:wrap;margin-bottom:48px;">
+  <div class="games-flex-container" style="display:flex;flex-wrap:wrap;">
+    <style>
+      .games-flex-container {
+        flex-wrap: wrap;
+      }
+      @media (max-width: 700px) {
+        .games-flex-container {
+          flex-direction: column;
+          align-items: stretch;
+          gap: 16px;
+        }
+        .memory-box {
+          max-width: 98vw !important;
+          min-width: 0 !important;
+          width: 97vw !important;
+          margin-left: auto;
+          margin-right: auto;
+          padding-left: 6px !important;
+          padding-right: 6px !important;
+        }
+        .grid, .game-board {
+          max-width: 95vw !important;
+          min-width: 0 !important;
+          width: 95vw !important;
+          grid-template-columns: repeat(2, 1fr) !important;
+          gap: 8px !important;
+        }
+        .card, .card2, #gameGrid .card {
+          width: 44px !important;
+          height: 44px !important;
+          font-size: 1.1rem !important;
+          min-width: 0 !important;
+          min-height: 0 !important;
+          max-width: 60px !important;
+          max-height: 60px !important;
+        }
+        #gameGrid { grid-template-columns: repeat(2, 1fr) !important; }
+      }
+    </style>
 <!-- لعبة الذاكرة الكلاسيكية (الفواكه/الإيموجي) -->
     <!-- لعبة الذاكرة الكلاسيكية -->
     <div class="memory-box" style="background:#fff;border-radius:16px;box-shadow:0 2px 14px #0001;padding:18px 12px 24px 12px;max-width:480px;min-width:320px;flex:1 1 340px;margin-bottom:24px;min-height:600px;">
