@@ -23,73 +23,75 @@
             transition: background-color 0.3s, color 0.3s; /* Smooth transition */
         }
 
-        .menu-icon {
-            position: absolute; /* Position relative to body or a positioned ancestor */
-            top: 15px;
-            left: 15px;
-            width: 30px;
-            height: 22px;
-            cursor: pointer;
-            z-index: 1001; /* Ensure it's above the sidebar */
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-        }
+        /* شريط جانبي جديد */
+        .sidebar-toggle {
+    position: fixed;
+    top: 15px;
+    right: 20px;
+    width: 30px;
+    height: 25px;
+    cursor: pointer;
+    z-index: 2001;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
 
-        .menu-icon span {
-            display: block;
+        .menu-icon-bar {
             height: 3px;
             width: 100%;
-            background-color: #333; /* Icon color in light mode */
+            background-color: #fff;
             border-radius: 3px;
-            transition: background-color 0.3s;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.3);
         }
 
-        #sidebar {
-            position: fixed; /* Fixed position relative to viewport */
-            top: 0;
-            left: -250px; /* Start hidden off-screen */
-            width: 250px;
-            height: 100vh; /* Ensure it takes full viewport height */
-            background-color: #fff; /* Sidebar background light mode */
-            color: #333; /* Sidebar text light mode */
-            box-shadow: 2px 0 5px rgba(0,0,0,0.2);
-            padding-top: 60px; /* Space for content below menu icon */
-            transition: left 0.3s ease-in-out, background-color 0.3s, color 0.3s;
-            z-index: 1000;
-            display: flex; /* Use flexbox for layout */
-            flex-direction: column; /* Stack items vertically */
-            overflow-y: auto; /* Add vertical scroll if content overflows */
+        .sidebar {
+    position: fixed;
+    top: 0;
+    right: -280px;
+    width: 280px;
+    height: 100vh;
+    background: #222;
+    color: #fff;
+    box-shadow: -2px 0 10px rgba(0,0,0,0.5);
+    transition: right 0.3s ease;
+    z-index: 2000;
+    padding-top: 70px;
+    overflow-y: auto;
+}
+
+.sidebar.open {
+    right: 0;
+}
+
+        .sidebar ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    text-align: left;
+}
+
+        .sidebar li {
+            border-bottom: 1px solid #333;
         }
 
-        #sidebar.open {
-            left: 0; /* Slide in */
+        .sidebar li:last-child {
+            border-bottom: none;
         }
 
-        #sidebar ul {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-            flex-grow: 1; /* Allow list to grow and take available space */
-        }
+        .sidebar li a {
+    display: block;
+    padding: 15px 20px;
+    color: #fff;
+    text-decoration: none;
+    transition: background 0.2s;
+    font-weight: 500;
+    text-align: left;
+}
 
-        #sidebar li a { /* Removed .theme-toggle-button from this rule */
-            display: block;
-            padding: 15px 20px;
-            color: #333; /* Link color light mode */
-            text-decoration: none;
-            border-bottom: 1px solid #eee; /* Separator light mode */
-            font-weight: bold;
-            cursor: pointer; /* Make it clear it's clickable */
-            background: none; /* Remove default button background */
-            border: none; /* Remove default button border */
-            width: 100%; /* Make button fill width */
-            text-align: left; /* Align text left */
-            font-size: inherit; /* Inherit font size */
-        }
-
-        #sidebar li a:hover { /* Removed .theme-toggle-button from this rule */
-            background-color: #f4f4f4; /* Hover background light mode */
+        .sidebar li a:hover {
+            background: #2b6777;
+            color: #fff;
         }
 
         .container {
@@ -417,25 +419,75 @@
             box-shadow: -2px 0 5px rgba(255,255,255,0.1);
         }
 
-    </style>
+    /* شريط علوي */
+.navbar-top {
+    width: 100vw;
+    background: #222;
+    box-shadow: 0 2px 8px #0002;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1100;
+    height: 48px;
+    display: flex;
+    align-items: center;
+}
+.navbar-content {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    max-width: 1200px;
+    margin: 0 auto;
+    height: 100%;
+    padding: 0 24px;
+}
+.navbar-folder {
+    color: #fff;
+    font-family: 'Cairo', Arial, sans-serif;
+    font-size: 1.1rem;
+    background: #2b6777;
+    border-radius: 6px;
+    padding: 8px 18px;
+    margin: 0;
+    cursor: pointer;
+    letter-spacing: 1px;
+    box-shadow: 0 1px 5px #0001;
+    transition: background 0.2s;
+}
+.navbar-folder:hover {
+    background: #246;
+}
+.navbar-empty {
+    flex: 1;
+}
+
+</style>
 </head>
 <body>
-    <div id="menu-icon" class="menu-icon">
-        <span></span>
-        <span></span>
-        <span></span>
+    <!-- الشريط العلوي -->
+    <nav class="navbar-top">
+  <div class="navbar-content">
+    <a class="navbar-folder" href="activities.html">أنشطة</a>
+  </div>
+</nav>
+
+    <!-- أيقونة القائمة والشريط الجانبي -->
+    <div class="sidebar-toggle" id="menu-icon">
+        <div class="menu-icon-bar"></div>
+        <div class="menu-icon-bar"></div>
+        <div class="menu-icon-bar"></div>
     </div>
 
-    <nav id="sidebar">
+    <aside id="sidebar" class="sidebar">
         <ul>
-            <li><a href="index.html" data-lang-ar="الرئيسية" data-lang-en="Home">Home</a></li>
-            <li><a href="favorites.html" data-lang-ar="المفضلات" data-lang-en="Favorites">Favorites</a></li>
-            <li><a href="news.html" data-lang-ar="الأخبار" data-lang-en="News">News</a></li>
-            <li><a href="notifications.html" data-lang-ar="الإشعارات" data-lang-en="Notifications">Notifications</a></li>
-            <li><a href="faq.html" data-lang-ar="الأسئلة الشائعة" data-lang-en="FAQ">FAQ</a></li>
-            <!-- Add more links here if needed, using relative paths -->
+            <li><a href="index.html" data-lang-ar="الرئيسية" data-lang-en="Home">الرئيسية</a></li>
+            <li><a href="favorites.html" data-lang-ar="المفضلات" data-lang-en="Favorites">المفضلات</a></li>
+            <li><a href="news.html" data-lang-ar="الأخبار" data-lang-en="News">الأخبار</a></li>
+            <li><a href="notifications.html" data-lang-ar="الإشعارات" data-lang-en="Notifications">الإشعارات</a></li>
+            <li><a href="faq.html" data-lang-ar="الأسئلة الشائعة" data-lang-en="FAQ">الأسئلة الشائعة</a></li>
         </ul>
-    </nav>
+    </aside>
 
     <div class="container">
         <div class="lang-switcher">
@@ -453,6 +505,16 @@
 
         <h1 data-lang-ar="دليل الروابط" data-lang-en="Link Directory">Link Directory</h1>
         <div class="categories">
+            <!-- Smart and Fun Games (New) -->
+            <div class="link-item" data-id="smart-fun-games">
+                <div class="link-item-header">
+                    <span data-lang-ar="العاب ذكية ومسلية" data-lang-en="Smart & Fun Games">العاب ذكية ومسلية</span>
+                    <span class="heart-icon">♡</span>
+                </div>
+                <img src="imags/games.png" alt="أيقونة ألعاب ذكية ومسلية" style="width: 100%; max-width: 150px; height: auto; margin-top: 10px; margin-bottom: 10px;">
+                <span data-lang-ar="مجموعة ألعاب لتنمية الذكاء والتسلية." data-lang-en="A collection of games for fun and brain training." style="margin-bottom: 10px; min-height: 40px;">A collection of games for fun and brain training.</span>
+                <a href="smart-fun-games.html" class="learn-more-link" data-lang-ar="اعرف المزيد" data-lang-en="Learn More">Learn More</a>
+            </div>
         
             <!-- Netherlands Info (Keep) -->
             <div class="link-item" data-id="netherlands-info">
@@ -512,7 +574,7 @@
         const introParagraph = document.querySelector('.intro-text p'); // Get the intro paragraph
 
         // Define translations object (Corrected Structure)
-        const translations = {
+         const translations = {
              "SuperApp": { ar: "سوبر أب", en: "SuperApp" }, // Title
              "Welcome Message": { ar: "مرحبا بك في سوبر أب!", en: "Welcome to SuperApp!" },
              "Toggle Theme": { ar: "تبديل الوضع", en: "Toggle Theme"},
@@ -538,13 +600,16 @@
              "Description for AI Info": { ar: "أدوات ومواقع الذكاء الصناعي.", en: "AI tools and websites." },
              "Weather": { ar: "حالة الطقس", en: "Weather" },
              "Description for Weather": { ar: "تحقق من حالة الطقس الحالية والتوقعات.", en: "Check current weather conditions and forecasts." },
+             // Smart & Fun Games
+             "Smart & Fun Games": { ar: "العاب ذكية ومسلية", en: "Smart & Fun Games" },
+             "Description for Smart & Fun Games": { ar: "مجموعة ألعاب لتنمية الذكاء والتسلية.", en: "A collection of games for fun and brain training." },
              // Sidebar translations
              "Home": { ar: "الرئيسية", en: "Home" },
              "Favorites": { ar: "المفضلات", en: "Favorites" },
              "News": { ar: "الأخبار", en: "News" },
              "Notifications": { ar: "الإشعارات", en: "Notifications" },
              "FAQ": { ar: "الأسئلة الشائعة", en: "FAQ" }
-        };
+         };
 
         function setLanguage(lang) {
             document.documentElement.lang = lang;
@@ -576,19 +641,24 @@
              updateToggleButtonText();
         }
 
-        // --- Sidebar Logic ---
-        const menuIcon = document.getElementById('menu-icon');
-        const sidebar = document.getElementById('sidebar');
-
-        menuIcon.addEventListener('click', () => {
-            sidebar.classList.toggle('open');
-        });
-
-        // Optional: Close sidebar when clicking outside of it
-        document.addEventListener('click', (event) => {
-            if (!sidebar.contains(event.target) && !menuIcon.contains(event.target) && sidebar.classList.contains('open')) {
-                sidebar.classList.remove('open');
-            }
+        // --- شريط جانبي جديد ---
+        document.addEventListener('DOMContentLoaded', function() {
+            const menuToggle = document.getElementById('menu-icon');
+            const sidebar = document.getElementById('sidebar');
+    
+            // تفعيل وإغلاق الشريط الجانبي عند النقر على الأيقونة
+            menuToggle.addEventListener('click', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                sidebar.classList.toggle('open');
+            });
+    
+            // إغلاق الشريط عند النقر خارجه
+            document.addEventListener('click', function(e) {
+                if (!sidebar.contains(e.target) && !menuToggle.contains(e.target) && sidebar.classList.contains('open')) {
+                    sidebar.classList.remove('open');
+                }
+            });
         });
 
         // --- Favorites Logic ---
