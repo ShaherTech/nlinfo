@@ -244,6 +244,39 @@
         }
         #gameGrid { grid-template-columns: repeat(2, 1fr) !important; }
       }
+        @media (max-width: 700px) {
+            .games-flex-container {
+                flex-direction: column !important;
+                align-items: stretch !important;
+                gap: 16px !important;
+            }
+            .memory-box {
+                max-width: 98vw !important;
+                min-width: 0 !important;
+                width: 97vw !important;
+                margin-left: auto !important;
+                margin-right: auto !important;
+                padding-left: 6px !important;
+                padding-right: 6px !important;
+            }
+            .grid, .game-board {
+                max-width: 95vw !important;
+                min-width: 0 !important;
+                width: 95vw !important;
+                grid-template-columns: repeat(2, 1fr) !important;
+                gap: 8px !important;
+            }
+            .card, .card2, #gameGrid .card {
+                width: 44px !important;
+                height: 44px !important;
+                font-size: 1.1rem !important;
+                min-width: 0 !important;
+                min-height: 0 !important;
+                max-width: 60px !important;
+                max-height: 60px !important;
+            }
+            #gameGrid { grid-template-columns: repeat(2, 1fr) !important; }
+        }
     </style>
 <!-- لعبة الذاكرة الكلاسيكية (الفواكه/الإيموجي) -->
     <!-- لعبة الذاكرة الكلاسيكية -->
