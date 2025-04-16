@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>لعبة الذاكرة - أدوات تقنية</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      background: #f4f4f4;
+      min-height: 100vh;
+      transition: background 0.3s, color 0.3s;
+    }
+    h1 {
+      margin-top: 24px;
+      font-size: 2.4rem;
+      color: #2b6777;
+      letter-spacing: 1px;
+      text-shadow: 0 2px 8px #eee;
+    }
+    .stats-bar {
+      display: flex;
+      gap: 25px;
+      margin-bottom: 10px;
+      font-size: 1.1rem;
+      color: #222;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    .stats-bar span {
+      background: #fff;
+      padding: 7px 16px;
+      border-radius: 8px;
+      box-shadow: 0 1px 5px #ddd;
+      margin-bottom: 8px;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(70px, 1fr));
+      gap: 12px;
+      margin: 30px 0 16px 0;
+      width: 100%;
+      max-width: 440px;
+      min-height: 240px;
+      justify-items: center;
+    }
+    .card {
+      width: 70px;
+      height: 70px;
+      background: #ffffff;
+      border: 2px solid #ccc;
+      border-radius: 12px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 2rem;
+      cursor: pointer;
+      transition: background 0.3s, transform 0.3s, box-shadow 0.3s;
+      user-select: none;
+      box-shadow: 0 1px 4px #ddd;
+      position: relative;
+      perspective: 600px;
+      will-change: transform;
+    }
+    .card .inner {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: transform 0.5s;
+      transform-style: preserve-3d;
+    }
+    .card.flipped .inner, .card.matched .inner {
+      transform: rotateY(180deg);
+    }
+    .card-front, .card-back {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      backface-visibility: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2rem;
+      border-radius: 12px;
+    }
+    .card-front {
+      background: #a2d5c6;
+      color: #fff;
+      font-size: 2.1rem;
+      transform: rotateY(180deg);
+    }
+    .card-back {
+      background: #fff;
+      color: #2b6777;
+      border: 1.5px dashed #2b6777;
+    }
+    .card.matched .card-front {
+      background: #ffe066;
+      color: #222;
+      border: 2px solid #ffe066;
+    }
+    .reset-btn {
+      padding: 8px 18px;
+      background: #2b6777;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      font-size: 1rem;
+      cursor: pointer;
+      margin-bottom: 20px;
+      margin-top: 6px;
+      transition: background 0.3s;
+    }
+    .reset-btn:hover {
+      background: #52ab98;
+    }
+    .win-modal {
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0,0,0,0.35);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 1002;
+      visibility: hidden;
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+    .win-modal.active {
+      visibility: visible;
+      opacity: 1;
+    }
+    .win-modal-content {
+      background: #fff;
+      border-radius: 18px;
+      box-shadow: 0 4px 24px #999;
+      padding: 32px 28px 24px 28px;
+      text-align: center;
+      min-width: 260px;
+      max-width: 90vw;
+    }
+    .win-modal-content h2 {
+      color: #2b6777;
+      margin-bottom: 10px;
+    }
+    .win-modal-content p {
+      margin-bottom: 18px;
+      font-size: 1.12rem;
+    }
+    .win-modal-content button {
+      padding: 8px 18px;
+      background: #2b6777;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      font-size: 1rem;
+      cursor: pointer;
+      margin-top: 10px;
+      transition: background 0.3s;
+    }
+    .win-modal-content button:hover {
+      background: #52ab98;
+    }
+    @media (max-width: 600px) {
+      .grid { max-width: 320px; }
+      .card { width: 55px; height: 55px; font-size: 1.3rem; }
+      .stats-bar span { font-size: 0.95rem; }
+      .win-modal-content { padding: 18px 5vw; }
+    }
+    body.dark-mode { background: #232323; color: #f1f1f1; }
+    body.dark-mode .stats-bar span, body.dark-mode .win-modal-content { background: #2c2c2c; color: #ffe066; }
+    body.dark-mode .card { background: #222; color: #ffe066; border-color: #555; }
+    body.dark-mode .card-front { background: #52ab98; color: #232323; }
+    body.dark-mode .card-back { background: #232323; color: #52ab98; border-color: #52ab98; }
+    body.dark-mode .card.matched .card-front { background: #ffe066; color: #232323; border-color: #ffe066; }
+    body.dark-mode .reset-btn, body.dark-mode .win-modal-content button { background: #52ab98; color: #232323; }
+    body.dark-mode .reset-btn:hover, body.dark-mode .win-modal-content button:hover { background: #ffe066; color: #232323; }
+    
+    /* لعبة تقنية - الأنماط */
+    .card2 {
+      background: #2196f3;
+      color: #fff;
+      font-size: 40px;
+      width: 100px;
+      height: 100px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: background 0.3s, transform 0.3s;
+    }
+    .card2:hover {
+      transform: scale(1.03);
+    }
+    .card2.matched {
+      background: #ffe066;
+      color: #222;
+    }
+  </style>
+</head>
+<body>
+  <h1 style="text-align:center;color:#2b6777;font-family:'Cairo',sans-serif;margin-top:32px;margin-bottom:30px;">ألعاب الذاكرة</h1>
+  <div class="games-flex-container" style="display:flex;gap:32px;justify-content:center;align-items:flex-start;flex-wrap:wrap;margin-bottom:48px;">
+<!-- لعبة الذاكرة الكلاسيكية (الفواكه/الإيموجي) -->
+    <!-- لعبة الذاكرة الكلاسيكية -->
+    <div class="memory-box" style="background:#fff;border-radius:16px;box-shadow:0 2px 14px #0001;padding:18px 12px 24px 12px;max-width:480px;min-width:320px;flex:1 1 340px;margin-bottom:24px;min-height:600px;">
+      <h2 style="text-align:center;color:#2b6777;font-family:'Cairo',sans-serif;">لعبة رقم 1: لعبة الذاكرة الكلاسيكية</h2>
+      <div class="stats-bar">
+        <span id="moves">عدد المحاولات: 0</span>
+        <span id="timer">الوقت: 0 ثانية</span>
+        <span id="best-score">أفضل نتيجة: --</span>
+      </div>
+      <button class="reset-btn" onclick="resetGame()">إعادة اللعبة</button>
+      <div class="grid" id="grid"></div>
+      <div class="win-modal" id="win-modal">
+        <div class="win-modal-content">
+          <h2>🎉 مبروك الفوز!</h2>
+          <p id="win-msg">لقد أنهيت اللعبة.</p>
+          <button onclick="resetGame();closeWinModal();">إعادة اللعب</button>
+        </div>
+      </div>
+      <audio id="audio-match" src="https://cdn.pixabay.com/audio/2022/07/26/audio_124bfa4c7f.mp3"></audio>
+      <audio id="audio-wrong" src="https://cdn.pixabay.com/audio/2022/07/26/audio_124bfa4c7f.mp3"></audio>
+      <audio id="audio-win" src="https://cdn.pixabay.com/audio/2022/10/16/audio_12e6c2e8b2.mp3"></audio>
+    </div>
+    
+    <!-- لعبة أدوات تقنية -->
+<div class="memory-box" style="background:#fff;border-radius:16px;box-shadow:0 2px 14px #0001;padding:18px 12px 24px 12px;max-width:480px;min-width:320px;flex:1 1 340px;margin-bottom:24px;min-height:600px;">
+  <h2 style="text-align:center;color:#2b6777;font-family:'Cairo',sans-serif;">لعبة رقم 2: لعبة الذاكرة - أدوات تقنية</h2>
+  <div id="memory2-container" style="direction:rtl;max-width:600px;margin:0 auto 40px auto;background:#fff;border-radius:16px;padding:0;box-shadow:none;">
+    <h1 style="font-family:'Cairo',sans-serif;text-align:center;font-size:1.5rem;margin-bottom:10px;">🏍️ لعبة الذاكرة - أدوات تقنية</h1>
+    <div class="game-board" id="board2" style="display:grid;grid-template-columns:repeat(4,100px);gap:10px;justify-content:center;margin-top:20px;"></div>
+    <div id="status2" style="margin-top:15px;font-size:18px;text-align:center;"></div>
+    <button id="restart2" style="margin:20px auto;display:block;padding:10px 20px;font-size:16px;background-color:#ff9800;border:none;border-radius:5px;color:white;cursor:pointer;" onclick="startTechGame()">إعادة اللعب</button>
+  </div>
+</div>
+</div>
+<!-- لعبة مفردات اللغة الإنجليزية (صف منفصل أسفل) -->
+<div style="max-width:900px;margin:48px auto 0 auto;padding:24px 8px 48px 8px;background:#fff;border-radius:18px;box-shadow:0 2px 14px #0001;">
+  <h2 style="text-align:center;color:#2b6777;font-family:'Cairo',sans-serif;margin-bottom:8px;">لعبة رقم 3: لعبة الذاكرة - مفردات اللغة الإنجليزية</h2>
+  <div style="font-family:'Cairo',sans-serif;text-align:center;margin-bottom:12px;">اضغط على البطاقات لكشف الكلمات الإنجليزية للحظة، وحاول مطابقة كل كلمتين متشابهتين!</div>
+  <div id="gameGrid" style="display:grid;grid-template-columns:repeat(6,100px);grid-gap:10px;justify-content:center;margin:0 auto 16px auto;max-width:650px;"></div>
+  <button onclick="startGame()" style="margin-top:20px;padding:10px 20px;font-size:16px;cursor:pointer;border:none;background-color:#2196f3;color:#fff;border-radius:5px;">🔁 إعادة اللعب</button>
+</div>
+<style>
+  #gameGrid .card {
+    background-color: #ffe0b2;
+    border: 2px solid #ff9800;
+    border-radius: 8px;
+    height: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 18px;
+    cursor: pointer;
+    position: relative;
+    box-shadow: 2px 2px 8px rgba(0,0,0,0.1);
+    transition: background-color 0.3s, transform 0.2s;
+    user-select: none;
+  }
+  #gameGrid .card.flipped {
+    background-color: #4caf50;
+    color: #fff;
+    transform: scale(1.05);
+  }
+  #gameGrid .card.matched {
+    background-color: #2196f3;
+    color: #fff;
+    pointer-events: none;
+  }
+  @media (max-width: 800px) {
+    #gameGrid { grid-template-columns: repeat(3, 1fr); }
+    #gameGrid .card { height: 70px; font-size: 15px; }
+  }
+</style>
+  </div>
+
+  <script>
+    // ------- لعبة الذاكرة الكلاسيكية -------
+    const icons = ['🍎','🍌','🍇','🍉','🍒','🍋','🍓','🍊'];
+    let cards = [];
+    let flippedCards = [];
+    let matched = [];
+    let moves = 0;
+    let timer = 0;
+    let timerInterval = null;
+    let gameStarted = false;
+    let bestScore = JSON.parse(localStorage.getItem('memory_best')) || null;
+    
+    const audioMatch = document.getElementById('audio-match');
+    const audioWrong = document.getElementById('audio-wrong');
+    const audioWin = document.getElementById('audio-win');
+    
+    function shuffle(array) {
+      for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+      }
+      return array;
+    }
+    
+    function renderGrid() {
+      const grid = document.getElementById('grid');
+      grid.innerHTML = '';
+      cards.forEach((icon, idx) => {
+        const card = document.createElement('div');
+        card.className = 'card';
+        card.dataset.index = idx;
+        
+        const inner = document.createElement('div');
+        inner.className = 'inner';
+        
+        const front = document.createElement('div');
+        front.className = 'card-front';
+        front.textContent = icon;
+        
+        const back = document.createElement('div');
+        back.className = 'card-back';
+        back.textContent = '❓';
+        
+        inner.appendChild(front);
+        inner.appendChild(back);
+        card.appendChild(inner);
+        
+        if (matched.includes(idx)) {
+          card.classList.add('matched');
+        } else if (flippedCards.includes(idx)) {
+          card.classList.add('flipped');
+        }
+        
+        card.onclick = () => flipCard(idx);
+        grid.appendChild(card);
+      });
+    }
+    
+    function flipCard(idx) {
+      if (!gameStarted) startTimer();
+      if (flippedCards.length === 2 || flippedCards.includes(idx) || matched.includes(idx)) return;
+      
+      flippedCards.push(idx);
+      renderGrid();
+      
+      if (flippedCards.length === 2) {
+        moves++;
+        updateStats();
+        
+        const [first, second] = flippedCards;
+        if (cards[first] === cards[second]) {
+          matched.push(first, second);
+          setTimeout(() => {
+            flippedCards = [];
+            renderGrid();
+            audioMatch.currentTime = 0; 
+            audioMatch.play();
+            
+            if (matched.length === cards.length) {
+              setTimeout(() => winGame(), 600);
+            }
+          }, 600);
+        } else {
+          setTimeout(() => {
+            flippedCards = [];
+            renderGrid();
+            audioWrong.currentTime = 0; 
+            audioWrong.play();
+          }, 900);
+        }
+      }
+    }
+    
+    function updateStats() {
+      document.getElementById('moves').textContent = `عدد المحاولات: ${moves}`;
+      document.getElementById('timer').textContent = `الوقت: ${timer} ثانية`;
+      
+      if (bestScore) {
+        document.getElementById('best-score').textContent = `أفضل نتيجة: ${bestScore.moves} محاولة / ${bestScore.time} ثانية`;
+      } else {
+        document.getElementById('best-score').textContent = 'أفضل نتيجة: --';
+      }
+    }
+    
+    function startTimer() {
+      if (gameStarted) return;
+      gameStarted = true;
+      timer = 0;
+      timerInterval = setInterval(() => {
+        timer++;
+        document.getElementById('timer').textContent = `الوقت: ${timer} ثانية`;
+      }, 1000);
+    }
+    
+    function stopTimer() {
+      clearInterval(timerInterval);
+      gameStarted = false;
+    }
+    
+    function winGame() {
+      stopTimer();
+      audioWin.currentTime = 0; 
+      audioWin.play();
+      
+      let newBest = false;
+      if (!bestScore || moves < bestScore.moves || (moves === bestScore.moves && timer < bestScore.time)) {
+        bestScore = { moves, time: timer };
+        localStorage.setItem('memory_best', JSON.stringify(bestScore));
+        newBest = true;
+      }
+      
+      document.getElementById('win-msg').textContent = `أنهيت اللعبة في ${moves} محاولة و ${timer} ثانية.${newBest ? ' 🔥 رقم قياسي جديد!' : ''}`;
+      document.getElementById('win-modal').classList.add('active');
+    }
+    
+    function closeWinModal() {
+      document.getElementById('win-modal').classList.remove('active');
+    }
+    
+    function resetGame() {
+      cards = shuffle([...icons, ...icons]);
+      flippedCards = [];
+      matched = [];
+      moves = 0;
+      timer = 0;
+      stopTimer();
+      updateStats();
+      renderGrid();
+      closeWinModal();
+    }
+    
+    // ------- لعبة أدوات تقنية -------
+const techIcons = ['💻','🖱️','⌨️','🖥️','🖨️','🎧','📱','🔌'];
+let techCards = [];
+let techFlipped = [];
+let techMatched = [];
+let techBoard = document.getElementById('board2');
+let techStatus = document.getElementById('status2');
+
+function shuffleTech(array) {
+  for (let i = array.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [array[i], array[j]] = [array[j], array[i]];
+  }
+  return array;
+}
+
+function renderTechBoard() {
+  techBoard.innerHTML = '';
+  techCards.forEach((icon, idx) => {
+    const card = document.createElement('div');
+    card.className = 'card2';
+    card.style.background = techMatched.includes(idx) ? '#ffe066' : '#2196f3';
+    card.style.color = techMatched.includes(idx) ? '#222' : '#fff';
+    card.textContent = techFlipped.includes(idx) || techMatched.includes(idx) ? icon : '';
+    card.onclick = function() {
+      if (techFlipped.length === 2 || techFlipped.includes(idx) || techMatched.includes(idx)) return;
+      techFlipped.push(idx);
+      renderTechBoard();
+      if (techFlipped.length === 2) {
+        if (techCards[techFlipped[0]] === techCards[techFlipped[1]]) {
+          techMatched.push(techFlipped[0], techFlipped[1]);
+          setTimeout(() => {
+            techFlipped = [];
+            renderTechBoard();
+            if (techMatched.length === techCards.length) {
+              techStatus.textContent = 'مبروك! أنهيت اللعبة.';
+            }
+          }, 700);
+        } else {
+          setTimeout(() => {
+            techFlipped = [];
+            renderTechBoard();
+          }, 900);
+        }
+      }
+    };
+    techBoard.appendChild(card);
+  });
+}
+
+function startTechGame() {
+  techCards = shuffleTech([...techIcons, ...techIcons]);
+  techFlipped = [];
+  techMatched = [];
+  techStatus.textContent = '';
+  renderTechBoard();
+}
+
+// ------- لعبة مفردات اللغة الإنجليزية -------
+const words = [
+  "Algorithm", "Network", "Processor", "Cloud", "Database", "AI",
+  "Server", "Code", "Interface", "Cyber", "Bit", "Pixel"
+];
+let cardsEng = [];
+let flippedEng = [];
+let lockBoardEng = false;
+
+function startGame() {
+  const grid = document.getElementById('gameGrid');
+  grid.innerHTML = '';
+  flippedEng = [];
+  lockBoardEng = false;
+  cardsEng = [];
+  const allWords = [...words, ...words].sort(() => 0.5 - Math.random());
+  allWords.forEach((word, index) => {
+    const card = document.createElement('div');
+    card.classList.add('card');
+    card.dataset.word = word;
+    card.dataset.index = index;
+    card.addEventListener('click', () => flipCardEng(card));
+    grid.appendChild(card);
+    cardsEng.push(card);
+  });
+}
+
+function flipCardEng(card) {
+  if (lockBoardEng || card.classList.contains('matched') || flippedEng.includes(card)) return;
+  card.textContent = card.dataset.word;
+  flippedEng.push(card);
+  setTimeout(() => {
+    if (flippedEng.length === 1) {
+      card.textContent = '';
+      flippedEng.pop();
+    } else if (flippedEng.length === 2) {
+      const [a, b] = flippedEng;
+      if (a.dataset.word === b.dataset.word) {
+        a.classList.add('matched');
+        b.classList.add('matched');
+        flippedEng = [];
+      } else {
+        lockBoardEng = true;
+        setTimeout(() => {
+          a.textContent = '';
+          b.textContent = '';
+          flippedEng = [];
+          lockBoardEng = false;
+        }, 1000);
+      }
+    }
+  }, 1000);
+}
+window.addEventListener('DOMContentLoaded', function() { startTechGame(); startGame(); });
+    
+    // الوضع الليلي تلقائي
+    if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+      document.body.classList.add('dark-mode');
+    }
+    
+    // تهيئة اللعبتين
+    document.getElementById('restart2').onclick = startTechGame;
+    resetGame();
+    startTechGame();
+  </script>
+</body>
+</html>
